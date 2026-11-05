@@ -1,15 +1,16 @@
 import { h } from "../dom.js";
 import { markSessionStep, markCardSeen } from "../../core/state.js";
 
-export async function renderCard(ctx, root, param, query) {
+/**
+ * The card itself (title, chapter story, intro, concept chips, snippets, gotchas, interview phrase).
+ * Shared by the card screen and the in-task overlay; `kicker` is the small line above the title.
+ */
+export function renderCardBody(ctx, mod, { kicker = null } = {}) {
   const { t, pick, content } = ctx;
-  const mod = content.modules.find((m) => m.id === param);
-  if (!mod) { root.append(h("p", { class: "muted" }, t("task.notFound"))); return; }
   const card = mod.card || {};
-  const inSession = query.date && query.step !== undefined && query.step !== "";
-
-  root.append(h("header", { class: "screen-head" },
-    h("p", { class: "muted" }, `${t("card.title")} · L${mod.level}`),
+  const out = [];
+  out.push(h("header", { class: "screen-head" },
+    kicker ? h("p", { class: "muted" }, kicker) : null,
     h("h1", {}, pick(mod, "title")),
     mod.chapter_en ? h("section", { class: "story" }, h("h3", {}, `🔥 ${pick(mod, "chapter")}`), h("p", {}, pick(mod, "story"))) : null,
     h("p", { class: "lead" }, pick(card, "intro")),
@@ -24,15 +25,25 @@ export async function renderCard(ctx, root, param, query) {
       h("p", { class: "note" }, pick(sn, "note")),
     ));
   }
-  root.append(snippets);
+  out.push(snippets);
 
   const gotchas = pick(card, "gotchas");
   if (Array.isArray(gotchas) && gotchas.length) {
-    root.append(h("section", { class: "card warn" }, h("h3", {}, t("card.gotchas")), h("ul", {}, gotchas.map((g) => h("li", {}, g)))));
+    out.push(h("section", { class: "card warn" }, h("h3", {}, t("card.gotchas")), h("ul", {}, gotchas.map((g) => h("li", {}, g)))));
   }
   if (card.phrase_en) {
-    root.append(h("section", { class: "card phrase" }, h("h3", {}, t("card.phrase")), h("p", { class: "quote" }, `“${card.phrase_en}”`)));
+    out.push(h("section", { class: "card phrase" }, h("h3", {}, t("card.phrase")), h("p", { class: "quote" }, `“${card.phrase_en}”`)));
   }
+  return out;
+}
+
+export async function renderCard(ctx, root, param, query) {
+  const { t, content } = ctx;
+  const mod = content.modules.find((m) => m.id === param);
+  if (!mod) { root.append(h("p", { class: "muted" }, t("task.notFound"))); return; }
+  const inSession = query.date && query.step !== undefined && query.step !== "";
+
+  root.append(...renderCardBody(ctx, mod, { kicker: `${t("card.title")} · L${mod.level}` }));
 
   const actions = h("div", { class: "row" });
   if (inSession) {

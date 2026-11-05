@@ -1,4 +1,5 @@
-import { h, clear, toast, fmtDuration, dots, WORLD_ICON, modKey, debounce } from "../dom.js";
+import { h, clear, toast, fmtDuration, dots, WORLD_ICON, modKey, debounce, openDialog } from "../dom.js";
+import { renderCardBody } from "./card.js";
 import { createEditor } from "../../editor/editor.js";
 import { lineDiff } from "../../core/diff.js";
 import { renderMismatch } from "../mismatch.js";
@@ -27,7 +28,7 @@ export async function renderTask(ctx, root, param, query) {
     id: uuid(), taskId: task.id, variant: 0, type: task.type, mode,
     startedAt: now(), endedAt: null, activeSec: 0, runs: 0, hiddenRuns: 0,
     result: null, testsPassed: 0, testsTotal: 0, hintsUsed: 0, revealedSolution: false, pasted: false,
-    errors: [], firstFail: null, code: "", selfRating: null, note: "",
+    errors: [], firstFail: null, code: "", selfRating: null, note: "", cardPeeks: 0,
   };
   const errorCounts = {};
   let finished = false;
@@ -47,6 +48,7 @@ export async function renderTask(ctx, root, param, query) {
       h("span", { class: "chip" }, t("task.minutes", { n: task.minutes })),
       h("span", { class: "chip" }, `${WORLD_ICON[task.world] || ""} ${task.world}`),
       module ? h("span", { class: "chip muted" }, pick(module, "title")) : null,
+      module && !isDiagnostic ? h("button", { class: "btn btn-ghost small card-btn", type: "button", title: pick(module, "title"), onclick: openCard }, `📖 ${t("task.card")}`) : null,
       timerEl),
   ));
 
@@ -145,6 +147,11 @@ export async function renderTask(ctx, root, param, query) {
     return false;
   }
   function setBusy(flag) { runBtn.disabled = testBtn.disabled = flag; root.classList.toggle("busy", flag); }
+  function openCard() {
+    attempt.cardPeeks += 1;
+    ctx.logEvent("cardPeek", task.id, { module: module.id, n: attempt.cardPeeks });
+    openDialog({ title: `${t("card.title")} · L${module.level}`, body: renderCardBody(ctx, module), closeLabel: t("card.close") });
+  }
 
   function outputBlock(res) {
     const box = h("div", { class: "output" }, h("h4", {}, t("task.output")));

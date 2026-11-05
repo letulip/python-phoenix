@@ -31,7 +31,7 @@ export const STRINGS = {
     "card.title": "Карточка модуля", "card.gotchas": "Ловушки", "card.phrase": "Фраза для интервью",
     "card.done": "Прочитал, дальше", "card.close": "Закрыть",
 
-    "task.statement": "Условие", "task.examples": "Примеры", "task.hints": "Подсказки", "task.talk": "Проговори", "task.model": "Образец",
+    "task.statement": "Условие", "task.examples": "Примеры", "task.hints": "Подсказки", "task.talk": "Проговори", "task.model": "Образец", "task.card": "Карточка",
     "task.run": "Запустить", "task.tests": "Скрытые тесты", "task.reset": "Сброс", "task.giveup": "Сдаюсь", "task.skip": "Пропустить",
     "task.next": "Далее", "task.toSession": "К сессии", "task.toMap": "К карте", "task.toDiagnostic": "Дальше по диагностике",
     "task.hint.show": "Показать подсказку {n} из {total}", "task.hint.none": "Подсказок больше нет.",
@@ -126,7 +126,7 @@ export const STRINGS = {
     "card.title": "Module card", "card.gotchas": "Gotchas", "card.phrase": "Interview phrase",
     "card.done": "Read it, next", "card.close": "Close",
 
-    "task.statement": "Statement", "task.examples": "Examples", "task.hints": "Hints", "task.talk": "Talk track", "task.model": "Model",
+    "task.statement": "Statement", "task.examples": "Examples", "task.hints": "Hints", "task.talk": "Talk track", "task.model": "Model", "task.card": "Card",
     "task.run": "Run", "task.tests": "Hidden tests", "task.reset": "Reset", "task.giveup": "Give up", "task.skip": "Skip",
     "task.next": "Next", "task.toSession": "Back to session", "task.toMap": "Back to map", "task.toDiagnostic": "Continue placement",
     "task.hint.show": "Show hint {n} of {total}", "task.hint.none": "No more hints.",

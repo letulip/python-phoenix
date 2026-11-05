@@ -54,3 +54,25 @@ export function debounce(fn, ms) {
   let timer = null;
   return (...args) => { clearTimeout(timer); timer = setTimeout(() => fn(...args), ms); };
 }
+
+/**
+ * Modal overlay on top of the current screen (native <dialog>): Esc, the ✕ button and a click on the
+ * backdrop close it; the element is removed on close and focus returns to whatever opened it.
+ */
+export function openDialog({ title, body, closeLabel = "Close", onClose = null }) {
+  const opener = document.activeElement;
+  const dlg = h("dialog", { class: "overlay" },
+    h("div", { class: "overlay-head" },
+      h("span", { class: "muted" }, title),
+      h("button", { class: "btn btn-ghost small", type: "button", "aria-label": closeLabel, title: closeLabel, onclick: () => dlg.close() }, "✕")),
+    h("div", { class: "overlay-body" }, body));
+  dlg.addEventListener("click", (e) => { if (e.target === dlg) dlg.close(); });
+  dlg.addEventListener("close", () => {
+    dlg.remove();
+    if (onClose) onClose();
+    if (opener && typeof opener.focus === "function") opener.focus();
+  });
+  document.body.append(dlg);
+  dlg.showModal();
+  return dlg;
+}
