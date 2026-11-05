@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Python Phoenix</title>
+  <meta name="description" content="Rebuild hands-on Python for live-coding interviews: drills, tasks and refactors that run in your browser.">
+  <meta name="theme-color" content="#1b1d24">
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" href="./icons/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icons/icon-192.png">
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="app-header">
+    <a class="brand" href="#/home"><img src="./icons/icon.svg" alt="" width="28" height="28"><span>Python Phoenix</span></a>
+    <nav class="nav" id="nav" aria-label="Main"></nav>
+    <div class="runtime" id="runtime" data-status="idle"></div>
+  </header>
+  <main id="app" class="screen"></main>
+  <div id="toasts" class="toasts" aria-live="polite"></div>
+  <footer class="app-footer"><span id="version"></span></footer>
+  <script type="module" src="./app.js"></script>
+</body>
+</html>

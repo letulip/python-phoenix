@@ -1,0 +1,2751 @@
+{
+ "concepts": {
+  "accumulator": {
+   "en": "accumulator variable",
+   "ru": "переменная-накопитель"
+  },
+  "any-all": {
+   "en": "any / all",
+   "ru": "any и all"
+  },
+  "break-continue": {
+   "en": "break / continue",
+   "ru": "break и continue"
+  },
+  "call-function": {
+   "en": "calling functions",
+   "ru": "вызов функций"
+  },
+  "comprehension-if": {
+   "en": "comprehension with if",
+   "ru": "включение с условием"
+  },
+  "def-return": {
+   "en": "def / return",
+   "ru": "def и return"
+  },
+  "default-args": {
+   "en": "default arguments",
+   "ru": "аргументы по умолчанию"
+  },
+  "dict-basics": {
+   "en": "dict basics",
+   "ru": "словарь: основы"
+  },
+  "dict-comprehension": {
+   "en": "dict comprehension",
+   "ru": "словарное включение"
+  },
+  "dict-get": {
+   "en": "dict.get",
+   "ru": "dict.get"
+  },
+  "docstring": {
+   "en": "docstring",
+   "ru": "docstring"
+  },
+  "eafp-lbyl": {
+   "en": "ask forgiveness vs look before you leap",
+   "ru": "try/except против проверки заранее"
+  },
+  "early-return": {
+   "en": "early return",
+   "ru": "ранний return"
+  },
+  "enumerate": {
+   "en": "enumerate()",
+   "ru": "enumerate()"
+  },
+  "except-else-finally": {
+   "en": "else / finally",
+   "ru": "else и finally"
+  },
+  "extract-function": {
+   "en": "extract a function",
+   "ru": "вынос кода в функцию"
+  },
+  "f-string": {
+   "en": "f-strings",
+   "ru": "f-строки"
+  },
+  "find-in": {
+   "en": "find / in on strings",
+   "ru": "поиск в строке"
+  },
+  "for-else": {
+   "en": "for ... else",
+   "ru": "for ... else"
+  },
+  "for-loop": {
+   "en": "for loop",
+   "ru": "цикл for"
+  },
+  "format-spec": {
+   "en": "format specs",
+   "ru": "спецификаторы формата"
+  },
+  "in-operator": {
+   "en": "in operator",
+   "ru": "оператор in"
+  },
+  "index-error": {
+   "en": "IndexError",
+   "ru": "IndexError"
+  },
+  "key-error": {
+   "en": "KeyError",
+   "ru": "KeyError"
+  },
+  "kwargs": {
+   "en": "**kwargs",
+   "ru": "**kwargs"
+  },
+  "lambda": {
+   "en": "lambda",
+   "ru": "lambda"
+  },
+  "len": {
+   "en": "len()",
+   "ru": "len()"
+  },
+  "list-comprehension": {
+   "en": "list comprehension",
+   "ru": "списковое включение"
+  },
+  "list-index": {
+   "en": "list indexing",
+   "ru": "индексы списка"
+  },
+  "list-methods": {
+   "en": "list methods",
+   "ru": "методы списка"
+  },
+  "min-max-key": {
+   "en": "min / max with key",
+   "ru": "min и max с key"
+  },
+  "nested-loops": {
+   "en": "nested loops",
+   "ru": "вложенные циклы"
+  },
+  "none-check": {
+   "en": "None checks",
+   "ru": "проверка на None"
+  },
+  "ord-chr": {
+   "en": "ord / chr",
+   "ru": "ord и chr"
+  },
+  "raise": {
+   "en": "raise",
+   "ru": "raise"
+  },
+  "range": {
+   "en": "range()",
+   "ru": "range()"
+  },
+  "replace": {
+   "en": "replace()",
+   "ru": "replace()"
+  },
+  "reverse-sort": {
+   "en": "reverse sorting",
+   "ru": "обратная сортировка"
+  },
+  "set-basics": {
+   "en": "set basics",
+   "ru": "множество: основы"
+  },
+  "set-comprehension": {
+   "en": "set comprehension",
+   "ru": "включение множеств"
+  },
+  "setdefault": {
+   "en": "dict.setdefault",
+   "ru": "dict.setdefault"
+  },
+  "slicing": {
+   "en": "slicing",
+   "ru": "срезы"
+  },
+  "sorted-key": {
+   "en": "sorted with key",
+   "ru": "sorted с key"
+  },
+  "split-join": {
+   "en": "split / join",
+   "ru": "split и join"
+  },
+  "star-args": {
+   "en": "*args",
+   "ru": "*args"
+  },
+  "str-case": {
+   "en": "upper / lower / title",
+   "ru": "регистр строк"
+  },
+  "str-methods": {
+   "en": "string methods",
+   "ru": "методы строк"
+  },
+  "string-slicing": {
+   "en": "string slicing",
+   "ru": "срезы строк"
+  },
+  "strip": {
+   "en": "strip()",
+   "ru": "strip()"
+  },
+  "sum": {
+   "en": "sum()",
+   "ru": "sum()"
+  },
+  "ternary": {
+   "en": "conditional expression",
+   "ru": "тернарное выражение"
+  },
+  "truthiness": {
+   "en": "truthiness",
+   "ru": "истинность значений"
+  },
+  "try-except": {
+   "en": "try / except",
+   "ru": "try и except"
+  },
+  "tuple-unpacking": {
+   "en": "tuple unpacking",
+   "ru": "распаковка кортежа"
+  },
+  "value-error": {
+   "en": "ValueError",
+   "ru": "ValueError"
+  },
+  "while-loop": {
+   "en": "while loop",
+   "ru": "цикл while"
+  },
+  "zip": {
+   "en": "zip()",
+   "ru": "zip()"
+  }
+ },
+ "modules": [
+  {
+   "card": {
+    "gotchas_en": [
+     "A mutable default (def add(item, items=[])) is shared between calls. Use None and create the list inside.",
+     "Forgetting return makes the function give None, so print(double(2)) prints None.",
+     "A default parameter cannot come before a parameter without a default."
+    ],
+    "gotchas_ru": [
+     "Изменяемое умолчание (def add(item, items=[])) общее для всех вызовов. Ставь None и создавай список внутри.",
+     "Забытый return означает, что функция вернёт None, и print(double(2)) напечатает None.",
+     "Параметр с умолчанием нельзя ставить перед параметром без умолчания."
+    ],
+    "intro_en": "A function is a named recipe: inputs arrive as parameters, one result leaves through return. Anything that repeats, or simply deserves a name, becomes a function.",
+    "intro_ru": "Функция – рецепт с именем: входы приходят параметрами, результат уходит через return. Всё, что повторяется или просто заслуживает имени, становится функцией.",
+    "phrase_en": "I'll pull this into a helper so the main function reads top-down.",
+    "snippets": [
+     {
+      "code": "def area(width, height):\n    \"\"\"Return the area of a rectangle.\"\"\"\n    return width * height\n\nprint(area(3, 4))   # 12\n",
+      "note_en": "print shows a value on screen; return hands it back to the caller. A function without return gives None.",
+      "note_ru": "print показывает значение на экране, return отдаёт его вызывающему. Функция без return возвращает None.",
+      "title_en": "Define and return",
+      "title_ru": "Объявить и вернуть"
+     },
+     {
+      "code": "def greet(name, greeting=\"Hello\"):\n    return f\"{greeting}, {name}!\"\n\ngreet(\"Pixel\")                   # 'Hello, Pixel!'\ngreet(\"Pixel\", \"Ahoy\")           # 'Ahoy, Pixel!'\ngreet(greeting=\"Yo\", name=\"Byte\")  # keywords in any order\n",
+      "note_en": "Parameters with defaults go after the ones without. Keyword arguments can come in any order.",
+      "note_ru": "Параметры с умолчаниями идут после обычных. Именованные аргументы можно передавать в любом порядке.",
+      "title_en": "Default arguments",
+      "title_ru": "Аргументы по умолчанию"
+     },
+     {
+      "code": "def total(*numbers):        # numbers is a tuple\n    return sum(numbers)\n\ndef show(**fields):         # fields is a dict\n    for key, value in fields.items():\n        print(key, \"=\", value)\n\ntotal(1, 2, 3)              # 6\nshow(name=\"Pixel\", age=3)   # name = Pixel / age = 3\n",
+      "note_en": "One star packs positional extras into a tuple, two stars pack keyword extras into a dict.",
+      "note_ru": "Одна звёздочка собирает лишние позиционные аргументы в кортеж, две – именованные в словарь.",
+      "title_en": "*args and **kwargs",
+      "title_ru": "*args и **kwargs"
+     },
+     {
+      "code": "def can_vote(age, citizen):\n    if not citizen:\n        return False     # leave early, no else needed\n    return age >= 18\n",
+      "note_en": "Handle the special case first and return; the main path stays flat and readable.",
+      "note_ru": "Сначала обработай особый случай и выйди; основной путь остаётся плоским и читаемым.",
+      "title_en": "Early return",
+      "title_ru": "Ранний return"
+     },
+     {
+      "code": "def line(name, qty):\n    return f\"{name:<8}{qty:>3}\"\n\ndef receipt(items):\n    for name, qty in items:\n        print(line(name, qty))\n",
+      "note_en": "What repeats goes into the body, what differs becomes parameters. Return the string, print it elsewhere.",
+      "note_ru": "Что повторяется – в тело функции, что различается – в параметры. Строку возвращаем, печатаем снаружи.",
+      "title_en": "Extract a helper",
+      "title_ru": "Вынести вспомогательную функцию"
+     }
+    ]
+   },
+   "chapter_en": "Act I · Chapter 1: The toolbox",
+   "chapter_ru": "Акт I · Глава 1: Ящик с инструментами",
+   "concepts": [
+    "def-return",
+    "default-args",
+    "star-args",
+    "kwargs",
+    "early-return",
+    "docstring",
+    "extract-function",
+    "call-function"
+   ],
+   "diagnostic": [
+    "l0.functions.cat-years"
+   ],
+   "exercises": [
+    "l0.functions.greet-the-crew",
+    "l0.functions.default-greeting",
+    "l0.functions.early-exit",
+    "l0.functions.loot-splitter",
+    "l0.functions.sum-of-anything",
+    "l0.functions.cat-years",
+    "l0.functions.party-invite",
+    "l0.functions.extract-helper"
+   ],
+   "id": "l0.functions",
+   "level": 0,
+   "order": 1,
+   "story_done_en": "The toolbox clicks shut. Pixel purrs: the studio has power again, and Captain Byte is already knocking.",
+   "story_done_ru": "Ящик защёлкивается. Пиксель урчит: в студии снова есть свет, а капитан Байт уже стучит в дверь.",
+   "story_en": "Purrfect Code, the tiny software studio of Pixel the cat, has stood dark for three years. You are the engineer who came back to switch the lights on. Pixel hands you a dusty toolbox: every tool inside is a function, and half of them have forgotten what they return.",
+   "story_ru": "Purrfect Code, крошечная студия кота Пикселя, три года стояла без света. Ты – инженер, который вернулся включить рубильник. Пиксель протягивает пыльный ящик с инструментами: каждый инструмент – функция, и половина из них забыла, что должна возвращать.",
+   "title_en": "Functions",
+   "title_ru": "Функции"
+  },
+  {
+   "card": {
+    "gotchas_en": [
+     "shelf[1:3] ends before index 3, and shelf[5] raises IndexError while shelf[5:] is just empty.",
+     "A dict keeps insertion order, a set does not: never rely on set order.",
+     "A tuple with one element needs the comma: (5,) is a tuple, (5) is just 5."
+    ],
+    "gotchas_ru": [
+     "shelf[1:3] заканчивается до индекса 3, а shelf[5] бросает IndexError, тогда как shelf[5:] просто пустой.",
+     "Словарь хранит порядок вставки, множество – нет: на порядок множества не полагайся.",
+     "Кортеж из одного элемента требует запятую: (5,) – кортеж, (5) – просто 5."
+    ],
+    "intro_en": "Four containers cover most interview code: list (ordered, changeable), tuple (ordered, sealed), dict (key to value) and set (unique members, fast 'in'). Pick by the question you will ask the data: by position, by key, or 'is it there?'.",
+    "intro_ru": "Четыре контейнера закрывают почти весь код на интервью: list (упорядоченный, изменяемый), tuple (упорядоченный, запечатанный), dict (ключ → значение) и set (уникальные элементы, быстрый in). Выбирай по вопросу, который будешь задавать данным: по позиции, по ключу или «есть ли?».",
+    "phrase_en": "I'll keep these in a set, so membership checks are O(1).",
+    "snippets": [
+     {
+      "code": "shelf = [\"rope\", \"lamp\", \"map\"]\nshelf[0], shelf[-1]          # 'rope', 'map'\nshelf[1:3]                   # ['lamp', 'map']  (end excluded)\nshelf.append(\"flag\")\nshelf.remove(\"lamp\")\nlen(shelf)                   # 3\n",
+      "note_en": "Negative indexes count from the end; a slice never raises, it just returns less.",
+      "note_ru": "Отрицательные индексы считают с конца; срез никогда не падает, он просто возвращает меньше.",
+      "title_en": "List: index, slice, change",
+      "title_ru": "Список: индекс, срез, изменение"
+     },
+     {
+      "code": "stock = {\"potion\": 3, \"arrow\": 20}\nstock[\"potion\"]              # 3\nstock.get(\"shield\", 0)       # 0 instead of KeyError\nstock[\"arrow\"] -= 5\nfor item, count in stock.items():\n    print(item, count)\n",
+      "note_en": ".get with a default is the polite lookup; square brackets raise KeyError when the key is missing.",
+      "note_ru": ".get с умолчанием – вежливый поиск; квадратные скобки бросают KeyError, если ключа нет.",
+      "title_en": "Dict: key to value",
+      "title_ru": "Словарь: ключ → значение"
+     },
+     {
+      "code": "seen = set()\nseen.add(\"ann\")\nseen.add(\"ann\")\nlen(seen)                    # 1\n\"ann\" in seen                # True, fast even for millions\nset([1, 2, 2, 3])            # {1, 2, 3}\n",
+      "note_en": "Use a set for membership tests and de-duplication; it has no order you can rely on.",
+      "note_ru": "Множество – для проверок на вхождение и удаления дубликатов; на его порядок полагаться нельзя.",
+      "title_en": "Set: unique and fast",
+      "title_ru": "Множество: уникально и быстро"
+     },
+     {
+      "code": "crate = (\"gold\", 12)\nkind, amount = crate\nfirst, *rest = [1, 2, 3]     # 1, [2, 3]\na, b = b, a                  # swap without a temp\n",
+      "note_en": "A tuple is a record you do not change; unpacking names its parts instead of indexing them.",
+      "note_ru": "Кортеж – запись, которую не меняют; распаковка даёт частям имена вместо индексов.",
+      "title_en": "Tuple and unpacking",
+      "title_ru": "Кортеж и распаковка"
+     },
+     {
+      "code": "if not items:                # empty list, \"\", 0 and None are all falsy\n    return \"nothing here\"\nif note is None:             # compare with None using \"is\"\n    note = \"no note\"\n",
+      "note_en": "Empty containers are falsy, so 'if not items' is the idiom; compare to None with 'is', never '=='.",
+      "note_ru": "Пустые контейнеры ложны, поэтому идиома – if not items; с None сравнивай через is, а не ==",
+      "title_en": "Truthiness and None",
+      "title_ru": "Истинность и None"
+     }
+    ]
+   },
+   "chapter_en": "Act I · Chapter 2: The warehouse",
+   "chapter_ru": "Акт I · Глава 2: Склад",
+   "concepts": [
+    "list-index",
+    "slicing",
+    "list-methods",
+    "tuple-unpacking",
+    "dict-basics",
+    "dict-get",
+    "set-basics",
+    "in-operator",
+    "len",
+    "truthiness",
+    "none-check"
+   ],
+   "diagnostic": [
+    "l0.collections.crafting-table"
+   ],
+   "exercises": [
+    "l0.collections.shelf-basics",
+    "l0.collections.inventory-lookup",
+    "l0.collections.unique-viewers",
+    "l0.collections.unpack-the-crate",
+    "l0.collections.slice-the-season",
+    "l0.collections.crafting-table",
+    "l0.collections.roll-call"
+   ],
+   "id": "l0.collections",
+   "level": 0,
+   "order": 2,
+   "story_done_en": "The warehouse is labelled, Timmy's inventory finally crafts a torch, and the conveyor belt in the back room starts to hum.",
+   "story_done_ru": "Склад подписан, инвентарь Тимми наконец собирает факел, а в задней комнате загудел конвейер.",
+   "story_en": "Behind the studio is a warehouse Pixel calls 'the collection'. Shelves are lists, labelled boxes are dicts, the no-duplicates bin is a set and the sealed crates are tuples. Timmy, a twelve-year-old regular with a very serious game inventory, has waited three years for someone to sort it.",
+   "story_ru": "За студией – склад, который Пиксель зовёт «коллекцией». Полки – списки, подписанные коробки – словари, корзина без дубликатов – множество, а запечатанные ящики – кортежи. Тимми, двенадцатилетний завсегдатай с очень серьёзным игровым инвентарём, три года ждёт, что кто-нибудь наведёт в нём порядок.",
+   "title_en": "Collections",
+   "title_ru": "Коллекции"
+  },
+  {
+   "card": {
+    "gotchas_en": [
+     "Changing a list while iterating over it skips elements: iterate over a copy (items[:]) or build a new list.",
+     "range(5) is 0..4; off-by-one bugs live at the stop value.",
+     "A while loop that makes no progress toward its exit never ends."
+    ],
+    "gotchas_ru": [
+     "Изменение списка во время обхода пропускает элементы: обходи копию (items[:]) или собирай новый список.",
+     "range(5) – это 0..4; ошибки на единицу живут у значения stop.",
+     "while без продвижения к условию выхода не заканчивается никогда."
+    ],
+    "intro_en": "A loop repeats a block for each item, or while a condition holds. Python hands you the item itself, so you rarely touch indexes; when you need numbers or pairs, enumerate and zip give them to you.",
+    "intro_ru": "Цикл повторяет блок для каждого элемента или пока выполняется условие. Python отдаёт сам элемент, поэтому индексы нужны редко; когда нужны номера или пары, их выдают enumerate и zip.",
+    "phrase_en": "I'll use enumerate so I never manage the index by hand.",
+    "snippets": [
+     {
+      "code": "total = 0\nfor coin in [5, 10, 25]:\n    total += coin           # 40\n\nfor n in range(3):          # 0, 1, 2\n    print(n)\nfor n in range(10, 0, -3):  # 10, 7, 4, 1\n    print(n)\n",
+      "note_en": "range(start, stop, step) never includes stop. The accumulator is created before the loop.",
+      "note_ru": "range(start, stop, step) никогда не включает stop. Накопитель создаётся до цикла.",
+      "title_en": "for over items, with an accumulator",
+      "title_ru": "for по элементам с накопителем"
+     },
+     {
+      "code": "for i, name in enumerate([\"Pixel\", \"Byte\"], start=1):\n    print(f\"{i}. {name}\")        # 1. Pixel / 2. Byte\n\nfor name, price in zip([\"rope\", \"lamp\"], [3, 12]):\n    print(name, price)           # rope 3 / lamp 12\n",
+      "note_en": "enumerate yields (index, item); zip walks several lists in lockstep and stops at the shortest.",
+      "note_ru": "enumerate выдаёт (индекс, элемент); zip идёт по нескольким спискам в ногу и останавливается на самом коротком.",
+      "title_en": "enumerate and zip",
+      "title_ru": "enumerate и zip"
+     },
+     {
+      "code": "n, steps = 20, 0\nwhile n > 1:\n    n //= 2\n    steps += 1              # 4 steps: 10, 5, 2, 1\n\nfor x in [3, -1, 4]:\n    if x < 0:\n        continue            # skip this item\n    if x > 3:\n        break               # leave the loop entirely\n",
+      "note_en": "A while loop needs something inside that moves toward the exit, or it runs forever (the stand kills it after 5 s).",
+      "note_ru": "Внутри while должно быть что-то, что ведёт к выходу, иначе цикл бесконечен (стенд убьёт его через 5 с).",
+      "title_en": "while, break, continue",
+      "title_ru": "while, break, continue"
+     },
+     {
+      "code": "for name in crew:\n    if name not in allowed:\n        break\nelse:\n    print(\"everyone is allowed\")   # only if no break happened\n\nlabel = \"even\" if n % 2 == 0 else \"odd\"\n",
+      "note_en": "The else of a loop means 'no break happened'. The conditional expression reads value-if-condition-else-value.",
+      "note_ru": "else у цикла означает «break не случился». Условное выражение читается как значение-если-условие-иначе-значение.",
+      "title_en": "for ... else and the one-line conditional",
+      "title_ru": "for ... else и однострочное условие"
+     },
+     {
+      "code": "names = [\"a\", \"b\", \"c\"]\nfor i in range(len(names)):\n    for j in range(i + 1, len(names)):\n        print(names[i], names[j])  # a b, a c, b c\n",
+      "note_en": "Start the inner index at i + 1 to get each unordered pair exactly once.",
+      "note_ru": "Начинай внутренний индекс с i + 1, чтобы получить каждую неупорядоченную пару ровно один раз.",
+      "title_en": "Nested loops for pairs",
+      "title_ru": "Вложенные циклы для пар"
+     }
+    ]
+   },
+   "chapter_en": "Act I · Chapter 3: The conveyor belt",
+   "chapter_ru": "Акт I · Глава 3: Конвейер",
+   "concepts": [
+    "for-loop",
+    "while-loop",
+    "range",
+    "enumerate",
+    "zip",
+    "break-continue",
+    "for-else",
+    "ternary",
+    "nested-loops",
+    "accumulator"
+   ],
+   "diagnostic": [
+    "l0.loops.meow-purr"
+   ],
+   "exercises": [
+    "l0.loops.count-the-coins",
+    "l0.loops.numbered-lines",
+    "l0.loops.pair-up",
+    "l0.loops.find-the-stowaway",
+    "l0.loops.steps-to-one",
+    "l0.loops.meow-purr",
+    "l0.loops.duel-schedule"
+   ],
+   "id": "l0.loops",
+   "level": 0,
+   "order": 3,
+   "story_done_en": "The belt hums in rhythm. Byte's duel schedule is printed, the Meow-Purr game is a hit, and Grandma Ada arrives with a broken signboard.",
+   "story_done_ru": "Лента гудит в такт. Расписание дуэлей Байта напечатано, игра «Мяу-Мурр» имеет успех, а бабушка Ада уже пришла со сломанной вывеской.",
+   "story_en": "The back room hides a conveyor belt that packs Captain Byte's orders. Pixel refuses to do anything twice by paw, so every repetitive job goes on the belt. Your task is to teach the belt to count, number things, pair them up and know when to stop.",
+   "story_ru": "В задней комнате прячется конвейер, который упаковывает заказы капитана Байта. Пиксель отказывается делать что-либо дважды лапами, поэтому всё повторяющееся отправляется на ленту. Твоя задача – научить ленту считать, нумеровать, складывать парами и вовремя останавливаться.",
+   "title_en": "Loops and conditions",
+   "title_ru": "Циклы и условия"
+  },
+  {
+   "card": {
+    "gotchas_en": [
+     "Strings are immutable: sign.upper() returns a new string and leaves sign unchanged.",
+     "'a' + 1 raises TypeError: convert with str(1) or use an f-string.",
+     "split(',') keeps empty pieces and surrounding spaces; strip each piece, or use split() for whitespace."
+    ],
+    "gotchas_ru": [
+     "Строки неизменяемы: sign.upper() возвращает новую строку, а sign остаётся прежней.",
+     "'a' + 1 бросает TypeError: преобразуй через str(1) или используй f-строку.",
+     "split(',') оставляет пустые куски и пробелы вокруг; делай strip каждому куску или используй split() по пробелам."
+    ],
+    "intro_en": "Strings are immutable sequences of characters: every method returns a new string. Most interview text work is split, strip, join, replace, case changes, slicing and f-strings; ord and chr turn letters into numbers and back.",
+    "intro_ru": "Строки – неизменяемые последовательности символов: каждый метод возвращает новую строку. Почти вся работа с текстом на интервью – split, strip, join, replace, смена регистра, срезы и f-строки; ord и chr превращают буквы в числа и обратно.",
+    "phrase_en": "I'll normalise the input first: strip and lowercase, then compare.",
+    "snippets": [
+     {
+      "code": "raw = \"  rye, sourdough ,bagel \"\nparts = raw.split(\",\")              # ['  rye', ' sourdough ', 'bagel ']\nclean = [p.strip() for p in parts]  # ['rye', 'sourdough', 'bagel']\n\" | \".join(clean)                   # 'rye | sourdough | bagel'\n\"a b  c\".split()                    # ['a', 'b', 'c']  (any whitespace)\n",
+      "note_en": "join is a method of the separator string. split() with no argument splits on any whitespace and drops empty pieces.",
+      "note_ru": "join – метод строки-разделителя. split() без аргумента режет по любым пробелам и выбрасывает пустые куски.",
+      "title_en": "split, strip, join",
+      "title_ru": "split, strip, join"
+     },
+     {
+      "code": "sign = \"Ada's Bakery: fresh bread\"\nsign.upper(), sign.lower(), sign.title()\nsign.replace(\"bread\", \"rolls\")\n\"bread\" in sign                     # True\nsign.find(\"fresh\")                  # 14, or -1 when missing\nsign.startswith(\"Ada\"), sign.endswith(\"!\")\n",
+      "note_en": "'in' answers yes or no; find gives a position and -1 instead of raising, unlike index.",
+      "note_ru": "in отвечает да или нет; find даёт позицию и -1 вместо исключения, в отличие от index.",
+      "title_en": "Case, replace, search",
+      "title_ru": "Регистр, замена, поиск"
+     },
+     {
+      "code": "name, price, share = \"rye\", 2.5, 0.375\nf\"{name:<10}|{price:>8.2f}|\"        # 'rye       |    2.50|'\nf\"{share:.1%}\"                      # '37.5%'\nf\"{1234567:,}\"                      # '1,234,567'\nf\"{name!r} costs {price=}\"          # \"'rye' costs price=2.5\"\n",
+      "note_en": "Inside the braces: [fill][align][width][,][.precision][type]. < left, > right, ^ centre.",
+      "note_ru": "Внутри фигурных скобок: [заполнитель][выравнивание][ширина][,][.точность][тип]. < влево, > вправо, ^ по центру.",
+      "title_en": "f-strings and format specs",
+      "title_ru": "f-строки и спецификаторы формата"
+     },
+     {
+      "code": "word = \"phoenix\"\nword[0], word[-1], word[1:4], word[::-1]   # 'p', 'x', 'hoe', 'xineohp'\nord(\"a\"), chr(98)                          # 97, 'b'\n\"\".join(sorted(\"cab\"))                     # 'abc'\n\"7\".isdigit(), \"Ab\".isalpha()              # True, True\n",
+      "note_en": "Strings slice like lists. ord and chr give the code point, which is how Caesar shifts and letter maths work.",
+      "note_ru": "Строки режутся как списки. ord и chr дают код символа – на этом строятся шифр Цезаря и арифметика букв.",
+      "title_en": "Slicing and characters",
+      "title_ru": "Срезы и символы"
+     }
+    ]
+   },
+   "chapter_en": "Act I · Chapter 4: The signboard",
+   "chapter_ru": "Акт I · Глава 4: Вывеска",
+   "concepts": [
+    "split-join",
+    "strip",
+    "replace",
+    "find-in",
+    "f-string",
+    "format-spec",
+    "str-methods",
+    "str-case",
+    "ord-chr",
+    "string-slicing"
+   ],
+   "diagnostic": [
+    "l0.strings.palindrome-check"
+   ],
+   "exercises": [
+    "l0.strings.clean-the-order",
+    "l0.strings.price-tag",
+    "l0.strings.secret-shift",
+    "l0.strings.peek-and-replace",
+    "l0.strings.initials",
+    "l0.strings.palindrome-check",
+    "l0.strings.slugify",
+    "l0.strings.caesar-cipher"
+   ],
+   "id": "l0.strings",
+   "level": 0,
+   "order": 4,
+   "story_done_en": "The signboard reads 'Ada's Bakery' in a calm font, the price tags line up to the cent and the recipe book is encrypted. Ada pays in cinnamon rolls; Coach Topspin is next in line.",
+   "story_done_ru": "Вывеска спокойным шрифтом читает «Ada's Bakery», ценники выровнены до цента, книга рецептов зашифрована. Ада платит булочками с корицей; следующий в очереди – тренер Топспин.",
+   "story_en": "Grandma Ada runs the harbour bakery, and her signboard has been shouting in CAPITALS since the storm. She wants clean labels, honest price tags and, for reasons she will not explain, a secret code for the recipe book. Text work is studio work.",
+   "story_ru": "Бабушка Ада держит пекарню в гавани, и её вывеска со времён шторма кричит КАПСОМ. Ей нужны чистые ярлыки, честные ценники и, по причинам, которые она не объясняет, секретный шифр для книги рецептов. Работа с текстом – работа студии.",
+   "title_en": "Strings",
+   "title_ru": "Строки"
+  },
+  {
+   "card": {
+    "gotchas_en": [
+     "sorted(items) returns a new list; items.sort() sorts in place and returns None.",
+     "A comprehension that needs an index or stacks three ifs should become a loop again.",
+     "max() of an empty list raises ValueError; pass default=None when the list may be empty."
+    ],
+    "gotchas_ru": [
+     "sorted(items) возвращает новый список; items.sort() сортирует на месте и возвращает None.",
+     "Включение, которому нужен индекс или три вложенных if, лучше снова сделать циклом.",
+     "max() от пустого списка бросает ValueError; передавай default=None, если список может быть пустым."
+    ],
+    "intro_en": "A comprehension builds a list, dict or set from an iterable in one expression: [f(x) for x in items if cond]. Sorting takes a key function that says what to compare; min, max and sum accept the same key or a generator. any and all answer yes/no questions over a whole collection.",
+    "intro_ru": "Включение строит список, словарь или множество из итерируемого одним выражением: [f(x) for x in items if cond]. Сортировка принимает функцию key, которая говорит, что сравнивать; min, max и sum берут такой же key или генератор. any и all отвечают да/нет по всей коллекции.",
+    "phrase_en": "I'll sort with a key tuple so the tie-break is explicit.",
+    "snippets": [
+     {
+      "code": "scores = [61, 48, 75]\n[s * 2 for s in scores]             # [122, 96, 150]\n[s for s in scores if s >= 50]      # [61, 75]\n{s: s >= 50 for s in scores}        # {61: True, 48: False, 75: True}\n{s // 10 for s in scores}           # {4, 6, 7}\n",
+      "note_en": "Read it as 'for each s in scores, produce ...'. The if filters; the expression before for transforms.",
+      "note_ru": "Читай как «для каждого s из scores произвести ...». if фильтрует; выражение перед for преобразует.",
+      "title_en": "List, dict and set comprehensions",
+      "title_ru": "Включения списка, словаря и множества"
+     },
+     {
+      "code": "players = [(\"Ada\", 1200), (\"Byte\", 1450)]\nsorted(players, key=lambda p: p[1], reverse=True)   # Byte first\nsorted(words, key=len)                                # shortest first\nsorted(rows, key=lambda r: (-r[\"wins\"], r[\"name\"]))   # most wins, then name\n",
+      "note_en": "sorted returns a new list and is stable; negate numbers inside the key tuple to sort one field descending.",
+      "note_ru": "sorted возвращает новый список и устойчив; ставь минус перед числом в кортеже ключа, чтобы одно поле шло по убыванию.",
+      "title_en": "sorted with a key",
+      "title_ru": "sorted с ключом"
+     },
+     {
+      "code": "longest = max(matches, key=lambda m: m[\"games\"])\nshortest = min(matches, key=lambda m: m[\"games\"])\ntotal = sum(m[\"games\"] for m in matches)\nsum(1 for s in scores if s >= 50)                    # count the ones that qualify\n",
+      "note_en": "A generator expression inside sum, min or max avoids building a temporary list.",
+      "note_ru": "Генераторное выражение внутри sum, min или max обходится без временного списка.",
+      "title_en": "min, max, sum with keys and generators",
+      "title_ru": "min, max, sum с ключами и генераторами"
+     },
+     {
+      "code": "any(s > 190 for s in speeds)        # at least one\nall(s < 200 for s in speeds)        # every one\nall([])                             # True (nothing contradicts it)\n",
+      "note_en": "Both short-circuit: any stops at the first True, all at the first False.",
+      "note_ru": "Обе функции останавливаются досрочно: any на первом True, all на первом False.",
+      "title_en": "any and all",
+      "title_ru": "any и all"
+     }
+    ]
+   },
+   "chapter_en": "Act I · Chapter 5: The sorting machine",
+   "chapter_ru": "Акт I · Глава 5: Сортировочная машина",
+   "concepts": [
+    "list-comprehension",
+    "dict-comprehension",
+    "set-comprehension",
+    "comprehension-if",
+    "sorted-key",
+    "lambda",
+    "reverse-sort",
+    "min-max-key",
+    "any-all",
+    "sum"
+   ],
+   "diagnostic": [
+    "l0.comprehensions.leaderboard"
+   ],
+   "exercises": [
+    "l0.comprehensions.comprehension-trio",
+    "l0.comprehensions.sort-the-ranking",
+    "l0.comprehensions.best-and-worst",
+    "l0.comprehensions.any-all-check",
+    "l0.comprehensions.two-key-sort",
+    "l0.comprehensions.leaderboard",
+    "l0.comprehensions.top-shorts",
+    "l0.comprehensions.loop-to-comprehension"
+   ],
+   "id": "l0.comprehensions",
+   "level": 0,
+   "order": 5,
+   "story_done_en": "The leaderboard is sorted, the longest rally hangs framed on the wall and the machine idles. Only the lifeboats are left, and Dr. Candle is already pacing by the door with a crashing trading bot.",
+   "story_done_ru": "Таблица лидеров отсортирована, самый длинный розыгрыш висит в рамке на стене, машина отдыхает. Остались только спасательные шлюпки, а у двери уже ходит доктор Кэндл с падающим торговым ботом.",
+   "story_en": "Coach Topspin storms in with a crate of match sheets from the tennis academy: ratings, rallies, serves. The studio's sorting machine can rank anything if you describe the result in one line. Pixel calls that line a comprehension and refuses to write loops for lists ever again.",
+   "story_ru": "Тренер Топспин врывается с ящиком протоколов из теннисной академии: рейтинги, розыгрыши, подачи. Сортировочная машина студии ранжирует что угодно, если описать результат одной строкой. Пиксель зовёт эту строку включением и отказывается впредь писать циклы для списков.",
+   "title_en": "Comprehensions and sorting",
+   "title_ru": "Включения и сортировка"
+  },
+  {
+   "card": {
+    "gotchas_en": [
+     "A bare except: also catches KeyboardInterrupt and typos like NameError; catch what you expect.",
+     "A return inside try still runs finally, but skips else.",
+     "KeyError, IndexError and ValueError are different classes: catching the wrong one catches nothing."
+    ],
+    "gotchas_ru": [
+     "Голый except: ловит и KeyboardInterrupt, и опечатки вроде NameError; лови то, чего ждёшь.",
+     "return внутри try всё равно выполняет finally, но пропускает else.",
+     "KeyError, IndexError и ValueError – разные классы: поймав не тот, не поймаешь ничего."
+    ],
+    "intro_en": "Exceptions are how Python says 'this did not work'. Catch the specific ones you expect with try/except, raise your own when input is wrong, and prefer asking a dict politely (.get, setdefault) to crashing on a missing key. Catch narrowly: a bare except hides bugs.",
+    "intro_ru": "Исключения – способ Python сказать «не получилось». Конкретные ожидаемые лови через try/except, свои бросай через raise при неверном входе, а у словаря спрашивай вежливо (.get, setdefault), вместо того чтобы падать на отсутствующем ключе. Лови узко: голый except прячет баги.",
+    "phrase_en": "I'll catch the specific exception here and let anything unexpected propagate.",
+    "snippets": [
+     {
+      "code": "def parse_price(text):\n    try:\n        return float(text)\n    except ValueError:\n        return None          # \"n/a\" -> None instead of a crash\n",
+      "note_en": "Name the exception you expect. 'except Exception' only as a last resort, and never a bare 'except:'.",
+      "note_ru": "Называй исключение, которое ждёшь. except Exception – только как последняя мера, а голый except: – никогда.",
+      "title_en": "try / except a specific error",
+      "title_ru": "try / except конкретной ошибки"
+     },
+     {
+      "code": "try:\n    value = risky()\nexcept KeyError as err:\n    log(f\"missing {err}\")\nelse:\n    use(value)               # only when nothing was raised\nfinally:\n    cleanup()                # always, even after a return\n",
+      "note_en": "else keeps the happy path out of the try block; finally is for releasing resources.",
+      "note_ru": "else выносит счастливый путь из блока try; finally – для освобождения ресурсов.",
+      "title_en": "else and finally",
+      "title_ru": "else и finally"
+     },
+     {
+      "code": "def withdraw(balance, amount):\n    if amount <= 0:\n        raise ValueError(\"amount must be positive\")\n    return balance - amount\n",
+      "note_en": "Raise early with a precise message: ValueError for bad values, TypeError for wrong types, KeyError and IndexError for lookups.",
+      "note_ru": "Бросай рано и с точным сообщением: ValueError для плохих значений, TypeError для неверных типов, KeyError и IndexError для поиска.",
+      "title_en": "raise your own",
+      "title_ru": "бросай свои"
+     },
+     {
+      "code": "stock.get(\"coal\", 0)                  # default instead of KeyError\ngroups.setdefault(key, []).append(x)  # create the list on first sight\nif key in stock:                      # look before you leap\n    ...\ntry:                                  # or ask forgiveness\n    value = stock[key]\nexcept KeyError:\n    value = 0\n",
+      "note_en": "Both styles are fine: try/except when the miss is rare, 'in' or .get when it is common.",
+      "note_ru": "Оба стиля хороши: try/except, когда промах редкий, in или .get, когда он частый.",
+      "title_en": "Polite dict lookups",
+      "title_ru": "Вежливый поиск в словаре"
+     }
+    ]
+   },
+   "chapter_en": "Act I · Chapter 6: The lifeboats",
+   "chapter_ru": "Акт I · Глава 6: Спасательные шлюпки",
+   "concepts": [
+    "try-except",
+    "except-else-finally",
+    "raise",
+    "value-error",
+    "key-error",
+    "index-error",
+    "dict-get",
+    "setdefault",
+    "eafp-lbyl"
+   ],
+   "diagnostic": [
+    "l0.errors.robust-average"
+   ],
+   "exercises": [
+    "l0.errors.safe-parse",
+    "l0.errors.catch-the-key",
+    "l0.errors.else-and-finally",
+    "l0.errors.raise-your-own",
+    "l0.errors.group-with-setdefault",
+    "l0.errors.robust-average",
+    "l0.errors.validate-order"
+   ],
+   "id": "l0.errors",
+   "level": 0,
+   "order": 6,
+   "story_done_en": "The bot survives bad data, the lifeboats are stowed and Pixel flips the studio sign to OPEN. Act I is over: the studio runs. Act II brings the first paying clients, and the toolbox you rebuilt gets heavier.",
+   "story_done_ru": "Бот переживает плохие данные, шлюпки убраны, Пиксель переворачивает табличку на OPEN. Акт I окончен: студия работает. Акт II приведёт первых платящих клиентов, а ящик с инструментами, который ты восстановил, станет тяжелее.",
+   "story_en": "Dr. Candle's trading bot reads prices from a feed that sometimes sends 'n/a' instead of a number, and the bot sinks every time. Captain Byte, who has strong opinions about sinking, demands lifeboats: code that expects trouble, catches it and keeps the ship afloat.",
+   "story_ru": "Торговый бот доктора Кэндл читает цены из ленты, которая иногда присылает «n/a» вместо числа, и бот тонет каждый раз. Капитан Байт, у которого твёрдое мнение о потоплениях, требует спасательные шлюпки: код, который ждёт беды, ловит её и держит корабль на плаву.",
+   "title_en": "Errors and lookups",
+   "title_ru": "Ошибки и безопасный поиск"
+  }
+ ],
+ "schema": 1,
+ "tasks": {
+  "l0.collections.crafting-table": {
+   "complexity": "O(k) in the number of recipe items",
+   "concepts": [
+    "dict-basics",
+    "dict-get",
+    "in-operator",
+    "truthiness"
+   ],
+   "diagnostic": true,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "craft({'stick': 2, 'coal': 1}, {'stick': 1, 'coal': 1})",
+     "expected": "True"
+    },
+    {
+     "call": "craft({'stick': 1}, {'stick': 1, 'coal': 1})",
+     "expected": "False"
+    }
+   ],
+   "explanation_en": "Check first, mutate second: that way a failed craft leaves no trace. dict.get(item, 0) treats a missing item as zero, so a recipe asking for coal fails cleanly when there is no coal key at all.",
+   "explanation_ru": "Сначала проверка, потом изменение: тогда неудачный крафт не оставляет следов. dict.get(item, 0) считает отсутствующий предмет нулём, поэтому рецепт с углём честно падает, даже если ключа coal нет вовсе.",
+   "followups": [
+    "How would you return the list of missing items instead of False?",
+    "Should craft mutate the inventory or return a new one?"
+   ],
+   "hints_en": [
+    "Two passes: first check every recipe item with inventory.get(item, 0) >= needed, only then subtract.",
+    "If you subtract while checking, a failing recipe corrupts the inventory. Keep the loops separate.",
+    "Return False inside the first loop as soon as one item is short; after the second loop return True."
+   ],
+   "hints_ru": [
+    "Два прохода: сначала проверь каждый предмет рецепта через inventory.get(item, 0) >= needed, и только потом вычитай.",
+    "Если вычитать во время проверки, неудачный рецепт испортит инвентарь. Держи циклы раздельно.",
+    "Верни False прямо в первом цикле, как только чего-то не хватает; после второго цикла верни True."
+   ],
+   "id": "l0.collections.crafting-table",
+   "level": 0,
+   "minutes": 7,
+   "model": null,
+   "module": "l0.collections",
+   "order": 60,
+   "solution": "def craft(inventory, recipe):\n    for item, needed in recipe.items():\n        if inventory.get(item, 0) < needed:\n            return False\n    for item, needed in recipe.items():\n        inventory[item] -= needed\n    return True\n",
+   "solution_alt": null,
+   "starter": "def craft(inventory, recipe):\n    ...\n",
+   "statement_en": "Write craft(inventory, recipe) -> bool. Both are dicts of item -> count. If the inventory holds at least the required count of every recipe item, subtract the counts from the inventory and return True. Otherwise return False and leave the inventory exactly as it was. An empty recipe always succeeds.",
+   "story_en": "Timmy wants to craft a torch: one stick, one coal. He has forty sticks and a deep sense of injustice.",
+   "talk_track": [
+    "Say that the check and the mutation are separate passes, so failure leaves the inventory untouched.",
+    "Mention dict.get(item, 0) handles missing items without KeyError.",
+    "Complexity is O(k) in recipe items; inventory size does not matter."
+   ],
+   "tests": "\ndef test_success_subtracts(ns, check):\n    inv = {\"stick\": 2, \"coal\": 1}\n    check(ns[\"craft\"](inv, {\"stick\": 1, \"coal\": 1}), True, \"craft returns True\")\n    check(inv, {\"stick\": 1, \"coal\": 0}, \"inventory after a successful craft\")\n\ndef test_missing_item_fails(ns, check):\n    inv = {\"stick\": 1}\n    check(ns[\"craft\"](inv, {\"stick\": 1, \"coal\": 1}), False, \"craft without coal\")\n    check(inv, {\"stick\": 1}, \"inventory unchanged after failure\")\n\ndef test_not_enough_fails(ns, check):\n    inv = {\"stick\": 1}\n    check(ns[\"craft\"](inv, {\"stick\": 2}), False, \"craft needing 2 sticks\")\n    check(inv, {\"stick\": 1}, \"inventory unchanged\")\n\ndef test_failure_leaves_no_trace(ns, check):\n    inv = {\"stick\": 5, \"coal\": 0}\n    check(ns[\"craft\"](inv, {\"stick\": 1, \"coal\": 1}), False, \"coal is zero\")\n    check(inv[\"stick\"], 5, \"sticks must not be spent when coal is missing\")\n\ndef test_empty_recipe(ns, check):\n    inv = {\"stick\": 1}\n    check(ns[\"craft\"](inv, {}), True, \"empty recipe\")\n    check(inv, {\"stick\": 1}, \"inventory unchanged by an empty recipe\")\n",
+   "timeout_ms": null,
+   "title": "Crafting table",
+   "type": "task",
+   "variants": [],
+   "world": "game"
+  },
+  "l0.collections.inventory-lookup": {
+   "complexity": null,
+   "concepts": [
+    "dict-basics",
+    "dict-get"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "Square brackets demand that the key exists; .get is the question you ask when it might not. Augmented assignment updates the stored value in place.",
+   "explanation_ru": "Квадратные скобки требуют, чтобы ключ существовал; .get – вопрос на случай, если его может не быть. Составное присваивание меняет сохранённое значение на месте.",
+   "followups": [],
+   "hints_en": [
+    "Keys are strings in quotes. .get(key, default) never adds the key. Spending is -= on the existing entry."
+   ],
+   "hints_ru": [
+    "Ключи – строки в кавычках. .get(key, default) никогда не добавляет ключ. Потратить – это -= у существующей записи."
+   ],
+   "id": "l0.collections.inventory-lookup",
+   "level": 0,
+   "minutes": 2,
+   "model": null,
+   "module": "l0.collections",
+   "order": 20,
+   "solution": "inventory = {\"potion\": 3, \"arrow\": 20}\npotions = inventory[\"potion\"]\nshields = inventory.get(\"shield\", 0)\ninventory[\"arrow\"] -= 5\n",
+   "solution_alt": null,
+   "starter": "inventory = {\"potion\": 3, \"arrow\": 20}\npotions = inventory[___]            # 3\nshields = inventory.get(___, 0)     # 0, and no KeyError\ninventory[\"arrow\"] ___ 5            # 15 arrows left\n",
+   "statement_en": "Fill in the three blanks: read the potions by key, ask for shields with a default of 0 so that no KeyError is raised and nothing is added, then spend 5 arrows in place.",
+   "story_en": "Timmy has never owned a shield. The game should say zero, not crash.",
+   "talk_track": [],
+   "tests": "\ndef test_potions(ns, check):\n    check(ns[\"potions\"], 3, \"potions\")\n\ndef test_shields_default(ns, check):\n    check(ns[\"shields\"], 0, \"shields\")\n\ndef test_arrows_spent(ns, check):\n    check(ns[\"inventory\"][\"arrow\"], 15, \"inventory['arrow']\")\n\ndef test_no_new_keys(ns, check):\n    check(sorted(ns[\"inventory\"]), [\"arrow\", \"potion\"], \"inventory keys\")\n",
+   "timeout_ms": null,
+   "title": "Inventory lookup",
+   "type": "cloze",
+   "variants": [],
+   "world": "game"
+  },
+  "l0.collections.roll-call": {
+   "complexity": "O(n + m) for n crew and m present",
+   "concepts": [
+    "in-operator",
+    "list-methods",
+    "set-basics"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [
+    {
+     "call": "missing(['Pixel', 'Byte', 'Ada'], {'Byte'})",
+     "expected": "['Pixel', 'Ada']"
+    },
+    {
+     "call": "missing(['Pixel'], ['Pixel'])",
+     "expected": "[]"
+    }
+   ],
+   "explanation_en": "Order comes from crew, so crew is what you iterate. Converting present to a set makes each membership check O(1), which matters once the crew is a thousand pirates long.",
+   "explanation_ru": "Порядок задаёт crew, поэтому обходим именно его. Превращение present в множество делает каждую проверку O(1), что важно, когда команда – тысяча пиратов.",
+   "followups": [
+    "What if names can repeat in crew?",
+    "How would you also report who is present but not in the crew?"
+   ],
+   "hints_en": [
+    "Walk the crew in order and collect the names that are not in present.",
+    "Turn present into a set first, set(present), so the 'in' check is fast and works for lists too."
+   ],
+   "hints_ru": [
+    "Пройди по crew по порядку и собери имена, которых нет в present.",
+    "Сначала преврати present в множество, set(present), чтобы проверка in была быстрой и работала и для списков."
+   ],
+   "id": "l0.collections.roll-call",
+   "level": 0,
+   "minutes": 5,
+   "model": null,
+   "module": "l0.collections",
+   "order": 70,
+   "solution": "def missing(crew, present):\n    here = set(present)\n    absent = []\n    for name in crew:\n        if name not in here:\n            absent.append(name)\n    return absent\n",
+   "solution_alt": "def missing(crew, present):\n    here = set(present)\n    return [name for name in crew if name not in here]\n",
+   "starter": "def missing(crew, present):\n    ...\n",
+   "statement_en": "Write missing(crew, present) -> list. crew is the list of names in boarding order; present is a list or set of names who showed up. Return the names that did not show up, in crew order. Names in present that are not in crew are ignored.",
+   "story_en": "Captain Byte's roll call. The parrot used to do this too. The parrot had a better memory than the first mate.",
+   "talk_track": [
+    "State that the order must come from crew, so you iterate crew, not present.",
+    "Mention converting present to a set makes each check O(1)."
+   ],
+   "tests": "\ndef test_basic(ns, check):\n    check(ns[\"missing\"]([\"Pixel\", \"Byte\", \"Ada\"], {\"Byte\"}), [\"Pixel\", \"Ada\"], \"missing(['Pixel', 'Byte', 'Ada'], {'Byte'})\")\n\ndef test_everyone_here(ns, check):\n    check(ns[\"missing\"]([\"Pixel\", \"Byte\"], [\"Byte\", \"Pixel\"]), [], \"all present\")\n\ndef test_nobody_here(ns, check):\n    check(ns[\"missing\"]([\"Pixel\", \"Byte\"], []), [\"Pixel\", \"Byte\"], \"nobody present\")\n\ndef test_strangers_ignored(ns, check):\n    check(ns[\"missing\"]([\"Pixel\"], {\"Ghost\", \"Pixel\"}), [], \"strangers in present are ignored\")\n\ndef test_order_is_crew_order(ns, check):\n    check(ns[\"missing\"]([\"c\", \"a\", \"b\"], {\"a\"}), [\"c\", \"b\"], \"crew order kept\")\n\ndef test_empty_crew(ns, check):\n    check(ns[\"missing\"]([], {\"x\"}), [], \"empty crew\")\n",
+   "timeout_ms": null,
+   "title": "Roll call",
+   "type": "task",
+   "variants": [],
+   "world": "game"
+  },
+  "l0.collections.shelf-basics": {
+   "complexity": null,
+   "concepts": [
+    "list-index",
+    "slicing",
+    "list-methods",
+    "in-operator",
+    "len"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "middle was sliced before the list changed, so it still holds 'lamp'. A slice is a copy; the list methods change the original in place and return None.",
+   "explanation_ru": "middle срезан до изменений, поэтому в нём остался 'lamp'. Срез – копия; методы списка меняют оригинал на месте и возвращают None.",
+   "followups": [],
+   "hints_en": [
+    "shelf[-1] is the last item; shelf[1:3] takes positions 1 and 2; remove deletes by value, append adds to the end."
+   ],
+   "hints_ru": [
+    "shelf[-1] – последний элемент; shelf[1:3] берёт позиции 1 и 2; remove удаляет по значению, append добавляет в конец."
+   ],
+   "id": "l0.collections.shelf-basics",
+   "level": 0,
+   "minutes": 3,
+   "model": "shelf = [\"rope\", \"lamp\", \"map\", \"compass\"]\nfirst, last = shelf[0], shelf[-1]\nmiddle = shelf[1:3]\nshelf.append(\"flag\")\nshelf.remove(\"lamp\")\ncount = len(shelf)\nhas_map = \"map\" in shelf\n",
+   "module": "l0.collections",
+   "order": 10,
+   "solution": "shelf = [\"rope\", \"lamp\", \"map\", \"compass\"]\nfirst, last = shelf[0], shelf[-1]\nmiddle = shelf[1:3]\nshelf.append(\"flag\")\nshelf.remove(\"lamp\")\ncount = len(shelf)\nhas_map = \"map\" in shelf\n",
+   "solution_alt": null,
+   "starter": "",
+   "statement_en": "Retype the snippet exactly: indexing from both ends, a slice, append and remove, len and the in check. Watch what the slice captures before the shelf changes.",
+   "story_en": "Timmy's first shelf. He insists the compass goes last because 'it points to the end'.",
+   "talk_track": [],
+   "tests": "\ndef test_ends(ns, check):\n    check((ns[\"first\"], ns[\"last\"]), (\"rope\", \"compass\"), \"first, last\")\n\ndef test_middle_slice(ns, check):\n    check(ns[\"middle\"], [\"lamp\", \"map\"], \"middle\")\n\ndef test_shelf_after_changes(ns, check):\n    check(ns[\"shelf\"], [\"rope\", \"map\", \"compass\", \"flag\"], \"shelf after append and remove\")\n\ndef test_count_and_membership(ns, check):\n    check((ns[\"count\"], ns[\"has_map\"]), (4, True), \"count, has_map\")\n",
+   "timeout_ms": null,
+   "title": "First shelf",
+   "type": "retype",
+   "variants": [],
+   "world": "game"
+  },
+  "l0.collections.slice-the-season": {
+   "complexity": null,
+   "concepts": [
+    "slicing"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [],
+   "explanation_en": "scores[-3:] is 'from the third-to-last to the end', scores[::2] is 'every second item', scores[::-1] is the reversed copy. Slicing never raises and always returns a new list.",
+   "explanation_ru": "scores[-3:] – «с третьего с конца до конца», scores[::2] – «каждый второй», scores[::-1] – перевёрнутая копия. Срез никогда не падает и всегда возвращает новый список.",
+   "followups": [],
+   "hints_en": [
+    "Slices are start:stop:step. A negative start counts from the end, a step of 2 skips every other item, a step of -1 walks backwards."
+   ],
+   "hints_ru": [
+    "Срез – это start:stop:step. Отрицательный start считает с конца, шаг 2 пропускает каждый второй, шаг -1 идёт назад."
+   ],
+   "id": "l0.collections.slice-the-season",
+   "level": 0,
+   "minutes": 3,
+   "model": null,
+   "module": "l0.collections",
+   "order": 50,
+   "solution": "scores = [10, 25, 7, 31, 18, 22]\nlast_three = scores[-3:]\nevery_second = scores[::2]\nbackwards = scores[::-1]\n",
+   "solution_alt": null,
+   "starter": "scores = [10, 25, 7, 31, 18, 22]\nlast_three = scores[___]        # [31, 18, 22]\nevery_second = scores[___]      # [10, 7, 18]\nbackwards = scores[___]         # [22, 18, 31, 7, 25, 10]\n",
+   "statement_en": "Fill in the three slices. Each blank is the part inside the square brackets.",
+   "story_en": "Coach Topspin wants the last three results, then every second one, then everything backwards. Coaches are like that.",
+   "talk_track": [],
+   "tests": "\ndef test_last_three(ns, check):\n    check(ns[\"last_three\"], [31, 18, 22], \"last_three\")\n\ndef test_every_second(ns, check):\n    check(ns[\"every_second\"], [10, 7, 18], \"every_second\")\n\ndef test_backwards(ns, check):\n    check(ns[\"backwards\"], [22, 18, 31, 7, 25, 10], \"backwards\")\n\ndef test_original_untouched(ns, check):\n    check(ns[\"scores\"], [10, 25, 7, 31, 18, 22], \"scores unchanged\")\n",
+   "timeout_ms": null,
+   "title": "Slice the season",
+   "type": "cloze",
+   "variants": [],
+   "world": "tennis"
+  },
+  "l0.collections.unique-viewers": {
+   "complexity": null,
+   "concepts": [
+    "set-basics",
+    "in-operator",
+    "len"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "set(list) keeps one copy of every value; len counts members and 'in' is a constant-time check.",
+   "explanation_ru": "set(list) оставляет по одной копии каждого значения; len считает элементы, а in проверяет вхождение за константное время.",
+   "followups": [],
+   "hints_en": [
+    "The built-in that drops duplicates is set(...). Membership is the in operator."
+   ],
+   "hints_ru": [
+    "Встроенная функция, убирающая дубликаты, – set(...). Проверка вхождения – оператор in."
+   ],
+   "id": "l0.collections.unique-viewers",
+   "level": 0,
+   "minutes": 2,
+   "model": null,
+   "module": "l0.collections",
+   "order": 30,
+   "solution": "viewers = [\"ann\", \"bob\", \"ann\", \"cid\", \"bob\", \"ann\"]\nunique = set(viewers)\nhow_many = len(unique)\nbob_was_here = \"bob\" in unique\n",
+   "solution_alt": null,
+   "starter": "viewers = [\"ann\", \"bob\", \"ann\", \"cid\", \"bob\", \"ann\"]\nunique = ___(viewers)\nhow_many = len(unique)        # 3\nbob_was_here = \"bob\" ___ unique\n",
+   "statement_en": "Fill in the blanks so that unique holds each viewer once, how_many is 3 and bob_was_here is True.",
+   "story_en": "The Shorts dashboard counts six views. Pixel counts three humans. Pixel is right.",
+   "talk_track": [],
+   "tests": "\ndef test_unique_is_a_set(ns, check):\n    check(type(ns[\"unique\"]), set, \"type(unique)\")\n\ndef test_unique_members(ns, check):\n    check(ns[\"unique\"], {\"ann\", \"bob\", \"cid\"}, \"unique\")\n\ndef test_count_and_membership(ns, check):\n    check((ns[\"how_many\"], ns[\"bob_was_here\"]), (3, True), \"how_many, bob_was_here\")\n",
+   "timeout_ms": null,
+   "title": "Unique viewers",
+   "type": "cloze",
+   "variants": [],
+   "world": "shorts"
+  },
+  "l0.collections.unpack-the-crate": {
+   "complexity": null,
+   "concepts": [
+    "tuple-unpacking",
+    "none-check",
+    "truthiness"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "Unpacking reads better than crate[0], crate[1], crate[2]. 'is None' is the idiom because None is a single object. Empty containers are falsy, so you never write len(items) == 0.",
+   "explanation_ru": "Распаковка читается лучше, чем crate[0], crate[1], crate[2]. is None – идиома, потому что None единственный объект. Пустые контейнеры ложны, поэтому len(items) == 0 не пишут.",
+   "followups": [],
+   "hints_en": [
+    "Three names on the left, one tuple on the right. Compare with None using 'is'. An empty list is falsy, so 'if not items' works."
+   ],
+   "hints_ru": [
+    "Три имени слева, один кортеж справа. С None сравнивай через is. Пустой список ложен, поэтому работает if not items."
+   ],
+   "id": "l0.collections.unpack-the-crate",
+   "level": 0,
+   "minutes": 3,
+   "model": "crate = (\"gold\", 12, None)\nkind, amount, note = crate\nif note is None:\n    note = \"no note\"\n\nitems = []\nif not items:\n    status = \"empty\"\nelse:\n    status = f\"{len(items)} items\"\n",
+   "module": "l0.collections",
+   "order": 40,
+   "solution": "crate = (\"gold\", 12, None)\nkind, amount, note = crate\nif note is None:\n    note = \"no note\"\n\nitems = []\nif not items:\n    status = \"empty\"\nelse:\n    status = f\"{len(items)} items\"\n",
+   "solution_alt": null,
+   "starter": "",
+   "statement_en": "Retype the snippet: unpack a tuple into three names, replace a None note, and use truthiness of an empty list.",
+   "story_en": "Captain Byte's crates come with a note. Sometimes the note is None, which is pirate for 'figure it out'.",
+   "talk_track": [],
+   "tests": "\ndef test_unpacked(ns, check):\n    check((ns[\"kind\"], ns[\"amount\"]), (\"gold\", 12), \"kind, amount\")\n\ndef test_note_replaced(ns, check):\n    check(ns[\"note\"], \"no note\", \"note\")\n\ndef test_status(ns, check):\n    check(ns[\"status\"], \"empty\", \"status\")\n",
+   "timeout_ms": null,
+   "title": "Unpack the crate",
+   "type": "retype",
+   "variants": [],
+   "world": "game"
+  },
+  "l0.comprehensions.any-all-check": {
+   "complexity": null,
+   "concepts": [
+    "any-all",
+    "comprehension-if"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "any and all turn 'is there one' and 'is it true for every one' into a single readable call; both stop as soon as the answer is known.",
+   "explanation_ru": "any и all превращают «есть ли хоть один» и «верно ли для всех» в один читаемый вызов; обе останавливаются, как только ответ известен.",
+   "followups": [],
+   "hints_en": [
+    "any and all take an iterable; a generator expression inside the call needs no extra brackets."
+   ],
+   "hints_ru": [
+    "any и all принимают итерируемое; генераторному выражению внутри вызова лишние скобки не нужны."
+   ],
+   "id": "l0.comprehensions.any-all-check",
+   "level": 0,
+   "minutes": 2,
+   "model": "serves = [True, True, False, True]\nall_in = all(serves)\nany_fault = any(not s for s in serves)\n\nspeeds = [180, 195, 172]\nfast = any(speed > 190 for speed in speeds)\nslow_all = all(speed < 200 for speed in speeds)\n",
+   "module": "l0.comprehensions",
+   "order": 40,
+   "solution": "serves = [True, True, False, True]\nall_in = all(serves)\nany_fault = any(not s for s in serves)\n\nspeeds = [180, 195, 172]\nfast = any(speed > 190 for speed in speeds)\nslow_all = all(speed < 200 for speed in speeds)\n",
+   "solution_alt": null,
+   "starter": "",
+   "statement_en": "Retype the snippet: all over a list of booleans, any over a negated generator, and two generator checks on speeds.",
+   "story_en": "Did every serve land? Was any serve fast? Coach Topspin asks yes/no questions and expects yes/no answers.",
+   "talk_track": [],
+   "tests": "\ndef test_serves(ns, check):\n    check((ns[\"all_in\"], ns[\"any_fault\"]), (False, True), \"all_in, any_fault\")\n\ndef test_speeds(ns, check):\n    check((ns[\"fast\"], ns[\"slow_all\"]), (True, True), \"fast, slow_all\")\n",
+   "timeout_ms": null,
+   "title": "Any and all",
+   "type": "retype",
+   "variants": [],
+   "world": "tennis"
+  },
+  "l0.comprehensions.best-and-worst": {
+   "complexity": null,
+   "concepts": [
+    "min-max-key",
+    "sum",
+    "lambda"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "max and min with a key return the whole element, not the key value, so you can index into it afterwards. sum over a generator never builds the intermediate list.",
+   "explanation_ru": "max и min с ключом возвращают весь элемент, а не значение ключа, поэтому к нему можно обратиться дальше. sum по генератору не строит промежуточный список.",
+   "followups": [],
+   "hints_en": [
+    "max and min accept the same key= as sorted; sum adds up a generator expression directly."
+   ],
+   "hints_ru": [
+    "max и min принимают такой же key=, как sorted; sum складывает генераторное выражение напрямую."
+   ],
+   "id": "l0.comprehensions.best-and-worst",
+   "level": 0,
+   "minutes": 3,
+   "model": null,
+   "module": "l0.comprehensions",
+   "order": 30,
+   "solution": "matches = [{\"opponent\": \"Ada\", \"games\": 12}, {\"opponent\": \"Byte\", \"games\": 18}, {\"opponent\": \"Cid\", \"games\": 9}]\nlongest = max(matches, key=lambda m: m[\"games\"])[\"opponent\"]\nshortest = min(matches, key=lambda m: m[\"games\"])[\"opponent\"]\ntotal_games = sum(m[\"games\"] for m in matches)\n",
+   "solution_alt": null,
+   "starter": "matches = [{\"opponent\": \"Ada\", \"games\": 12}, {\"opponent\": \"Byte\", \"games\": 18}, {\"opponent\": \"Cid\", \"games\": 9}]\nlongest = ___(matches, key=lambda m: m[\"games\"])[\"opponent\"]    # \"Byte\"\nshortest = ___(matches, key=lambda m: m[\"games\"])[\"opponent\"]   # \"Cid\"\ntotal_games = ___(m[\"games\"] for m in matches)                  # 39\n",
+   "statement_en": "Fill in the three built-ins: the match with the most games, the one with the fewest, and the total number of games.",
+   "story_en": "Which match was the marathon and which was over before the water break? And how many games in total, for the knees.",
+   "talk_track": [],
+   "tests": "\ndef test_longest(ns, check):\n    check(ns[\"longest\"], \"Byte\", \"longest\")\n\ndef test_shortest(ns, check):\n    check(ns[\"shortest\"], \"Cid\", \"shortest\")\n\ndef test_total(ns, check):\n    check(ns[\"total_games\"], 39, \"total_games\")\n",
+   "timeout_ms": null,
+   "title": "Best and worst",
+   "type": "cloze",
+   "variants": [],
+   "world": "tennis"
+  },
+  "l0.comprehensions.comprehension-trio": {
+   "complexity": null,
+   "concepts": [
+    "list-comprehension",
+    "dict-comprehension",
+    "set-comprehension",
+    "comprehension-if"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "The same three-part shape builds all three: expression, for clause, optional if. The brackets decide the container; the set collapses duplicates, which is why tens has five members here but would have fewer with repeated digits.",
+   "explanation_ru": "Одна и та же трёхчастная форма строит все три: выражение, часть for, необязательный if. Скобки определяют контейнер; множество схлопывает дубликаты, поэтому tens здесь из пяти элементов, а при повторах было бы меньше.",
+   "followups": [],
+   "hints_en": [
+    "Square brackets make a list, curly braces with key: value make a dict, curly braces without a colon make a set."
+   ],
+   "hints_ru": [
+    "Квадратные скобки дают список, фигурные с key: value – словарь, фигурные без двоеточия – множество."
+   ],
+   "id": "l0.comprehensions.comprehension-trio",
+   "level": 0,
+   "minutes": 3,
+   "model": "scores = [61, 48, 75, 90, 33]\npassed = [s for s in scores if s >= 50]\ndoubled = [s * 2 for s in scores]\nby_score = {s: s >= 50 for s in scores}\ntens = {s // 10 for s in scores}\n",
+   "module": "l0.comprehensions",
+   "order": 10,
+   "solution": "scores = [61, 48, 75, 90, 33]\npassed = [s for s in scores if s >= 50]\ndoubled = [s * 2 for s in scores]\nby_score = {s: s >= 50 for s in scores}\ntens = {s // 10 for s in scores}\n",
+   "solution_alt": null,
+   "starter": "",
+   "statement_en": "Retype the snippet: a filtering list comprehension, a transforming one, a dict comprehension and a set comprehension.",
+   "story_en": "Coach Topspin wants the passing scores, everything doubled 'for motivation', a yes/no table and the tens digits. All before lunch.",
+   "talk_track": [],
+   "tests": "\ndef test_passed(ns, check):\n    check(ns[\"passed\"], [61, 75, 90], \"passed\")\n\ndef test_doubled(ns, check):\n    check(ns[\"doubled\"], [122, 96, 150, 180, 66], \"doubled\")\n\ndef test_by_score(ns, check):\n    check(ns[\"by_score\"], {61: True, 48: False, 75: True, 90: True, 33: False}, \"by_score\")\n\ndef test_tens(ns, check):\n    check(ns[\"tens\"], {6, 4, 7, 9, 3}, \"tens\")\n",
+   "timeout_ms": null,
+   "title": "Comprehension trio",
+   "type": "retype",
+   "variants": [],
+   "world": "tennis"
+  },
+  "l0.comprehensions.leaderboard": {
+   "complexity": "O(n log n)",
+   "concepts": [
+    "sorted-key",
+    "lambda",
+    "reverse-sort",
+    "list-comprehension"
+   ],
+   "diagnostic": true,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "leaderboard({'Ada': 1200, 'Byte': 1450, 'Pixel': 1320})",
+     "expected": "['Byte', 'Pixel', 'Ada']"
+    },
+    {
+     "call": "leaderboard({'a': 5, 'b': 5, 'c': 9}, top=2)",
+     "expected": "['c', 'a']"
+    }
+   ],
+   "explanation_en": "The key tuple (-rating, name) encodes both rules: the minus flips the rating, the name breaks ties alphabetically. Slicing with [:top] is safe when top is bigger than the list.",
+   "explanation_ru": "Кортеж-ключ (-rating, name) кодирует оба правила: минус переворачивает рейтинг, имя разрешает ничьи по алфавиту. Срез [:top] безопасен, даже когда top больше длины списка.",
+   "followups": [
+    "What if ratings can be None for unrated players?",
+    "How would you give equal ratings the same rank number?"
+   ],
+   "hints_en": [
+    "Sort ratings.items() with a key tuple: (-rating, name) gives descending rating and ascending name in one go.",
+    "Slice the sorted list with [:top] before pulling out the names.",
+    "A comprehension over the sliced pairs returns just the names."
+   ],
+   "hints_ru": [
+    "Отсортируй ratings.items() с ключом-кортежем: (-rating, name) даёт рейтинг по убыванию и имя по возрастанию разом.",
+    "Отрежь отсортированный список срезом [:top] до того, как вытащить имена.",
+    "Включение по отрезанным парам возвращает только имена."
+   ],
+   "id": "l0.comprehensions.leaderboard",
+   "level": 0,
+   "minutes": 7,
+   "model": null,
+   "module": "l0.comprehensions",
+   "order": 60,
+   "solution": "def leaderboard(ratings, top=3):\n    ordered = sorted(ratings.items(), key=lambda item: (-item[1], item[0]))\n    return [name for name, rating in ordered[:top]]\n",
+   "solution_alt": null,
+   "starter": "def leaderboard(ratings, top=3):\n    ...\n",
+   "statement_en": "Write leaderboard(ratings, top=3) -> list[str]. ratings is a dict of name -> rating. Return the names ordered by rating descending; equal ratings are ordered by name ascending. Return at most top names.",
+   "story_en": "Coach Topspin wants the top three on the clubhouse wall. Everybody with 1320 points wants to be listed before everybody else with 1320 points.",
+   "talk_track": [
+    "Explain the key tuple: negative rating for descending, name for the tie-break.",
+    "Mention sorted is stable and O(n log n).",
+    "Say slicing with [:top] is safe even when top exceeds the length."
+   ],
+   "tests": "\ndef test_basic(ns, check):\n    check(ns[\"leaderboard\"]({\"Ada\": 1200, \"Byte\": 1450, \"Pixel\": 1320}), [\"Byte\", \"Pixel\", \"Ada\"], \"three players\")\n\ndef test_tie_break_by_name(ns, check):\n    check(ns[\"leaderboard\"]({\"zed\": 10, \"amy\": 10, \"bob\": 12}), [\"bob\", \"amy\", \"zed\"], \"ties ordered by name\")\n\ndef test_top_limit(ns, check):\n    check(ns[\"leaderboard\"]({\"a\": 5, \"b\": 5, \"c\": 9}, top=2), [\"c\", \"a\"], \"top=2\")\n\ndef test_top_larger_than_size(ns, check):\n    check(ns[\"leaderboard\"]({\"a\": 1}, top=10), [\"a\"], \"top larger than the board\")\n\ndef test_empty(ns, check):\n    check(ns[\"leaderboard\"]({}), [], \"empty ratings\")\n\ndef test_top_zero(ns, check):\n    check(ns[\"leaderboard\"]({\"a\": 1}, top=0), [], \"top=0\")\n",
+   "timeout_ms": null,
+   "title": "Leaderboard",
+   "type": "task",
+   "variants": [],
+   "world": "tennis"
+  },
+  "l0.comprehensions.loop-to-comprehension": {
+   "complexity": "O(n) each",
+   "concepts": [
+    "list-comprehension",
+    "dict-comprehension",
+    "comprehension-if"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "long_rallies([12, 3, 10, 9])",
+     "expected": "[12, 10]"
+    },
+    {
+     "call": "rating_by_name([('Ada', 1200), ('Byte', 1450)])",
+     "expected": "{'Ada': 1200, 'Byte': 1450}"
+    }
+   ],
+   "explanation_en": "A comprehension states what the result is instead of how to build it, and removes the temporary variable and the append call. For pairs, dict(players) is an even shorter spelling.",
+   "explanation_ru": "Включение описывает, что получится, а не как это собрать, и убирает временную переменную и вызов append. Для пар ещё короче пишется dict(players).",
+   "followups": [
+    "When would you keep the loop instead?",
+    "How should rating_by_name treat duplicate names?"
+   ],
+   "hints_en": [
+    "A filtering loop with append becomes [x for x in items if condition].",
+    "A dict-building loop becomes {key: value for key, value in pairs}.",
+    "Return the comprehension directly; no temporary list or dict is needed."
+   ],
+   "hints_ru": [
+    "Фильтрующий цикл с append становится [x for x in items if condition].",
+    "Цикл, собирающий словарь, становится {key: value for key, value in pairs}.",
+    "Возвращай включение напрямую; временный список или словарь не нужен."
+   ],
+   "id": "l0.comprehensions.loop-to-comprehension",
+   "level": 0,
+   "minutes": 6,
+   "model": null,
+   "module": "l0.comprehensions",
+   "order": 80,
+   "solution": "def long_rallies(rallies):\n    return [r for r in rallies if r >= 10]\n\ndef rating_by_name(players):\n    return {name: rating for name, rating in players}\n",
+   "solution_alt": "def long_rallies(rallies):\n    return [r for r in rallies if r >= 10]\n\ndef rating_by_name(players):\n    return dict(players)\n",
+   "starter": "def long_rallies(rallies):\n    result = []\n    for r in rallies:\n        if r >= 10:\n            result.append(r)\n    return result\n\ndef rating_by_name(players):\n    table = {}\n    for name, rating in players:\n        table[name] = rating\n    return table\n",
+   "statement_en": "Both functions work but build a list and a dict with four-line loops. Rewrite each body as a single comprehension so that no for statement is left in the file. Behaviour must not change.",
+   "story_en": "The sorting machine's manual, written by the previous engineer, builds every list with four lines. Pixel has opinions.",
+   "talk_track": [
+    "Say a comprehension states what the result is, not how to build it.",
+    "Mention the dict comprehension, and that dict(players) also works for pairs."
+   ],
+   "tests": "\ndef test_long_rallies(ns, check):\n    check(ns[\"long_rallies\"]([12, 3, 10, 9]), [12, 10], \"long_rallies([12, 3, 10, 9])\")\n\ndef test_long_rallies_empty(ns, check):\n    check(ns[\"long_rallies\"]([]), [], \"long_rallies([])\")\n\ndef test_rating_by_name(ns, check):\n    check(ns[\"rating_by_name\"]([(\"Ada\", 1200), (\"Byte\", 1450)]), {\"Ada\": 1200, \"Byte\": 1450}, \"rating_by_name\")\n\ndef test_rating_by_name_empty(ns, check):\n    check(ns[\"rating_by_name\"]([]), {}, \"rating_by_name([])\")\n\ndef test_no_for_statements(src, ast_tools, check):\n    check(ast_tools.count_nodes(src, \"For\"), 0, \"no for statements left\")\n\ndef test_uses_comprehension(src, ast_tools, check):\n    check(ast_tools.count_nodes(src, \"ListComp\") >= 1, True, \"a list comprehension is used\")\n",
+   "timeout_ms": null,
+   "title": "Loop to comprehension",
+   "type": "refactor",
+   "variants": [],
+   "world": "tennis"
+  },
+  "l0.comprehensions.sort-the-ranking": {
+   "complexity": null,
+   "concepts": [
+    "sorted-key",
+    "lambda",
+    "reverse-sort"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "The key function tells sorted what to compare; it receives one tuple and returns the rating. reverse flips the order without touching the key.",
+   "explanation_ru": "Функция key говорит sorted, что сравнивать; она получает один кортеж и возвращает рейтинг. reverse переворачивает порядок, не трогая ключ.",
+   "followups": [],
+   "hints_en": [
+    "An inline function is written with the lambda keyword; descending order is reverse=True."
+   ],
+   "hints_ru": [
+    "Встроенная функция пишется через ключевое слово lambda; порядок по убыванию – reverse=True."
+   ],
+   "id": "l0.comprehensions.sort-the-ranking",
+   "level": 0,
+   "minutes": 2,
+   "model": null,
+   "module": "l0.comprehensions",
+   "order": 20,
+   "solution": "players = [(\"Ada\", 1200), (\"Byte\", 1450), (\"Pixel\", 1320)]\nby_rating = sorted(players, key=lambda p: p[1], reverse=True)\nnames = [name for name, rating in by_rating]\n",
+   "solution_alt": null,
+   "starter": "players = [(\"Ada\", 1200), (\"Byte\", 1450), (\"Pixel\", 1320)]\nby_rating = sorted(players, key=___ p: p[1], reverse=___)\nnames = [name for name, rating in by_rating]\n# names == [\"Byte\", \"Pixel\", \"Ada\"]\n",
+   "statement_en": "Fill in the blanks so the players are sorted by rating, highest first, and names come out as Byte, Pixel, Ada.",
+   "story_en": "The academy ranking: highest rating first. Byte is on top and insists it is because of the hat.",
+   "talk_track": [],
+   "tests": "\ndef test_names(ns, check):\n    check(ns[\"names\"], [\"Byte\", \"Pixel\", \"Ada\"], \"names\")\n\ndef test_top_player(ns, check):\n    check(ns[\"by_rating\"][0], (\"Byte\", 1450), \"by_rating[0]\")\n\ndef test_players_untouched(ns, check):\n    check(ns[\"players\"], [(\"Ada\", 1200), (\"Byte\", 1450), (\"Pixel\", 1320)], \"players unchanged\")\n",
+   "timeout_ms": null,
+   "title": "Sort the ranking",
+   "type": "cloze",
+   "variants": [],
+   "world": "tennis"
+  },
+  "l0.comprehensions.top-shorts": {
+   "complexity": "O(n log n)",
+   "concepts": [
+    "list-comprehension",
+    "comprehension-if",
+    "sorted-key",
+    "lambda"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "top_shorts([{'title': 'Lake', 'views': 900, 'seconds': 45}, {'title': 'Long one', 'views': 5000, 'seconds': 300}, {'title': 'Sunrise', 'views': 1200, 'seconds': 58}], 500)",
+     "expected": "['Sunrise', 'Lake']"
+    }
+   ],
+   "explanation_en": "Filter, sort, project: three small steps read better than one clever line. Python's sort is stable, so equal views keep their original order even with reverse=True.",
+   "explanation_ru": "Отфильтровать, отсортировать, спроецировать: три маленьких шага читаются лучше одной хитрой строки. Сортировка в Python устойчива, поэтому равные просмотры сохраняют исходный порядок даже с reverse=True.",
+   "followups": [
+    "How would you add a secondary order by title?",
+    "What if views is missing for some videos?"
+   ],
+   "hints_en": [
+    "Filter first with a comprehension: v['seconds'] <= 60 and v['views'] >= min_views.",
+    "Sort by views descending: key=lambda v: v['views'], reverse=True, or key=lambda v: -v['views'].",
+    "Finally map to titles with another comprehension."
+   ],
+   "hints_ru": [
+    "Сначала отфильтруй включением: v['seconds'] <= 60 and v['views'] >= min_views.",
+    "Отсортируй по просмотрам по убыванию: key=lambda v: v['views'], reverse=True, или key=lambda v: -v['views'].",
+    "В конце вытащи заголовки ещё одним включением."
+   ],
+   "id": "l0.comprehensions.top-shorts",
+   "level": 0,
+   "minutes": 6,
+   "model": null,
+   "module": "l0.comprehensions",
+   "order": 70,
+   "solution": "def top_shorts(videos, min_views):\n    shorts = [v for v in videos if v[\"seconds\"] <= 60 and v[\"views\"] >= min_views]\n    shorts.sort(key=lambda v: v[\"views\"], reverse=True)\n    return [v[\"title\"] for v in shorts]\n",
+   "solution_alt": null,
+   "starter": "def top_shorts(videos, min_views):\n    ...\n",
+   "statement_en": "Write top_shorts(videos, min_views) -> list[str]. videos is a list of dicts with keys 'title', 'views' and 'seconds'. Return the titles of videos that are 60 seconds or shorter and have at least min_views views, ordered by views descending; equal views keep their original order.",
+   "story_en": "Pixel's channel analytics: which Shorts actually worked? The 300-second 'short' is disqualified. Pixel is bitter about it.",
+   "talk_track": [
+    "Say filter, then sort, then project: three small steps beat one clever line.",
+    "Mention Python's sort is stable, so equal views keep their order even with reverse=True."
+   ],
+   "tests": "\nVIDEOS = [\n    {\"title\": \"Lake\", \"views\": 900, \"seconds\": 45},\n    {\"title\": \"Long one\", \"views\": 5000, \"seconds\": 300},\n    {\"title\": \"Sunrise\", \"views\": 1200, \"seconds\": 58},\n    {\"title\": \"Quiet\", \"views\": 100, \"seconds\": 20},\n]\n\ndef test_filter_and_order(ns, check):\n    check(ns[\"top_shorts\"](VIDEOS, 500), [\"Sunrise\", \"Lake\"], \"top_shorts(VIDEOS, 500)\")\n\ndef test_equal_views_keep_order(ns, check):\n    vids = [{\"title\": \"A\", \"views\": 100, \"seconds\": 30}, {\"title\": \"B\", \"views\": 100, \"seconds\": 20}, {\"title\": \"C\", \"views\": 300, \"seconds\": 10}]\n    check(ns[\"top_shorts\"](vids, 0), [\"C\", \"A\", \"B\"], \"stable among equal views\")\n\ndef test_none_qualify(ns, check):\n    check(ns[\"top_shorts\"](VIDEOS, 10000), [], \"nothing reaches 10000 views\")\n\ndef test_exact_limits(ns, check):\n    vids = [{\"title\": \"Edge\", \"views\": 500, \"seconds\": 60}]\n    check(ns[\"top_shorts\"](vids, 500), [\"Edge\"], \"60 seconds and exactly min_views qualify\")\n\ndef test_input_untouched(ns, check):\n    before = [dict(v) for v in VIDEOS]\n    ns[\"top_shorts\"](VIDEOS, 0)\n    check(VIDEOS, before, \"videos list not reordered\")\n",
+   "timeout_ms": null,
+   "title": "Top Shorts",
+   "type": "task",
+   "variants": [],
+   "world": "shorts"
+  },
+  "l0.comprehensions.two-key-sort": {
+   "complexity": null,
+   "concepts": [
+    "sorted-key",
+    "lambda"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [],
+   "explanation_en": "Tuples compare element by element, so a key tuple is a multi-level sort. Negating a number flips just that level while the rest stays ascending.",
+   "explanation_ru": "Кортежи сравниваются поэлементно, поэтому кортеж-ключ – многоуровневая сортировка. Минус переворачивает только этот уровень, остальные идут по возрастанию.",
+   "followups": [],
+   "hints_en": [
+    "sorted goes ascending; put a minus sign in front of a number inside the key tuple to make that field descending."
+   ],
+   "hints_ru": [
+    "sorted идёт по возрастанию; поставь минус перед числом внутри кортежа ключа, чтобы это поле шло по убыванию."
+   ],
+   "id": "l0.comprehensions.two-key-sort",
+   "level": 0,
+   "minutes": 3,
+   "model": null,
+   "module": "l0.comprehensions",
+   "order": 50,
+   "solution": "results = [(\"Ada\", 2, 15), (\"Byte\", 3, 10), (\"Cid\", 2, 20)]\ntable = sorted(results, key=lambda r: (-r[1], -r[2]))\n",
+   "solution_alt": null,
+   "starter": "results = [(\"Ada\", 2, 15), (\"Byte\", 3, 10), (\"Cid\", 2, 20)]   # name, wins, points\ntable = sorted(results, key=lambda r: (___r[1], ___r[2]))\n# most wins first, then most points: Byte, Cid, Ada\n",
+   "statement_en": "Fill in the blanks so the table lists most wins first and, among equal wins, most points first: Byte, Cid, Ada.",
+   "story_en": "Two players have two wins each. Points decide. Pixel says this is called a tie-break and looks very pleased.",
+   "talk_track": [],
+   "tests": "\ndef test_order(ns, check):\n    check([r[0] for r in ns[\"table\"]], [\"Byte\", \"Cid\", \"Ada\"], \"table order\")\n\ndef test_rows_intact(ns, check):\n    check(ns[\"table\"][1], (\"Cid\", 2, 20), \"table[1]\")\n",
+   "timeout_ms": null,
+   "title": "Two-key sort",
+   "type": "cloze",
+   "variants": [],
+   "world": "tennis"
+  },
+  "l0.errors.catch-the-key": {
+   "complexity": null,
+   "concepts": [
+    "key-error",
+    "try-except"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "prices[symbol] raises KeyError for an unknown key; catching that one class returns the fallback and still lets other errors through. prices.get(symbol, 0) would be the one-line alternative.",
+   "explanation_ru": "prices[symbol] бросает KeyError для неизвестного ключа; ловля именно этого класса возвращает запасное значение и пропускает другие ошибки дальше. Однострочная альтернатива – prices.get(symbol, 0).",
+   "followups": [],
+   "hints_en": [
+    "A missing dictionary key raises KeyError. Catch exactly that class."
+   ],
+   "hints_ru": [
+    "Отсутствующий ключ словаря бросает KeyError. Лови ровно этот класс."
+   ],
+   "id": "l0.errors.catch-the-key",
+   "level": 0,
+   "minutes": 2,
+   "model": null,
+   "module": "l0.errors",
+   "order": 20,
+   "solution": "prices = {\"BTC\": 68000, \"ETH\": 3500}\n\ndef price_of(symbol):\n    try:\n        return prices[symbol]\n    except KeyError:\n        return 0\n",
+   "solution_alt": null,
+   "starter": "prices = {\"BTC\": 68000, \"ETH\": 3500}\n\ndef price_of(symbol):\n    try:\n        return prices[symbol]\n    except ___:\n        return 0\n\n# price_of(\"ETH\") -> 3500,  price_of(\"DOGE\") -> 0\n",
+   "statement_en": "Fill in the exception class so that price_of('DOGE') returns 0 instead of crashing, while price_of('ETH') still returns 3500.",
+   "story_en": "Dr. Candle keeps asking for coins that do not exist yet. The dictionary used to scream. Now it says zero.",
+   "talk_track": [],
+   "tests": "\ndef test_known(ns, check):\n    check(ns[\"price_of\"](\"ETH\"), 3500, \"price_of('ETH')\")\n\ndef test_unknown(ns, check):\n    check(ns[\"price_of\"](\"DOGE\"), 0, \"price_of('DOGE')\")\n\ndef test_catches_key_error_only(src, ast_tools, check):\n    check(ast_tools.uses_name(src, \"KeyError\"), True, \"except names KeyError\")\n",
+   "timeout_ms": null,
+   "title": "Catch the key",
+   "type": "cloze",
+   "variants": [],
+   "world": "bybit"
+  },
+  "l0.errors.else-and-finally": {
+   "complexity": null,
+   "concepts": [
+    "except-else-finally",
+    "try-except"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [],
+   "explanation_en": "else runs only on success and keeps the happy path out of the try body; finally runs on every exit, including return, which is why 'done' appears in both logs.",
+   "explanation_ru": "else выполняется только при успехе и выносит счастливый путь из тела try; finally выполняется при любом выходе, включая return, поэтому 'done' есть в обоих журналах.",
+   "followups": [],
+   "hints_en": [
+    "The no-exception block is else; the always block is finally. Order in the code: try, except, else, finally."
+   ],
+   "hints_ru": [
+    "Блок без исключения – else; блок «всегда» – finally. Порядок в коде: try, except, else, finally."
+   ],
+   "id": "l0.errors.else-and-finally",
+   "level": 0,
+   "minutes": 3,
+   "model": null,
+   "module": "l0.errors",
+   "order": 30,
+   "solution": "log = []\n\ndef divide(a, b):\n    try:\n        result = a / b\n    except ZeroDivisionError:\n        log.append(\"division by zero\")\n        return None\n    else:\n        log.append(\"ok\")\n        return result\n    finally:\n        log.append(\"done\")\n",
+   "solution_alt": null,
+   "starter": "log = []\n\ndef divide(a, b):\n    try:\n        result = a / b\n    except ZeroDivisionError:\n        log.append(\"division by zero\")\n        return None\n    ___:\n        log.append(\"ok\")\n        return result\n    ___:\n        log.append(\"done\")\n\n# divide(6, 3) -> 2.0, log == [\"ok\", \"done\"]\n# divide(1, 0) -> None, log gains [\"division by zero\", \"done\"]\n",
+   "statement_en": "Fill in the two keywords: one block runs only when no exception happened, the other runs always, even after a return. divide(6, 3) logs 'ok' then 'done'; divide(1, 0) logs 'division by zero' then 'done'.",
+   "story_en": "Pixel logs everything. Especially the parts that worked. Especially the parts that always run.",
+   "talk_track": [],
+   "tests": "\ndef test_success_then_failure(ns, check):\n    ns[\"log\"].clear()\n    check(ns[\"divide\"](6, 3), 2.0, \"divide(6, 3)\")\n    check(list(ns[\"log\"]), [\"ok\", \"done\"], \"log after a successful division\")\n    check(ns[\"divide\"](1, 0), None, \"divide(1, 0)\")\n    check(list(ns[\"log\"]), [\"ok\", \"done\", \"division by zero\", \"done\"], \"log after dividing by zero\")\n",
+   "timeout_ms": null,
+   "title": "else and finally",
+   "type": "cloze",
+   "variants": [],
+   "world": "neutral"
+  },
+  "l0.errors.group-with-setdefault": {
+   "complexity": null,
+   "concepts": [
+    "setdefault",
+    "dict-basics"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "setdefault merges 'create if missing' and 'get' into one call, so grouping is a single line per item. collections.defaultdict(list) is the next step up.",
+   "explanation_ru": "setdefault объединяет «создать, если нет» и «получить» в один вызов, поэтому группировка – одна строка на элемент. Следующий шаг – collections.defaultdict(list).",
+   "followups": [],
+   "hints_en": [
+    "dict.setdefault(key, default) returns the value for key, inserting default first if the key is missing."
+   ],
+   "hints_ru": [
+    "dict.setdefault(key, default) возвращает значение по ключу, предварительно вставив default, если ключа не было."
+   ],
+   "id": "l0.errors.group-with-setdefault",
+   "level": 0,
+   "minutes": 2,
+   "model": null,
+   "module": "l0.errors",
+   "order": 50,
+   "solution": "trades = [(\"BTC\", 1), (\"ETH\", 2), (\"BTC\", 3)]\nby_symbol = {}\nfor symbol, qty in trades:\n    by_symbol.setdefault(symbol, []).append(qty)\n",
+   "solution_alt": null,
+   "starter": "trades = [(\"BTC\", 1), (\"ETH\", 2), (\"BTC\", 3)]\nby_symbol = {}\nfor symbol, qty in trades:\n    by_symbol.___(symbol, []).append(qty)\n# by_symbol == {\"BTC\": [1, 3], \"ETH\": [2]}\n",
+   "statement_en": "Fill in the dict method that returns the existing list for a key, or stores and returns a new empty list when the key is new.",
+   "story_en": "Grouping trades by coin without the if-key-not-in-dict dance. Pixel calls that dance 'the beginner shuffle'.",
+   "talk_track": [],
+   "tests": "\ndef test_groups(ns, check):\n    check(ns[\"by_symbol\"], {\"BTC\": [1, 3], \"ETH\": [2]}, \"by_symbol\")\n\ndef test_uses_setdefault(src, ast_tools, check):\n    check(ast_tools.count_calls(src, \"setdefault\") >= 1, True, \"setdefault is used\")\n",
+   "timeout_ms": null,
+   "title": "Group with setdefault",
+   "type": "cloze",
+   "variants": [],
+   "world": "bybit"
+  },
+  "l0.errors.raise-your-own": {
+   "complexity": null,
+   "concepts": [
+    "raise",
+    "value-error",
+    "early-return"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "Guard clauses at the top fail fast with a message the caller can show. ValueError is the conventional class for 'right type, wrong value'.",
+   "explanation_ru": "Проверки в начале быстро падают с сообщением, которое можно показать вызывающему. ValueError – принятый класс для «тип верный, значение неверное».",
+   "followups": [],
+   "hints_en": [
+    "raise ValueError('message') stops the function immediately; put the guards before the real work."
+   ],
+   "hints_ru": [
+    "raise ValueError('сообщение') немедленно останавливает функцию; ставь проверки до основной работы."
+   ],
+   "id": "l0.errors.raise-your-own",
+   "level": 0,
+   "minutes": 3,
+   "model": "def withdraw(balance, amount):\n    if amount <= 0:\n        raise ValueError(\"amount must be positive\")\n    if amount > balance:\n        raise ValueError(\"insufficient funds\")\n    return balance - amount\n",
+   "module": "l0.errors",
+   "order": 40,
+   "solution": "def withdraw(balance, amount):\n    if amount <= 0:\n        raise ValueError(\"amount must be positive\")\n    if amount > balance:\n        raise ValueError(\"insufficient funds\")\n    return balance - amount\n",
+   "solution_alt": null,
+   "starter": "",
+   "statement_en": "Retype the function: two guard clauses that raise ValueError with precise messages, then the normal path.",
+   "story_en": "Dr. Candle tried to withdraw minus forty dollars 'as an experiment'. The function now has boundaries.",
+   "talk_track": [],
+   "tests": "\ndef test_normal(ns, check):\n    check(ns[\"withdraw\"](100, 30), 70, \"withdraw(100, 30)\")\n\ndef test_non_positive(ns, check, raises):\n    err = raises(ValueError, ns[\"withdraw\"], 100, 0)\n    check(str(err), \"amount must be positive\", \"message for amount 0\")\n\ndef test_insufficient(ns, check, raises):\n    err = raises(ValueError, ns[\"withdraw\"], 10, 50)\n    check(str(err), \"insufficient funds\", \"message for overdraft\")\n",
+   "timeout_ms": null,
+   "title": "Raise your own",
+   "type": "retype",
+   "variants": [],
+   "world": "bybit"
+  },
+  "l0.errors.robust-average": {
+   "complexity": "O(n)",
+   "concepts": [
+    "try-except",
+    "value-error",
+    "sum",
+    "eafp-lbyl"
+   ],
+   "diagnostic": true,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "average_price(['1.5', '2.5'])",
+     "expected": "2.0"
+    },
+    {
+     "call": "average_price(['n/a', '3'])",
+     "expected": "3.0"
+    },
+    {
+     "call": "average_price([])",
+     "expected": "None"
+    }
+   ],
+   "explanation_en": "EAFP beats inspection here: float() already knows every valid spelling, including '-1' and '1e3', which an isdigit check would reject. Handling the empty case first avoids ZeroDivisionError.",
+   "explanation_ru": "Здесь EAFP лучше проверок: float() уже знает все допустимые записи, включая '-1' и '1e3', которые отверг бы isdigit. Обработка пустого случая первой избавляет от ZeroDivisionError.",
+   "followups": [
+    "Should 'nan' and 'inf' count as valid? float accepts them.",
+    "How would you also report how many values were skipped?"
+   ],
+   "hints_en": [
+    "Wrap float(text) in try/except ValueError and skip the bad ones with continue.",
+    "Collect the valid floats in a list; if that list is empty, return None before dividing.",
+    "round(sum(valid) / len(valid), 2) is the answer."
+   ],
+   "hints_ru": [
+    "Оберни float(text) в try/except ValueError и пропускай плохие через continue.",
+    "Собирай валидные float в список; если список пуст, верни None до деления.",
+    "Ответ – round(sum(valid) / len(valid), 2)."
+   ],
+   "id": "l0.errors.robust-average",
+   "level": 0,
+   "minutes": 6,
+   "model": null,
+   "module": "l0.errors",
+   "order": 60,
+   "solution": "def average_price(values):\n    valid = []\n    for text in values:\n        try:\n            valid.append(float(text))\n        except ValueError:\n            continue\n    if not valid:\n        return None\n    return round(sum(valid) / len(valid), 2)\n",
+   "solution_alt": null,
+   "starter": "def average_price(values):\n    ...\n",
+   "statement_en": "Write average_price(values) -> float | None. values is a list of strings from a price feed. Convert each to a float with try/except, skipping the ones that are not valid numbers. Return the average of the valid ones rounded to 2 decimals, or None when there are no valid numbers.",
+   "story_en": "Dr. Candle's feed at 3 a.m.: '68000', 'n/a', '67950', 'reconnecting...'. The average must still come out.",
+   "talk_track": [
+    "Say EAFP: try to convert, catch ValueError, skip; it accepts '-1' and '1e3' that isdigit would reject.",
+    "Mention the empty case first: the average of nothing is None, not a ZeroDivisionError.",
+    "Complexity O(n)."
+   ],
+   "tests": "\ndef test_simple(ns, check):\n    check(ns[\"average_price\"]([\"1.5\", \"2.5\"]), 2.0, \"average_price(['1.5', '2.5'])\")\n\ndef test_skips_garbage(ns, check):\n    check(ns[\"average_price\"]([\"n/a\", \"3\", \"reconnecting...\"]), 3.0, \"garbage skipped\")\n\ndef test_empty(ns, check):\n    check(ns[\"average_price\"]([]), None, \"average_price([])\")\n\ndef test_all_garbage(ns, check):\n    check(ns[\"average_price\"]([\"a\", \"b\"]), None, \"nothing valid\")\n\ndef test_rounding(ns, check):\n    check(ns[\"average_price\"]([\"1\", \"2\", \"4\"]), 2.33, \"rounded to 2 decimals\")\n\ndef test_negative_and_scientific(ns, check):\n    check(ns[\"average_price\"]([\"-1\", \"3\", \"1e1\"]), 4.0, \"'-1' and '1e1' are valid floats\")\n\ndef test_uses_try(src, ast_tools, check):\n    check(ast_tools.has_try(src), True, \"uses try/except\")\n",
+   "timeout_ms": null,
+   "title": "Robust average",
+   "type": "task",
+   "variants": [],
+   "world": "bybit"
+  },
+  "l0.errors.safe-parse": {
+   "complexity": null,
+   "concepts": [
+    "try-except",
+    "value-error",
+    "index-error"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "This is EAFP: try the operation, catch the one failure you expect, return a fallback. Catching the specific class keeps real bugs (a typo, a None) visible.",
+   "explanation_ru": "Это EAFP: попробуй операцию, поймай единственный ожидаемый сбой, верни запасное значение. Ловля конкретного класса оставляет настоящие баги (опечатку, None) на виду.",
+   "followups": [],
+   "hints_en": [
+    "float('n/a') raises ValueError; [][0] raises IndexError. The except line names the class without quotes."
+   ],
+   "hints_ru": [
+    "float('n/a') бросает ValueError; [][0] бросает IndexError. Строка except называет класс без кавычек."
+   ],
+   "id": "l0.errors.safe-parse",
+   "level": 0,
+   "minutes": 3,
+   "model": "def parse_price(text):\n    try:\n        return float(text)\n    except ValueError:\n        return None\n\ndef first_or_default(items, default=\"none\"):\n    try:\n        return items[0]\n    except IndexError:\n        return default\n",
+   "module": "l0.errors",
+   "order": 10,
+   "solution": "def parse_price(text):\n    try:\n        return float(text)\n    except ValueError:\n        return None\n\ndef first_or_default(items, default=\"none\"):\n    try:\n        return items[0]\n    except IndexError:\n        return default\n",
+   "solution_alt": null,
+   "starter": "",
+   "statement_en": "Retype both functions: each tries the risky operation and returns a fallback for exactly one expected exception.",
+   "story_en": "Dr. Candle's feed sends 'n/a' at 3 a.m. The bot used to sink at 3 a.m. Now it shrugs.",
+   "talk_track": [],
+   "tests": "\ndef test_parse_valid(ns, check):\n    check((ns[\"parse_price\"](\"3.5\"), ns[\"parse_price\"](\"42\")), (3.5, 42.0), \"parse_price on valid text\")\n\ndef test_parse_invalid(ns, check):\n    check(ns[\"parse_price\"](\"n/a\"), None, \"parse_price('n/a')\")\n\ndef test_first_or_default(ns, check):\n    check((ns[\"first_or_default\"]([]), ns[\"first_or_default\"]([7])), (\"none\", 7), \"first_or_default\")\n\ndef test_custom_default(ns, check):\n    check(ns[\"first_or_default\"]([], default=0), 0, \"first_or_default([], default=0)\")\n",
+   "timeout_ms": null,
+   "title": "Safe parse",
+   "type": "retype",
+   "variants": [],
+   "world": "bybit"
+  },
+  "l0.errors.validate-order": {
+   "complexity": "O(1)",
+   "concepts": [
+    "raise",
+    "value-error",
+    "dict-get",
+    "key-error"
+   ],
+   "diagnostic": false,
+   "difficulty": 3,
+   "examples": [
+    {
+     "call": "validate_order({'symbol': 'btc', 'qty': 2, 'side': 'Buy'})",
+     "expected": "{'symbol': 'BTC', 'qty': 2.0, 'side': 'buy'}"
+    }
+   ],
+   "explanation_en": "Validate in a fixed order and fail fast with a precise message, so the caller knows what to fix first. bool is a subclass of int, so isinstance(True, int) is True: exclude it explicitly. Returning a new dict keeps the function pure.",
+   "explanation_ru": "Проверяй в фиксированном порядке и падай быстро с точным сообщением, чтобы вызывающий знал, что чинить первым. bool – подкласс int, поэтому isinstance(True, int) истинно: исключай его явно. Новый словарь на выходе сохраняет функцию чистой.",
+   "followups": [
+    "How would you collect every problem instead of raising at the first?",
+    "Would a dataclass with __post_init__ be a better home for these rules?"
+   ],
+   "hints_en": [
+    "Read with order.get(key) so a missing key becomes None instead of KeyError, then validate the value.",
+    "Raise ValueError('message') as soon as a check fails; the order is symbol, qty, side.",
+    "Normalise at the end: symbol.upper(), float(qty), side.lower(); build and return a new dict."
+   ],
+   "hints_ru": [
+    "Читай через order.get(key), чтобы отсутствующий ключ стал None, а не KeyError, затем проверяй значение.",
+    "Бросай ValueError('message'), как только проверка не прошла; порядок: symbol, qty, side.",
+    "Нормализуй в конце: symbol.upper(), float(qty), side.lower(); собери и верни новый словарь."
+   ],
+   "id": "l0.errors.validate-order",
+   "level": 0,
+   "minutes": 8,
+   "model": null,
+   "module": "l0.errors",
+   "order": 70,
+   "solution": "def validate_order(order):\n    symbol = order.get(\"symbol\")\n    if not isinstance(symbol, str) or not symbol:\n        raise ValueError(\"symbol is required\")\n    qty = order.get(\"qty\")\n    if isinstance(qty, bool) or not isinstance(qty, (int, float)) or qty <= 0:\n        raise ValueError(\"qty must be positive\")\n    side = order.get(\"side\")\n    if not isinstance(side, str) or side.lower() not in (\"buy\", \"sell\"):\n        raise ValueError(\"side must be buy or sell\")\n    return {\"symbol\": symbol.upper(), \"qty\": float(qty), \"side\": side.lower()}\n",
+   "solution_alt": null,
+   "starter": "def validate_order(order):\n    ...\n",
+   "statement_en": "Write validate_order(order) -> dict. order is a dict that should contain 'symbol' (a non-empty str), 'qty' (an int or float greater than 0, and not a bool) and 'side' ('buy' or 'sell' in any letter case). Check in that order and raise ValueError with exactly these messages: 'symbol is required', 'qty must be positive', 'side must be buy or sell'. Return a new dict {'symbol': symbol upper-cased, 'qty': float(qty), 'side': side lower-cased} and do not modify the input.",
+   "story_en": "Dr. Candle's bot once bought minus two BTC of a coin named ''. The exchange was confused. So was Dr. Candle.",
+   "talk_track": [
+    "Say you validate in a fixed order and fail fast with precise messages.",
+    "Mention .get avoids KeyError, so missing and empty are handled by one check.",
+    "Point out that bool is an int subclass and needs an explicit exclusion."
+   ],
+   "tests": "\ndef test_happy_path(ns, check):\n    check(ns[\"validate_order\"]({\"symbol\": \"btc\", \"qty\": 2, \"side\": \"Buy\"}),\n          {\"symbol\": \"BTC\", \"qty\": 2.0, \"side\": \"buy\"}, \"normalised order\")\n\ndef test_missing_symbol(ns, check, raises):\n    check(str(raises(ValueError, ns[\"validate_order\"], {\"qty\": 1, \"side\": \"buy\"})), \"symbol is required\", \"missing symbol\")\n\ndef test_empty_symbol(ns, check, raises):\n    check(str(raises(ValueError, ns[\"validate_order\"], {\"symbol\": \"\", \"qty\": 1, \"side\": \"buy\"})), \"symbol is required\", \"empty symbol\")\n\ndef test_bad_qty(ns, check, raises):\n    for qty in (0, -1, \"2\", None, True):\n        check(str(raises(ValueError, ns[\"validate_order\"], {\"symbol\": \"ETH\", \"qty\": qty, \"side\": \"sell\"})),\n              \"qty must be positive\", f\"qty={qty!r}\")\n\ndef test_bad_side(ns, check, raises):\n    check(str(raises(ValueError, ns[\"validate_order\"], {\"symbol\": \"ETH\", \"qty\": 1, \"side\": \"hold\"})), \"side must be buy or sell\", \"side hold\")\n    check(str(raises(ValueError, ns[\"validate_order\"], {\"symbol\": \"ETH\", \"qty\": 1})), \"side must be buy or sell\", \"side missing\")\n\ndef test_check_order(ns, check, raises):\n    check(str(raises(ValueError, ns[\"validate_order\"], {\"qty\": 0})), \"symbol is required\", \"symbol is checked first\")\n\ndef test_input_untouched(ns, check):\n    order = {\"symbol\": \"eth\", \"qty\": 1.5, \"side\": \"SELL\"}\n    out = ns[\"validate_order\"](order)\n    check(out, {\"symbol\": \"ETH\", \"qty\": 1.5, \"side\": \"sell\"}, \"sell order\")\n    check(order, {\"symbol\": \"eth\", \"qty\": 1.5, \"side\": \"SELL\"}, \"input dict unchanged\")\n",
+   "timeout_ms": null,
+   "title": "Validate an order",
+   "type": "task",
+   "variants": [],
+   "world": "bybit"
+  },
+  "l0.functions.cat-years": {
+   "complexity": "O(1)",
+   "concepts": [
+    "def-return",
+    "early-return",
+    "call-function"
+   ],
+   "diagnostic": true,
+   "difficulty": 1,
+   "examples": [
+    {
+     "call": "cat_age(1)",
+     "expected": "15"
+    },
+    {
+     "call": "cat_age(3)",
+     "expected": "28"
+    },
+    {
+     "call": "cat_age(0)",
+     "expected": "0"
+    }
+   ],
+   "explanation_en": "Special cases first, general formula last: the reader sees the exceptions and then the rule. Because every branch returns, no else chain is needed.",
+   "explanation_ru": "Сначала особые случаи, в конце общая формула: читатель видит исключения, потом правило. Каждая ветка возвращает значение, поэтому цепочка else не нужна.",
+   "followups": [
+    "What should happen for a negative input?",
+    "How would you make the 15/9/4 constants configurable?"
+   ],
+   "hints_en": [
+    "Handle the small cases first: 0 -> 0, 1 -> 15, 2 -> 24. Each gets its own early return.",
+    "For human_years > 2 the answer is 24 + 4 * (human_years - 2).",
+    "Three ifs with returns, then one return with the formula. No else needed."
+   ],
+   "hints_ru": [
+    "Сначала разберись с маленькими случаями: 0 -> 0, 1 -> 15, 2 -> 24. Каждому – свой ранний return.",
+    "Для human_years > 2 ответ 24 + 4 * (human_years - 2).",
+    "Три if с return, затем один return с формулой. else не нужен."
+   ],
+   "id": "l0.functions.cat-years",
+   "level": 0,
+   "minutes": 5,
+   "model": null,
+   "module": "l0.functions",
+   "order": 60,
+   "solution": "def cat_age(human_years):\n    if human_years == 0:\n        return 0\n    if human_years == 1:\n        return 15\n    if human_years == 2:\n        return 24\n    return 24 + 4 * (human_years - 2)\n",
+   "solution_alt": "def cat_age(human_years):\n    steps = [15, 9]\n    return sum(steps[:human_years]) + 4 * max(0, human_years - 2)\n",
+   "starter": "def cat_age(human_years):\n    ...\n",
+   "statement_en": "Pixel the cat demands a birthday card in cat years. Write cat_age(human_years) -> int. The first human year counts as 15 cat years, the second adds 9, and every year after that adds 4. Zero human years is zero cat years. human_years is a non-negative int.",
+   "story_en": "Pixel's birthday card must say the right age, or the card goes under the sofa with the other mistakes.",
+   "talk_track": [
+    "Restate: piecewise formula with two special years.",
+    "Call out the edge case zero before writing code.",
+    "Say the function is O(1) and has no loops."
+   ],
+   "tests": "\ndef test_zero(ns, check):\n    check(ns[\"cat_age\"](0), 0, \"cat_age(0)\")\n\ndef test_first_year(ns, check):\n    check(ns[\"cat_age\"](1), 15, \"cat_age(1)\")\n\ndef test_second_year(ns, check):\n    check(ns[\"cat_age\"](2), 24, \"cat_age(2)\")\n\ndef test_third_year(ns, check):\n    check(ns[\"cat_age\"](3), 28, \"cat_age(3)\")\n\ndef test_ten_years(ns, check):\n    check(ns[\"cat_age\"](10), 56, \"cat_age(10)\")\n\ndef test_returns_int(ns, check):\n    check(type(ns[\"cat_age\"](7)), int, \"type(cat_age(7))\")\n",
+   "timeout_ms": null,
+   "title": "Cat years",
+   "type": "task",
+   "variants": [],
+   "world": "everyday"
+  },
+  "l0.functions.default-greeting": {
+   "complexity": null,
+   "concepts": [
+    "default-args",
+    "def-return"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "A default argument fills in when the caller passes nothing; an explicit argument overrides it.",
+   "explanation_ru": "Аргумент по умолчанию подставляется, когда вызывающий ничего не передал; явный аргумент его перекрывает.",
+   "followups": [],
+   "hints_en": [
+    "The blank is a default value for greeting, so it must be a string literal."
+   ],
+   "hints_ru": [
+    "Пропуск – это значение по умолчанию для greeting, значит там строковый литерал."
+   ],
+   "id": "l0.functions.default-greeting",
+   "level": 0,
+   "minutes": 2,
+   "model": null,
+   "module": "l0.functions",
+   "order": 20,
+   "solution": "def welcome(name, greeting=\"Ahoy\"):\n    return f\"{greeting}, {name}!\"\n",
+   "solution_alt": null,
+   "starter": "def welcome(name, greeting=___):\n    return f\"{greeting}, {name}!\"\n\n# welcome(\"Pixel\")        -> \"Ahoy, Pixel!\"\n# welcome(\"Pixel\", \"Hi\")  -> \"Hi, Pixel!\"\n",
+   "statement_en": "Pirates say 'Ahoy' unless told otherwise. Fill in the blank so that welcome('Pixel') returns 'Ahoy, Pixel!' and welcome('Pixel', 'Hi') returns 'Hi, Pixel!'.",
+   "story_en": "Nobody on Byte's ship says 'Hello'. It is 'Ahoy' or nothing, unless the captain insists otherwise.",
+   "talk_track": [],
+   "tests": "\ndef test_default(ns, check):\n    check(ns[\"welcome\"](\"Pixel\"), \"Ahoy, Pixel!\", \"welcome('Pixel')\")\n\ndef test_override(ns, check):\n    check(ns[\"welcome\"](\"Pixel\", \"Hi\"), \"Hi, Pixel!\", \"welcome('Pixel', 'Hi')\")\n\ndef test_keyword(ns, check):\n    check(ns[\"welcome\"](\"Byte\", greeting=\"Yo\"), \"Yo, Byte!\", \"welcome('Byte', greeting='Yo')\")\n",
+   "timeout_ms": null,
+   "title": "Ahoy by default",
+   "type": "cloze",
+   "variants": [],
+   "world": "game"
+  },
+  "l0.functions.early-exit": {
+   "complexity": null,
+   "concepts": [
+    "early-return",
+    "def-return"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "Early return handles the exception first, then the normal rule stands alone. Returning has_ticket directly beats 'if has_ticket: return True else: return False'.",
+   "explanation_ru": "Ранний return сначала обрабатывает исключение из правила, а потом остаётся само правило. Вернуть has_ticket напрямую лучше, чем писать if has_ticket: return True else: return False.",
+   "followups": [],
+   "hints_en": [
+    "The first blank is a value for the special case. The second blank is the ticket itself: has_ticket is already a bool."
+   ],
+   "hints_ru": [
+    "Первый пропуск – значение для особого случая. Второй пропуск – сам билет: has_ticket уже является bool."
+   ],
+   "id": "l0.functions.early-exit",
+   "level": 0,
+   "minutes": 3,
+   "model": null,
+   "module": "l0.functions",
+   "order": 30,
+   "solution": "def can_board(age, has_ticket):\n    \"\"\"Under 12: never. Otherwise: only with a ticket.\"\"\"\n    if age < 12:\n        return False\n    return has_ticket\n",
+   "solution_alt": null,
+   "starter": "def can_board(age, has_ticket):\n    \"\"\"Under 12: never. Otherwise: only with a ticket.\"\"\"\n    if age < 12:\n        return ___\n    return ___\n",
+   "statement_en": "The pirate cruise has two rules: nobody under 12 boards, everyone else needs a ticket. Fill in both blanks so can_board returns True or False accordingly.",
+   "story_en": "The pirate cruise has a bouncer: a very large crab with a clipboard and two rules.",
+   "talk_track": [],
+   "tests": "\ndef test_too_young(ns, check):\n    check(ns[\"can_board\"](8, True), False, \"can_board(8, True)\")\n\ndef test_adult_with_ticket(ns, check):\n    check(ns[\"can_board\"](30, True), True, \"can_board(30, True)\")\n\ndef test_adult_without_ticket(ns, check):\n    check(ns[\"can_board\"](30, False), False, \"can_board(30, False)\")\n\ndef test_exactly_twelve(ns, check):\n    check(ns[\"can_board\"](12, True), True, \"can_board(12, True)\")\n\ndef test_returns_bool(ns, check):\n    check(type(ns[\"can_board\"](40, False)), bool, \"type(can_board(40, False))\")\n",
+   "timeout_ms": null,
+   "title": "Who boards the pirate cruise",
+   "type": "cloze",
+   "variants": [],
+   "world": "game"
+  },
+  "l0.functions.extract-helper": {
+   "complexity": "O(n) in the number of items",
+   "concepts": [
+    "extract-function",
+    "def-return",
+    "call-function"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "print_receipt([('tea', 2, 1.5), ('milk', 1, 2.25), ('bread', 3, 0.8)])",
+     "prints": "tea        x 2     3.00\nmilk       x 1     2.25\nbread      x 3     2.40"
+    }
+   ],
+   "explanation_en": "Repetition is the cue for a function: the shared part becomes the body, the differences become parameters. The helper returns the string instead of printing, so it is testable and reusable. The loop with tuple unpacking also removes the hidden assumption of exactly three items.",
+   "explanation_ru": "Повтор – сигнал к функции: общее уходит в тело, различия становятся параметрами. Вспомогательная функция возвращает строку, а не печатает, поэтому её можно проверить тестом и переиспользовать. Цикл с распаковкой кортежа заодно убирает скрытое допущение о ровно трёх позициях.",
+   "followups": [
+    "Where would you add a total line?",
+    "What if an item has a quantity of zero?"
+   ],
+   "hints_en": [
+    "Find the three lines that differ only in the data they use: the index 0, 1, 2.",
+    "Define format_line(name, qty, price) above print_receipt and make it return the f-string, not print it.",
+    "Replace the three prints with: for name, qty, price in items: print(format_line(name, qty, price))."
+   ],
+   "hints_ru": [
+    "Найди три строки, которые отличаются только данными: индексами 0, 1, 2.",
+    "Объяви format_line(name, qty, price) над print_receipt и верни из неё f-строку, а не печатай.",
+    "Замени три print одним циклом: for name, qty, price in items: print(format_line(name, qty, price))."
+   ],
+   "id": "l0.functions.extract-helper",
+   "level": 0,
+   "minutes": 6,
+   "model": null,
+   "module": "l0.functions",
+   "order": 80,
+   "solution": "def format_line(name, qty, price):\n    return f\"{name:<10} x{qty:>2}  {qty * price:>7.2f}\"\n\ndef print_receipt(items):\n    for name, qty, price in items:\n        print(format_line(name, qty, price))\n",
+   "solution_alt": null,
+   "starter": "def print_receipt(items):\n    print(f\"{items[0][0]:<10} x{items[0][1]:>2}  {items[0][1] * items[0][2]:>7.2f}\")\n    print(f\"{items[1][0]:<10} x{items[1][1]:>2}  {items[1][1] * items[1][2]:>7.2f}\")\n    print(f\"{items[2][0]:<10} x{items[2][1]:>2}  {items[2][1] * items[2][2]:>7.2f}\")\n",
+   "statement_en": "print_receipt(items) prints a receipt; items is a list of (name, qty, price) tuples. Three lines of the function are copy-pasted. Extract the repeated formatting into a helper format_line(name, qty, price) that returns the string, and make print_receipt a loop with a single print call. The printed output must not change.",
+   "story_en": "Grandma Ada's receipt printer prints three lines. She would like to buy a fourth item someday.",
+   "talk_track": [
+    "Name what repeats and what varies between the three lines.",
+    "Say the helper returns a string, so it is easy to unit-test.",
+    "Mention the loop removes the hard-coded assumption of exactly three items."
+   ],
+   "tests": "\nITEMS = [(\"tea\", 2, 1.5), (\"milk\", 1, 2.25), (\"bread\", 3, 0.8)]\n\ndef test_helper_defined(ns, check):\n    check(callable(ns.get(\"format_line\")), True, \"format_line is defined\")\n\ndef test_helper_returns_line(ns, check):\n    check(ns[\"format_line\"](\"tea\", 2, 1.5), \"tea        x 2     3.00\", \"format_line('tea', 2, 1.5)\")\n\ndef test_output_unchanged(ns, check, capture):\n    out = capture(ns[\"print_receipt\"], ITEMS)\n    check(out.splitlines(),\n          [\"tea        x 2     3.00\", \"milk       x 1     2.25\", \"bread      x 3     2.40\"],\n          \"printed lines\")\n\ndef test_works_for_four_items(ns, check, capture):\n    out = capture(ns[\"print_receipt\"], ITEMS + [(\"jam\", 1, 4.0)])\n    check(len(out.splitlines()), 4, \"four items print four lines\")\n\ndef test_duplication_removed(src, ast_tools, check):\n    check(ast_tools.count_calls(src, \"format_line\") >= 1, True, \"print_receipt calls format_line\")\n    check(ast_tools.count_fstrings(src) <= 1, True, \"only one f-string is left\")\n    check(ast_tools.count_calls(src, \"print\") <= 1, True, \"a single print call inside a loop\")\n    check(ast_tools.has_loop(src), True, \"print_receipt uses a loop\")\n",
+   "timeout_ms": null,
+   "title": "Extract the repeated receipt line",
+   "type": "refactor",
+   "variants": [],
+   "world": "everyday"
+  },
+  "l0.functions.greet-the-crew": {
+   "complexity": null,
+   "concepts": [
+    "def-return",
+    "default-args",
+    "docstring",
+    "call-function"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "greet returns a string instead of printing it, so the caller decides what to do with it. The second call passes excitement by keyword, which reads better than a bare 3.",
+   "explanation_ru": "greet возвращает строку, а не печатает её, поэтому решает вызывающий код. Во втором вызове excitement передан по имени: так читается лучше, чем голая тройка.",
+   "followups": [],
+   "hints_en": [
+    "The default value lives in the def line: excitement=1. A string times a number repeats it: '!' * 3 is '!!!'."
+   ],
+   "hints_ru": [
+    "Умолчание живёт в строке def: excitement=1. Строка, умноженная на число, повторяется: '!' * 3 даёт '!!!'."
+   ],
+   "id": "l0.functions.greet-the-crew",
+   "level": 0,
+   "minutes": 3,
+   "model": "def greet(name, excitement=1):\n    \"\"\"Return a greeting; more excitement means more exclamation marks.\"\"\"\n    return \"Hello, \" + name + \"!\" * excitement\n\nprint(greet(\"Pixel\"))\nprint(greet(\"Captain Byte\", excitement=3))\n",
+   "module": "l0.functions",
+   "order": 10,
+   "solution": "def greet(name, excitement=1):\n    \"\"\"Return a greeting; more excitement means more exclamation marks.\"\"\"\n    return \"Hello, \" + name + \"!\" * excitement\n\nprint(greet(\"Pixel\"))\nprint(greet(\"Captain Byte\", excitement=3))\n",
+   "solution_alt": null,
+   "starter": "",
+   "statement_en": "Captain Byte's ship greets every new crew member. Retype the snippet exactly as shown: a function with a docstring and a default argument, called twice. Typing it by hand is the point – no pasting.",
+   "story_en": "Captain Byte's parrot used to greet the crew. The parrot retired. You are the parrot now.",
+   "talk_track": [],
+   "tests": "\ndef test_greet_default(ns, check):\n    check(ns[\"greet\"](\"Pixel\"), \"Hello, Pixel!\", \"greet('Pixel')\")\n\ndef test_greet_excited(ns, check):\n    check(ns[\"greet\"](\"Captain Byte\", excitement=3), \"Hello, Captain Byte!!!\", \"greet('Captain Byte', excitement=3)\")\n\ndef test_has_docstring(ns, check):\n    check(bool(ns[\"greet\"].__doc__), True, \"greet has a docstring\")\n\ndef test_printed_lines(stdout, check):\n    check(stdout.strip().splitlines(), [\"Hello, Pixel!\", \"Hello, Captain Byte!!!\"], \"printed lines\")\n",
+   "timeout_ms": null,
+   "title": "Greet the crew",
+   "type": "retype",
+   "variants": [],
+   "world": "game"
+  },
+  "l0.functions.loot-splitter": {
+   "complexity": null,
+   "concepts": [
+    "star-args",
+    "kwargs",
+    "docstring",
+    "def-return"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [],
+   "explanation_en": "The star syntax lets a function accept a flexible number of inputs. Inside, chests is just a tuple and crew is just a dict: ordinary loops apply.",
+   "explanation_ru": "Звёздочки позволяют функции принимать переменное число входов. Внутри chests – обычный кортеж, а crew – обычный словарь, с ними работают обычные циклы.",
+   "followups": [],
+   "hints_en": [
+    "*chests collects positional arguments into a tuple; **crew collects keyword arguments into a dict, iterate it with .items()."
+   ],
+   "hints_ru": [
+    "*chests собирает позиционные аргументы в кортеж; **crew собирает именованные в словарь, обходи его через .items()."
+   ],
+   "id": "l0.functions.loot-splitter",
+   "level": 0,
+   "minutes": 4,
+   "model": "def total_loot(*chests):\n    \"\"\"Sum any number of chests; each chest is a number of coins.\"\"\"\n    total = 0\n    for coins in chests:\n        total += coins\n    return total\n\ndef shares(**crew):\n    \"\"\"crew holds name=share pairs; return 'name: share' lines.\"\"\"\n    lines = []\n    for name, share in crew.items():\n        lines.append(f\"{name}: {share}\")\n    return lines\n",
+   "module": "l0.functions",
+   "order": 40,
+   "solution": "def total_loot(*chests):\n    \"\"\"Sum any number of chests; each chest is a number of coins.\"\"\"\n    total = 0\n    for coins in chests:\n        total += coins\n    return total\n\ndef shares(**crew):\n    \"\"\"crew holds name=share pairs; return 'name: share' lines.\"\"\"\n    lines = []\n    for name, share in crew.items():\n        lines.append(f\"{name}: {share}\")\n    return lines\n",
+   "solution_alt": null,
+   "starter": "",
+   "statement_en": "Captain Byte never knows how many chests the crew will drag aboard. Retype the two functions exactly: one takes any number of chests with *chests, the other any number of name=share pairs with **crew.",
+   "story_en": "Three chests today, eleven tomorrow. Byte wants one function that does not care how many.",
+   "talk_track": [],
+   "tests": "\ndef test_total_three_chests(ns, check):\n    check(ns[\"total_loot\"](10, 20, 5), 35, \"total_loot(10, 20, 5)\")\n\ndef test_total_no_chests(ns, check):\n    check(ns[\"total_loot\"](), 0, \"total_loot()\")\n\ndef test_shares_two(ns, check):\n    check(ns[\"shares\"](Pixel=10, Byte=25), [\"Pixel: 10\", \"Byte: 25\"], \"shares(Pixel=10, Byte=25)\")\n\ndef test_shares_none(ns, check):\n    check(ns[\"shares\"](), [], \"shares()\")\n",
+   "timeout_ms": null,
+   "title": "Loot splitter",
+   "type": "retype",
+   "variants": [],
+   "world": "game"
+  },
+  "l0.functions.party-invite": {
+   "complexity": "O(n) in the number of guests",
+   "concepts": [
+    "star-args",
+    "default-args",
+    "def-return"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "invite('Bob')",
+     "expected": "'Pixel invites Bob to the party!'"
+    },
+    {
+     "call": "invite('Bob', 'Ann')",
+     "expected": "'Pixel invites Bob and Ann to the party!'"
+    },
+    {
+     "call": "invite('Bob', 'Ann', 'Tom', host='Byte')",
+     "expected": "'Byte invites Bob, Ann and Tom to the party!'"
+    }
+   ],
+   "explanation_en": "*friends swallows any number of extra guests; host stays a keyword-only argument because it comes after *friends, so a caller can never pass it by position by accident. Joining all-but-last with ', ' and appending ' and last' handles 2, 3 and 10 guests with the same code.",
+   "explanation_ru": "*friends забирает любое число гостей; host становится только-именованным, потому что стоит после *friends, и его нельзя случайно передать позиционно. Соединение всех, кроме последнего, через ', ' плюс ' and последний' одинаково работает для 2, 3 и 10 гостей.",
+   "followups": [
+    "How would you handle zero friends and an empty name?",
+    "Make the word 'and' configurable for other languages."
+   ],
+   "hints_en": [
+    "Build the full guest list first: guests = [name, *friends] or [name] + list(friends).",
+    "One guest: just the name. Otherwise join all but the last with ', ' and add ' and ' + last.",
+    "Return an f-string: f'{host} invites {guest_text} to the party!'."
+   ],
+   "hints_ru": [
+    "Сначала собери полный список гостей: guests = [name, *friends] или [name] + list(friends).",
+    "Один гость – просто имя. Иначе соедини всех, кроме последнего, через ', ' и добавь ' and ' + последний.",
+    "Верни f-строку: f'{host} invites {guest_text} to the party!'."
+   ],
+   "id": "l0.functions.party-invite",
+   "level": 0,
+   "minutes": 7,
+   "model": null,
+   "module": "l0.functions",
+   "order": 70,
+   "solution": "def invite(name, *friends, host=\"Pixel\"):\n    guests = [name, *friends]\n    if len(guests) == 1:\n        guest_text = guests[0]\n    else:\n        guest_text = \", \".join(guests[:-1]) + \" and \" + guests[-1]\n    return f\"{host} invites {guest_text} to the party!\"\n",
+   "solution_alt": null,
+   "starter": "def invite(name, *friends, host=\"Pixel\"):\n    ...\n",
+   "statement_en": "Write invite(name, *friends, host='Pixel') -> str. It returns '<host> invites <guests> to the party!' where guests lists name and all friends: one guest 'Bob', two guests 'Bob and Ann', three or more 'Bob, Ann and Tom' (commas, then 'and' before the last). Example: invite('Bob', 'Ann', host='Byte') -> 'Byte invites Bob and Ann to the party!'",
+   "story_en": "Pixel is throwing a studio reopening party and refuses to write invitations by paw.",
+   "talk_track": [
+    "Point out that host after *friends is keyword-only by construction.",
+    "Walk through the three guest-count cases out loud before coding.",
+    "Mention str.join avoids a trailing comma bug."
+   ],
+   "tests": "\ndef test_one_guest(ns, check):\n    check(ns[\"invite\"](\"Bob\"), \"Pixel invites Bob to the party!\", \"invite('Bob')\")\n\ndef test_two_guests(ns, check):\n    check(ns[\"invite\"](\"Bob\", \"Ann\"), \"Pixel invites Bob and Ann to the party!\", \"invite('Bob', 'Ann')\")\n\ndef test_three_guests_custom_host(ns, check):\n    check(ns[\"invite\"](\"Bob\", \"Ann\", \"Tom\", host=\"Byte\"),\n          \"Byte invites Bob, Ann and Tom to the party!\", \"invite('Bob', 'Ann', 'Tom', host='Byte')\")\n\ndef test_five_guests(ns, check):\n    check(ns[\"invite\"](\"A\", \"B\", \"C\", \"D\", \"E\"),\n          \"Pixel invites A, B, C, D and E to the party!\", \"invite('A', 'B', 'C', 'D', 'E')\")\n\ndef test_host_is_keyword_only(ns, check, raises):\n    import inspect\n    params = inspect.signature(ns[\"invite\"]).parameters\n    check(params[\"host\"].kind, inspect.Parameter.KEYWORD_ONLY, \"host is keyword-only (defined after *friends)\")\n",
+   "timeout_ms": null,
+   "title": "Party invite",
+   "type": "task",
+   "variants": [],
+   "world": "game"
+  },
+  "l0.functions.sum-of-anything": {
+   "complexity": null,
+   "concepts": [
+    "star-args",
+    "def-return"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "*numbers makes the function variadic. With no arguments the tuple is empty, so the loop never runs and 0 comes back.",
+   "explanation_ru": "*numbers делает функцию вариативной. Без аргументов кортеж пуст, цикл не выполняется и возвращается 0.",
+   "followups": [],
+   "hints_en": [
+    "One star before the parameter name collects all positional arguments into a tuple."
+   ],
+   "hints_ru": [
+    "Одна звёздочка перед именем параметра собирает все позиционные аргументы в кортеж."
+   ],
+   "id": "l0.functions.sum-of-anything",
+   "level": 0,
+   "minutes": 2,
+   "model": null,
+   "module": "l0.functions",
+   "order": 50,
+   "solution": "def total(*numbers):\n    result = 0\n    for n in numbers:\n        result += n\n    return result\n",
+   "solution_alt": null,
+   "starter": "def total(___numbers):\n    result = 0\n    for n in numbers:\n        result += n\n    return result\n\n# total(1, 2, 3) -> 6    total(5) -> 5    total() -> 0\n",
+   "statement_en": "Fill in the blank so that total(1, 2, 3) returns 6, total(5) returns 5 and total() returns 0. The blank is a single character.",
+   "story_en": "Pixel's accountant quit after being asked to add 'a few more numbers'. One character would have saved him.",
+   "talk_track": [],
+   "tests": "\ndef test_three(ns, check):\n    check(ns[\"total\"](1, 2, 3), 6, \"total(1, 2, 3)\")\n\ndef test_one(ns, check):\n    check(ns[\"total\"](5), 5, \"total(5)\")\n\ndef test_none(ns, check):\n    check(ns[\"total\"](), 0, \"total()\")\n",
+   "timeout_ms": null,
+   "title": "Sum of anything",
+   "type": "cloze",
+   "variants": [],
+   "world": "neutral"
+  },
+  "l0.loops.count-the-coins": {
+   "complexity": null,
+   "concepts": [
+    "for-loop",
+    "accumulator",
+    "range"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "The accumulator pattern is the backbone of most loops: create the result before, update it inside, use it after. range with a negative step counts down and still excludes the stop value.",
+   "explanation_ru": "Паттерн накопителя – основа большинства циклов: создай результат до, обновляй внутри, используй после. range с отрицательным шагом считает вниз и по-прежнему не включает stop.",
+   "followups": [],
+   "hints_en": [
+    "total starts at 0 before the loop. range(3, 0, -1) counts down and stops before 0; range(0, 10, 2) steps by two."
+   ],
+   "hints_ru": [
+    "total начинается с 0 до цикла. range(3, 0, -1) считает вниз и останавливается перед 0; range(0, 10, 2) идёт через два."
+   ],
+   "id": "l0.loops.count-the-coins",
+   "level": 0,
+   "minutes": 3,
+   "model": "coins = [5, 10, 25, 10]\ntotal = 0\nfor coin in coins:\n    total += coin\n\ncountdown = []\nfor n in range(3, 0, -1):\n    countdown.append(n)\n\nevens = []\nfor n in range(0, 10, 2):\n    evens.append(n)\n",
+   "module": "l0.loops",
+   "order": 10,
+   "solution": "coins = [5, 10, 25, 10]\ntotal = 0\nfor coin in coins:\n    total += coin\n\ncountdown = []\nfor n in range(3, 0, -1):\n    countdown.append(n)\n\nevens = []\nfor n in range(0, 10, 2):\n    evens.append(n)\n",
+   "solution_alt": null,
+   "starter": "",
+   "statement_en": "Retype the snippet: an accumulator loop over a list, then two loops over range with a step.",
+   "story_en": "The belt counts Byte's coins so the first mate can stop using his toes.",
+   "talk_track": [],
+   "tests": "\ndef test_total(ns, check):\n    check(ns[\"total\"], 50, \"total\")\n\ndef test_countdown(ns, check):\n    check(ns[\"countdown\"], [3, 2, 1], \"countdown\")\n\ndef test_evens(ns, check):\n    check(ns[\"evens\"], [0, 2, 4, 6, 8], \"evens\")\n",
+   "timeout_ms": null,
+   "title": "Count the coins",
+   "type": "retype",
+   "variants": [],
+   "world": "game"
+  },
+  "l0.loops.duel-schedule": {
+   "complexity": "O(n²), the size of the answer",
+   "concepts": [
+    "nested-loops",
+    "range",
+    "list-methods"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "duels(['a', 'b', 'c'])",
+     "expected": "[('a', 'b'), ('a', 'c'), ('b', 'c')]"
+    },
+    {
+     "call": "duels(['solo'])",
+     "expected": "[]"
+    }
+   ],
+   "explanation_en": "Starting the inner loop at i + 1 skips self-duels and mirror pairs in one move. The number of pairs is n*(n-1)/2, so O(n²) work is the size of the answer, not waste.",
+   "explanation_ru": "Старт внутреннего цикла с i + 1 одним ходом убирает дуэли с самим собой и зеркальные пары. Пар ровно n*(n-1)/2, так что O(n²) – это размер ответа, а не расточительность.",
+   "followups": [
+    "How would itertools.combinations shorten this?",
+    "What if some pairs refuse to duel each other?"
+   ],
+   "hints_en": [
+    "Two loops: the outer picks index i, the inner picks j starting from i + 1.",
+    "Append (crew[i], crew[j]); that order gives earlier-first automatically.",
+    "Use range(len(crew)) for i and range(i + 1, len(crew)) for j."
+   ],
+   "hints_ru": [
+    "Два цикла: внешний выбирает индекс i, внутренний – j, начиная с i + 1.",
+    "Добавляй (crew[i], crew[j]); такой порядок сам даёт «раньше – первым».",
+    "Для i используй range(len(crew)), для j – range(i + 1, len(crew))."
+   ],
+   "id": "l0.loops.duel-schedule",
+   "level": 0,
+   "minutes": 6,
+   "model": null,
+   "module": "l0.loops",
+   "order": 70,
+   "solution": "def duels(crew):\n    pairs = []\n    for i in range(len(crew)):\n        for j in range(i + 1, len(crew)):\n            pairs.append((crew[i], crew[j]))\n    return pairs\n",
+   "solution_alt": null,
+   "starter": "def duels(crew):\n    ...\n",
+   "statement_en": "Write duels(crew) -> list[tuple[str, str]]: every unordered pair of crew members exactly once, each as (earlier, later) in crew order, pairs sorted by the first member's position and then the second's. A crew of one or none has no duels.",
+   "story_en": "Captain Byte wants every crew member to duel every other exactly once. 'For morale,' he says.",
+   "talk_track": [
+    "Explain why the inner loop starts at i + 1: no self-duels, no duplicates.",
+    "State that the count is n*(n-1)/2, so O(n²) pairs is unavoidable."
+   ],
+   "tests": "\ndef test_three(ns, check):\n    check(ns[\"duels\"]([\"a\", \"b\", \"c\"]), [(\"a\", \"b\"), (\"a\", \"c\"), (\"b\", \"c\")], \"duels(['a', 'b', 'c'])\")\n\ndef test_solo_and_empty(ns, check):\n    check((ns[\"duels\"]([\"solo\"]), ns[\"duels\"]([])), ([], []), \"duels for one and for none\")\n\ndef test_five_gives_ten(ns, check):\n    out = ns[\"duels\"]([\"a\", \"b\", \"c\", \"d\", \"e\"])\n    check(len(out), 10, \"5 crew -> 10 duels\")\n    check(len(set(out)), 10, \"no duplicate pairs\")\n\ndef test_no_self_duels(ns, check):\n    out = ns[\"duels\"]([\"x\", \"y\", \"z\"])\n    check(any(a == b for a, b in out), False, \"nobody duels themselves\")\n\ndef test_order(ns, check):\n    check(ns[\"duels\"]([\"Pixel\", \"Byte\", \"Ada\"])[0], (\"Pixel\", \"Byte\"), \"first duel\")\n",
+   "timeout_ms": null,
+   "title": "Duel schedule",
+   "type": "task",
+   "variants": [],
+   "world": "game"
+  },
+  "l0.loops.find-the-stowaway": {
+   "complexity": null,
+   "concepts": [
+    "for-loop",
+    "break-continue",
+    "for-else",
+    "early-return"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [],
+   "explanation_en": "Early return is the clean way to 'search and stop'. The for-else form says 'if we got through everyone without breaking, there was no stowaway'; after a break, name still holds the culprit.",
+   "explanation_ru": "Ранний return – чистый способ «найти и остановиться». Форма for-else говорит: «если прошли всех без break, безбилетника нет»; после break переменная name всё ещё хранит виновника.",
+   "followups": [],
+   "hints_en": [
+    "return inside a loop ends the whole function. for ... else: the else body runs only if no break happened."
+   ],
+   "hints_ru": [
+    "return внутри цикла завершает всю функцию. for ... else: тело else выполняется, только если break не случился."
+   ],
+   "id": "l0.loops.find-the-stowaway",
+   "level": 0,
+   "minutes": 4,
+   "model": "def first_negative(numbers):\n    for n in numbers:\n        if n < 0:\n            return n\n    return None\n\ndef find_stowaway(crew, allowed):\n    for name in crew:\n        if name not in allowed:\n            break\n    else:\n        return None\n    return name\n",
+   "module": "l0.loops",
+   "order": 40,
+   "solution": "def first_negative(numbers):\n    for n in numbers:\n        if n < 0:\n            return n\n    return None\n\ndef find_stowaway(crew, allowed):\n    for name in crew:\n        if name not in allowed:\n            break\n    else:\n        return None\n    return name\n",
+   "solution_alt": null,
+   "starter": "",
+   "statement_en": "Retype both functions: the first returns early from inside a loop, the second uses break and the loop's else clause, which runs only when the loop finished without a break.",
+   "story_en": "Someone on the belt is not on the crew list. Byte suspects the parrot. The parrot retired.",
+   "talk_track": [],
+   "tests": "\ndef test_first_negative(ns, check):\n    check(ns[\"first_negative\"]([3, -2, -5]), -2, \"first_negative([3, -2, -5])\")\n\ndef test_no_negative(ns, check):\n    check(ns[\"first_negative\"]([1, 2]), None, \"first_negative([1, 2])\")\n\ndef test_stowaway_found(ns, check):\n    check(ns[\"find_stowaway\"]([\"Pixel\", \"Byte\", \"Ghost\"], {\"Pixel\", \"Byte\"}), \"Ghost\", \"find_stowaway with a ghost aboard\")\n\ndef test_no_stowaway(ns, check):\n    check(ns[\"find_stowaway\"]([\"Pixel\"], {\"Pixel\"}), None, \"find_stowaway with everyone allowed\")\n",
+   "timeout_ms": null,
+   "title": "Find the stowaway",
+   "type": "retype",
+   "variants": [],
+   "world": "game"
+  },
+  "l0.loops.meow-purr": {
+   "complexity": "O(n)",
+   "concepts": [
+    "for-loop",
+    "range",
+    "ternary"
+   ],
+   "diagnostic": true,
+   "difficulty": 1,
+   "examples": [
+    {
+     "call": "meow_purr(5)",
+     "expected": "['1', '2', 'Meow', '4', 'Purr']"
+    },
+    {
+     "call": "meow_purr(0)",
+     "expected": "[]"
+    }
+   ],
+   "explanation_en": "The order of checks matters: 15 must become 'MeowPurr', so either test 15 first or build the word from parts. Building from parts scales to a third word without rewriting the chain.",
+   "explanation_ru": "Порядок проверок важен: 15 должно стать 'MeowPurr', поэтому либо проверяй 15 первым, либо собирай слово из частей. Сборка из частей масштабируется на третье слово без переписывания цепочки.",
+   "followups": [
+    "Make the words and divisors configurable.",
+    "How would you write it as a generator?"
+   ],
+   "hints_en": [
+    "Loop with range(1, n + 1); the + 1 is the classic trap.",
+    "Check 'divisible by both' first, or build the word from parts: start with '', add 'Meow', add 'Purr', fall back to str(i).",
+    "Every element must be a string, so plain numbers go through str(i)."
+   ],
+   "hints_ru": [
+    "Цикл по range(1, n + 1); + 1 – классическая ловушка.",
+    "Проверяй «делится на оба» первым или собирай слово из частей: начни с '', добавь 'Meow', добавь 'Purr', иначе str(i).",
+    "Каждый элемент должен быть строкой, поэтому обычные числа идут через str(i)."
+   ],
+   "id": "l0.loops.meow-purr",
+   "level": 0,
+   "minutes": 5,
+   "model": null,
+   "module": "l0.loops",
+   "order": 60,
+   "solution": "def meow_purr(n):\n    result = []\n    for i in range(1, n + 1):\n        word = \"\"\n        if i % 3 == 0:\n            word += \"Meow\"\n        if i % 5 == 0:\n            word += \"Purr\"\n        result.append(word if word else str(i))\n    return result\n",
+   "solution_alt": null,
+   "starter": "def meow_purr(n):\n    ...\n",
+   "statement_en": "Write meow_purr(n) -> list[str]. For each number from 1 to n inclusive append 'Meow' if it is divisible by 3, 'Purr' if divisible by 5, 'MeowPurr' if divisible by both, otherwise the number itself as a string. meow_purr(0) is an empty list.",
+   "story_en": "Pixel's team-building game: count up, but every third number is Meow and every fifth is Purr. The intern never gets 15 right.",
+   "talk_track": [
+    "Mention the 15 case must be handled first or built from parts.",
+    "Say range(1, n + 1) includes n.",
+    "Complexity is O(n), trivially."
+   ],
+   "tests": "\ndef test_five(ns, check):\n    check(ns[\"meow_purr\"](5), [\"1\", \"2\", \"Meow\", \"4\", \"Purr\"], \"meow_purr(5)\")\n\ndef test_fifteen(ns, check):\n    check(ns[\"meow_purr\"](15)[14], \"MeowPurr\", \"meow_purr(15)[14]\")\n\ndef test_zero(ns, check):\n    check(ns[\"meow_purr\"](0), [], \"meow_purr(0)\")\n\ndef test_length(ns, check):\n    check(len(ns[\"meow_purr\"](100)), 100, \"len(meow_purr(100))\")\n\ndef test_all_strings(ns, check):\n    check(all(isinstance(x, str) for x in ns[\"meow_purr\"](20)), True, \"every element is a str\")\n\ndef test_three(ns, check):\n    check(ns[\"meow_purr\"](3), [\"1\", \"2\", \"Meow\"], \"meow_purr(3)\")\n",
+   "timeout_ms": null,
+   "title": "Meow-Purr",
+   "type": "task",
+   "variants": [],
+   "world": "game"
+  },
+  "l0.loops.numbered-lines": {
+   "complexity": null,
+   "concepts": [
+    "enumerate",
+    "for-loop"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "enumerate removes the manual counter: no i = 0 before the loop and no i += 1 inside. The start argument sets the first number.",
+   "explanation_ru": "enumerate убирает ручной счётчик: ни i = 0 до цикла, ни i += 1 внутри. Аргумент start задаёт первый номер.",
+   "followups": [],
+   "hints_en": [
+    "enumerate(items, start=1) yields (number, item) pairs."
+   ],
+   "hints_ru": [
+    "enumerate(items, start=1) выдаёт пары (номер, элемент)."
+   ],
+   "id": "l0.loops.numbered-lines",
+   "level": 0,
+   "minutes": 2,
+   "model": null,
+   "module": "l0.loops",
+   "order": 20,
+   "solution": "crew = [\"Pixel\", \"Byte\", \"Ada\"]\nlines = []\nfor number, name in enumerate(crew, start=1):\n    lines.append(f\"{number}. {name}\")\n",
+   "solution_alt": null,
+   "starter": "crew = [\"Pixel\", \"Byte\", \"Ada\"]\nlines = []\nfor number, name in ___(crew, start=___):\n    lines.append(f\"{number}. {name}\")\n# lines == [\"1. Pixel\", \"2. Byte\", \"3. Ada\"]\n",
+   "statement_en": "Fill in the blanks so the loop yields a running number together with each name, counting from 1. Use the built-in made for exactly this.",
+   "story_en": "Byte's crew list must be numbered from 1. Pirates do not start counting at zero; only Pixel does.",
+   "talk_track": [],
+   "tests": "\ndef test_lines(ns, check):\n    check(ns[\"lines\"], [\"1. Pixel\", \"2. Byte\", \"3. Ada\"], \"lines\")\n\ndef test_uses_enumerate(src, ast_tools, check):\n    check(ast_tools.uses_name(src, \"enumerate\"), True, \"enumerate is used\")\n",
+   "timeout_ms": null,
+   "title": "Numbered lines",
+   "type": "cloze",
+   "variants": [],
+   "world": "game"
+  },
+  "l0.loops.pair-up": {
+   "complexity": null,
+   "concepts": [
+    "zip",
+    "for-loop",
+    "dict-basics"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "zip pairs items by position and stops at the shorter list, so you never index two lists in parallel by hand.",
+   "explanation_ru": "zip соединяет элементы по позиции и останавливается на более коротком списке, поэтому два списка не нужно индексировать параллельно вручную.",
+   "followups": [],
+   "hints_en": [
+    "zip(names, prices) yields (name, price) pairs. Cheaper than 5 is the < operator."
+   ],
+   "hints_ru": [
+    "zip(names, prices) выдаёт пары (name, price). Дешевле 5 – это оператор <."
+   ],
+   "id": "l0.loops.pair-up",
+   "level": 0,
+   "minutes": 3,
+   "model": null,
+   "module": "l0.loops",
+   "order": 30,
+   "solution": "names = [\"rope\", \"lamp\", \"map\"]\nprices = [3, 12, 7]\nprice_of = {}\nfor name, price in zip(names, prices):\n    price_of[name] = price\n\ncheap = []\nfor name, price in price_of.items():\n    if price < 5:\n        cheap.append(name)\n",
+   "solution_alt": null,
+   "starter": "names = [\"rope\", \"lamp\", \"map\"]\nprices = [3, 12, 7]\nprice_of = {}\nfor name, price in ___(names, prices):\n    price_of[name] = price\n\ncheap = []\nfor name, price in price_of.items():\n    if price ___ 5:\n        cheap.append(name)\n# price_of == {\"rope\": 3, \"lamp\": 12, \"map\": 7}, cheap == [\"rope\"]\n",
+   "statement_en": "Fill in the blanks: walk both lists together to build price_of, then collect the names cheaper than 5.",
+   "story_en": "Grandma Ada wrote the names on one list and the prices on another. Grandma Ada is testing you.",
+   "talk_track": [],
+   "tests": "\ndef test_price_of(ns, check):\n    check(ns[\"price_of\"], {\"rope\": 3, \"lamp\": 12, \"map\": 7}, \"price_of\")\n\ndef test_cheap(ns, check):\n    check(ns[\"cheap\"], [\"rope\"], \"cheap\")\n\ndef test_uses_zip(src, ast_tools, check):\n    check(ast_tools.uses_name(src, \"zip\"), True, \"zip is used\")\n",
+   "timeout_ms": null,
+   "title": "Pair up names and prices",
+   "type": "cloze",
+   "variants": [],
+   "world": "everyday"
+  },
+  "l0.loops.steps-to-one": {
+   "complexity": null,
+   "concepts": [
+    "while-loop",
+    "ternary",
+    "accumulator"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [],
+   "explanation_en": "while is the loop for 'until something happens' when you cannot know the count in advance. The one-line conditional picks the next value without an if/else block.",
+   "explanation_ru": "while – цикл «пока что-то не случится», когда число итераций заранее неизвестно. Однострочное условие выбирает следующее значение без блока if/else.",
+   "followups": [],
+   "hints_en": [
+    "The loop keyword for 'repeat while a condition holds' is while. Counting a step is steps += 1."
+   ],
+   "hints_ru": [
+    "Ключевое слово для «повторять, пока условие верно» – while. Засчитать шаг – steps += 1."
+   ],
+   "id": "l0.loops.steps-to-one",
+   "level": 0,
+   "minutes": 3,
+   "model": null,
+   "module": "l0.loops",
+   "order": 50,
+   "solution": "def steps_to_one(n):\n    steps = 0\n    while n > 1:\n        n = n // 2 if n % 2 == 0 else 3 * n + 1\n        steps += 1\n    return steps\n",
+   "solution_alt": null,
+   "starter": "def steps_to_one(n):\n    steps = 0\n    ___ n > 1:\n        n = n // 2 if n % 2 == 0 else 3 * n + 1\n        steps ___ 1\n    return steps\n# steps_to_one(6) -> 8, steps_to_one(1) -> 0, steps_to_one(7) -> 16\n",
+   "statement_en": "Fill in the blanks: repeat while n is above 1, halving even numbers and turning odd ones into 3n + 1, counting the steps. steps_to_one(6) is 8 and steps_to_one(1) is 0.",
+   "story_en": "A mathematician left this on the belt in 1937. Nobody has proven it always stops. Yours will, for small numbers.",
+   "talk_track": [],
+   "tests": "\ndef test_six(ns, check):\n    check(ns[\"steps_to_one\"](6), 8, \"steps_to_one(6)\")\n\ndef test_one(ns, check):\n    check(ns[\"steps_to_one\"](1), 0, \"steps_to_one(1)\")\n\ndef test_seven(ns, check):\n    check(ns[\"steps_to_one\"](7), 16, \"steps_to_one(7)\")\n\ndef test_two(ns, check):\n    check(ns[\"steps_to_one\"](2), 1, \"steps_to_one(2)\")\n",
+   "timeout_ms": null,
+   "title": "Steps to one",
+   "type": "cloze",
+   "variants": [],
+   "world": "neutral"
+  },
+  "l0.strings.caesar-cipher": {
+   "complexity": "O(n)",
+   "concepts": [
+    "ord-chr",
+    "str-case",
+    "str-methods"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "caesar('abc', 1)",
+     "expected": "'bcd'"
+    },
+    {
+     "call": "caesar('Hello, World!', 3)",
+     "expected": "'Khoor, Zruog!'"
+    }
+   ],
+   "explanation_en": "Modulo arithmetic does all the wrapping: a shift of 27 equals a shift of 1, and -1 lands on z. Keeping the base per character preserves case; checking isalpha and isascii leaves digits, spaces and punctuation untouched.",
+   "explanation_ru": "Всё замыкание делает арифметика по модулю: сдвиг на 27 равен сдвигу на 1, а -1 приводит к z. База для каждого символа сохраняет регистр; проверка isalpha и isascii оставляет цифры, пробелы и знаки препинания нетронутыми.",
+   "followups": [
+    "How would you decrypt without knowing k?",
+    "How would you support another alphabet?"
+   ],
+   "hints_en": [
+    "Pick the base per letter: ord('A') for uppercase, ord('a') for lowercase; non-letters are appended unchanged.",
+    "(ord(ch) - base + k) % 26 + base wraps in both directions, even for negative k.",
+    "Collect the pieces in a list and ''.join them at the end; it beats += on long texts."
+   ],
+   "hints_ru": [
+    "Выбирай базу для каждой буквы: ord('A') для заглавных, ord('a') для строчных; не-буквы добавляй как есть.",
+    "(ord(ch) - base + k) % 26 + base замыкает круг в обе стороны, даже при отрицательном k.",
+    "Собирай куски в список и склей ''.join в конце; на длинных текстах это лучше, чем +=."
+   ],
+   "id": "l0.strings.caesar-cipher",
+   "level": 0,
+   "minutes": 7,
+   "model": null,
+   "module": "l0.strings",
+   "order": 80,
+   "solution": "def caesar(text, k):\n    out = []\n    for ch in text:\n        if ch.isalpha() and ch.isascii():\n            base = ord(\"A\") if ch.isupper() else ord(\"a\")\n            out.append(chr((ord(ch) - base + k) % 26 + base))\n        else:\n            out.append(ch)\n    return \"\".join(out)\n",
+   "solution_alt": null,
+   "starter": "def caesar(text, k):\n    ...\n",
+   "statement_en": "Write caesar(text, k) -> str: shift every Latin letter k positions along the alphabet, wrapping around and keeping its case; every other character stays as it is. k may be negative or larger than 26.",
+   "story_en": "Ada's recipe book, fully encrypted this time. Captain Byte wants the same function for his treasure notes. Everybody has secrets.",
+   "talk_track": [
+    "Say modulo handles both wrap-around and negative shifts.",
+    "Mention you only shift ASCII letters, so punctuation and digits pass through.",
+    "Complexity O(n); building a list and joining is linear, repeated += can be quadratic."
+   ],
+   "tests": "\ndef test_simple(ns, check):\n    check(ns[\"caesar\"](\"abc\", 1), \"bcd\", \"caesar('abc', 1)\")\n\ndef test_sentence(ns, check):\n    check(ns[\"caesar\"](\"Hello, World!\", 3), \"Khoor, Zruog!\", \"caesar('Hello, World!', 3)\")\n\ndef test_wrap(ns, check):\n    check(ns[\"caesar\"](\"xyz\", 3), \"abc\", \"caesar('xyz', 3)\")\n\ndef test_round_trip(ns, check):\n    check(ns[\"caesar\"](ns[\"caesar\"](\"Pixel\", 7), 19), \"Pixel\", \"shift 7 then 19 returns the original\")\n\ndef test_negative(ns, check):\n    check(ns[\"caesar\"](\"ABC\", -1), \"ZAB\", \"caesar('ABC', -1)\")\n\ndef test_large_shift(ns, check):\n    check(ns[\"caesar\"](\"a b\", 27), \"b c\", \"caesar('a b', 27)\")\n\ndef test_digits_untouched(ns, check):\n    check(ns[\"caesar\"](\"r2d2\", 1), \"s2e2\", \"caesar('r2d2', 1)\")\n",
+   "timeout_ms": null,
+   "title": "Caesar cipher",
+   "type": "task",
+   "variants": [],
+   "world": "everyday"
+  },
+  "l0.strings.clean-the-order": {
+   "complexity": null,
+   "concepts": [
+    "split-join",
+    "strip",
+    "str-case"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "Normalising text is three verbs: split into pieces, strip the edges, unify the case. join is the inverse of split, and title() capitalises every word of the final label.",
+   "explanation_ru": "Нормализация текста – три глагола: разрезать на куски, обрезать края, привести регистр. join обратен split, а title() делает заглавной первую букву каждого слова.",
+   "followups": [],
+   "hints_en": [
+    "Chain the methods: part.strip().lower(). join is called on the separator: ' | '.join(items)."
+   ],
+   "hints_ru": [
+    "Цепочка методов: part.strip().lower(). join вызывается у разделителя: ' | '.join(items)."
+   ],
+   "id": "l0.strings.clean-the-order",
+   "level": 0,
+   "minutes": 3,
+   "model": "raw = \"  Cinnamon ROLL, sourdough , Rye bread \"\nitems = []\nfor part in raw.split(\",\"):\n    items.append(part.strip().lower())\nlabel = \" | \".join(items).title()\n",
+   "module": "l0.strings",
+   "order": 10,
+   "solution": "raw = \"  Cinnamon ROLL, sourdough , Rye bread \"\nitems = []\nfor part in raw.split(\",\"):\n    items.append(part.strip().lower())\nlabel = \" | \".join(items).title()\n",
+   "solution_alt": null,
+   "starter": "",
+   "statement_en": "Retype the snippet: split on commas, strip and lowercase every piece, then join with a separator and title-case the label.",
+   "story_en": "Grandma Ada's order slips arrive with random capitals and spaces. The oven does not care. The label printer does.",
+   "talk_track": [],
+   "tests": "\ndef test_items(ns, check):\n    check(ns[\"items\"], [\"cinnamon roll\", \"sourdough\", \"rye bread\"], \"items\")\n\ndef test_label(ns, check):\n    check(ns[\"label\"], \"Cinnamon Roll | Sourdough | Rye Bread\", \"label\")\n",
+   "timeout_ms": null,
+   "title": "Clean the order",
+   "type": "retype",
+   "variants": [],
+   "world": "everyday"
+  },
+  "l0.strings.initials": {
+   "complexity": null,
+   "concepts": [
+    "split-join",
+    "string-slicing",
+    "str-case"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "split() without arguments is the robust word splitter: it ignores leading, trailing and repeated spaces. part[0] is the first letter, upper() makes it an initial.",
+   "explanation_ru": "split() без аргументов – надёжный разрезатель на слова: он игнорирует пробелы в начале, в конце и повторы. part[0] – первая буква, upper() делает из неё инициал.",
+   "followups": [],
+   "hints_en": [
+    "split() with no argument handles any amount of whitespace. The first character of a string is index 0."
+   ],
+   "hints_ru": [
+    "split() без аргумента справляется с любым количеством пробелов. Первый символ строки – индекс 0."
+   ],
+   "id": "l0.strings.initials",
+   "level": 0,
+   "minutes": 2,
+   "model": null,
+   "module": "l0.strings",
+   "order": 50,
+   "solution": "def initials(full_name):\n    parts = full_name.split()\n    result = \"\"\n    for part in parts:\n        result += part[0].upper()\n    return result\n",
+   "solution_alt": null,
+   "starter": "def initials(full_name):\n    parts = full_name.___()\n    result = \"\"\n    for part in parts:\n        result += part[___].upper()\n    return result\n\n# initials(\"ada byte lovelace\") -> \"ABL\"\n",
+   "statement_en": "Fill in the blanks so initials('ada byte lovelace') returns 'ABL'. Extra spaces between names must not matter.",
+   "story_en": "Coach Topspin's scoreboard has room for three letters per player. Names like 'Bartholomew' are a problem; initials are the fix.",
+   "talk_track": [],
+   "tests": "\ndef test_three_names(ns, check):\n    check(ns[\"initials\"](\"ada byte lovelace\"), \"ABL\", \"initials('ada byte lovelace')\")\n\ndef test_single(ns, check):\n    check(ns[\"initials\"](\"pixel\"), \"P\", \"initials('pixel')\")\n\ndef test_messy_spaces(ns, check):\n    check(ns[\"initials\"](\"  coach   topspin \"), \"CT\", \"initials('  coach   topspin ')\")\n",
+   "timeout_ms": null,
+   "title": "Initials",
+   "type": "cloze",
+   "variants": [],
+   "world": "tennis"
+  },
+  "l0.strings.palindrome-check": {
+   "complexity": "O(n) time, O(n) space",
+   "concepts": [
+    "str-methods",
+    "string-slicing",
+    "str-case"
+   ],
+   "diagnostic": true,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "is_palindrome('Taco cat')",
+     "expected": "True"
+    },
+    {
+     "call": "is_palindrome('hello')",
+     "expected": "False"
+    }
+   ],
+   "explanation_en": "Normalise, then compare: once punctuation and case are gone, the check is one line. The slice [::-1] reverses any sequence. A two-pointer version avoids the extra copy but is more code.",
+   "explanation_ru": "Нормализуй, потом сравнивай: как только исчезли знаки препинания и регистр, проверка становится одной строкой. Срез [::-1] разворачивает любую последовательность. Вариант с двумя указателями обходится без копии, но кода больше.",
+   "followups": [
+    "Do it with two pointers and no extra string.",
+    "Should accented or Cyrillic letters count? What does isalnum say?"
+   ],
+   "hints_en": [
+    "Normalise first: keep only characters where ch.isalnum() is True, lowercased, in a new string.",
+    "Compare the cleaned string with its reverse: cleaned == cleaned[::-1].",
+    "Build cleaned with a loop and +=, or with ''.join(ch.lower() for ch in text if ch.isalnum())."
+   ],
+   "hints_ru": [
+    "Сначала нормализуй: оставь только символы, для которых ch.isalnum() истинно, в нижнем регистре, в новой строке.",
+    "Сравни очищенную строку с её разворотом: cleaned == cleaned[::-1].",
+    "Собери cleaned циклом с += или через ''.join(ch.lower() for ch in text if ch.isalnum())."
+   ],
+   "id": "l0.strings.palindrome-check",
+   "level": 0,
+   "minutes": 6,
+   "model": null,
+   "module": "l0.strings",
+   "order": 60,
+   "solution": "def is_palindrome(text):\n    cleaned = \"\"\n    for ch in text:\n        if ch.isalnum():\n            cleaned += ch.lower()\n    return cleaned == cleaned[::-1]\n",
+   "solution_alt": "def is_palindrome(text):\n    cleaned = \"\".join(ch.lower() for ch in text if ch.isalnum())\n    return cleaned == cleaned[::-1]\n",
+   "starter": "def is_palindrome(text):\n    ...\n",
+   "statement_en": "Write is_palindrome(text) -> bool: True when text reads the same forwards and backwards if you ignore case and keep only letters and digits. An empty string counts as a palindrome.",
+   "story_en": "Pixel's favourite phrase is 'Taco cat'. Timmy says it is just a cat and a taco. The function decides.",
+   "talk_track": [
+    "Say you normalise first so the comparison itself is one line.",
+    "Mention the two-pointer alternative that avoids building a copy.",
+    "Complexity: O(n) time, O(n) extra space for the cleaned copy."
+   ],
+   "tests": "\ndef test_taco_cat(ns, check):\n    check(ns[\"is_palindrome\"](\"Taco cat\"), True, \"is_palindrome('Taco cat')\")\n\ndef test_panama(ns, check):\n    check(ns[\"is_palindrome\"](\"A man, a plan, a canal: Panama\"), True, \"the Panama sentence\")\n\ndef test_hello(ns, check):\n    check(ns[\"is_palindrome\"](\"hello\"), False, \"is_palindrome('hello')\")\n\ndef test_empty(ns, check):\n    check(ns[\"is_palindrome\"](\"\"), True, \"is_palindrome('')\")\n\ndef test_digits(ns, check):\n    check(ns[\"is_palindrome\"](\"12321\"), True, \"is_palindrome('12321')\")\n\ndef test_two_letters(ns, check):\n    check(ns[\"is_palindrome\"](\"ab\"), False, \"is_palindrome('ab')\")\n\ndef test_lemon(ns, check):\n    check(ns[\"is_palindrome\"](\"No lemon, no melon\"), True, \"No lemon, no melon\")\n",
+   "timeout_ms": null,
+   "title": "Palindrome check",
+   "type": "task",
+   "variants": [],
+   "world": "everyday"
+  },
+  "l0.strings.peek-and-replace": {
+   "complexity": null,
+   "concepts": [
+    "find-in",
+    "replace",
+    "str-case",
+    "string-slicing"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [],
+   "explanation_en": "None of these calls change sign: strings are immutable, so each method hands back a new value and you store it under a new name.",
+   "explanation_ru": "Ни один из вызовов не меняет sign: строки неизменяемы, поэтому каждый метод отдаёт новое значение, которое ты сохраняешь под новым именем.",
+   "followups": [],
+   "hints_en": [
+    "find returns the index of the first match. replace returns a new string; the original stays as it was."
+   ],
+   "hints_ru": [
+    "find возвращает индекс первого совпадения. replace возвращает новую строку; исходная остаётся прежней."
+   ],
+   "id": "l0.strings.peek-and-replace",
+   "level": 0,
+   "minutes": 3,
+   "model": "sign = \"Ada's Bakery: fresh bread daily\"\nhas_bread = \"bread\" in sign\nwhere = sign.find(\"fresh\")\nshouting = sign.upper()\nfixed = sign.replace(\"daily\", \"every day\")\nfirst_word = sign[:5]\nlast_word = sign[-5:]\n",
+   "module": "l0.strings",
+   "order": 40,
+   "solution": "sign = \"Ada's Bakery: fresh bread daily\"\nhas_bread = \"bread\" in sign\nwhere = sign.find(\"fresh\")\nshouting = sign.upper()\nfixed = sign.replace(\"daily\", \"every day\")\nfirst_word = sign[:5]\nlast_word = sign[-5:]\n",
+   "solution_alt": null,
+   "starter": "",
+   "statement_en": "Retype the snippet: membership with in, position with find, a case change, a replace, and two slices of the sign.",
+   "story_en": "The storm left the signboard SHOUTING. Ada wants it to speak normally and to say that bread is baked every day.",
+   "talk_track": [],
+   "tests": "\ndef test_membership_and_position(ns, check):\n    check((ns[\"has_bread\"], ns[\"where\"]), (True, 14), \"has_bread, where\")\n\ndef test_shouting(ns, check):\n    check(ns[\"shouting\"], \"ADA'S BAKERY: FRESH BREAD DAILY\", \"shouting\")\n\ndef test_fixed(ns, check):\n    check(ns[\"fixed\"], \"Ada's Bakery: fresh bread every day\", \"fixed\")\n\ndef test_slices(ns, check):\n    check((ns[\"first_word\"], ns[\"last_word\"]), (\"Ada's\", \"daily\"), \"first_word, last_word\")\n\ndef test_sign_untouched(ns, check):\n    check(ns[\"sign\"], \"Ada's Bakery: fresh bread daily\", \"sign unchanged\")\n",
+   "timeout_ms": null,
+   "title": "Peek and replace",
+   "type": "retype",
+   "variants": [],
+   "world": "everyday"
+  },
+  "l0.strings.price-tag": {
+   "complexity": null,
+   "concepts": [
+    "f-string",
+    "format-spec"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [],
+   "explanation_en": "Format specs replace manual padding with spaces and str(round(...)). The f after the precision means fixed-point, so 12 becomes 12.00 and 2.5 becomes 2.50.",
+   "explanation_ru": "Спецификаторы формата заменяют ручное дополнение пробелами и str(round(...)). f после точности означает фиксированную запятую, поэтому 12 становится 12.00, а 2.5 – 2.50.",
+   "followups": [],
+   "hints_en": [
+    "A spec starts with a colon: {name:<10} pads to 10 on the right, {price:>6.2f} pads to 6 on the left with 2 decimals."
+   ],
+   "hints_ru": [
+    "Спецификатор начинается с двоеточия: {name:<10} дополняет до 10 справа, {price:>6.2f} дополняет до 6 слева с двумя знаками."
+   ],
+   "id": "l0.strings.price-tag",
+   "level": 0,
+   "minutes": 3,
+   "model": null,
+   "module": "l0.strings",
+   "order": 20,
+   "solution": "def price_tag(name, price):\n    return f\"{name:<10}{price:>6.2f}\"\n",
+   "solution_alt": null,
+   "starter": "def price_tag(name, price):\n    # name left-aligned in 10 characters, price right-aligned in 6 with 2 decimals\n    return f\"{name___}{price___}\"\n\n# price_tag(\"rye\", 2.5) -> \"rye         2.50\"\n",
+   "statement_en": "Fill in the two format specs: the name left-aligned in a field of 10 characters, the price right-aligned in a field of 6 characters with exactly two decimals. price_tag('rye', 2.5) is 'rye         2.50'.",
+   "story_en": "Ada's price tags must line up on the shelf. Crooked tags, she says, make bread taste suspicious.",
+   "talk_track": [],
+   "tests": "\ndef test_rye(ns, check):\n    check(ns[\"price_tag\"](\"rye\", 2.5), \"rye         2.50\", \"price_tag('rye', 2.5)\")\n\ndef test_croissant(ns, check):\n    check(ns[\"price_tag\"](\"croissant\", 12), \"croissant  12.00\", \"price_tag('croissant', 12)\")\n\ndef test_width(ns, check):\n    check(len(ns[\"price_tag\"](\"a\", 0.5)), 16, \"total width is 16\")\n\ndef test_two_decimals(ns, check):\n    check(ns[\"price_tag\"](\"bagel\", 1.999).endswith(\"2.00\"), True, \"1.999 rounds to 2.00\")\n",
+   "timeout_ms": null,
+   "title": "Price tag",
+   "type": "cloze",
+   "variants": [],
+   "world": "everyday"
+  },
+  "l0.strings.secret-shift": {
+   "complexity": null,
+   "concepts": [
+    "ord-chr"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [],
+   "explanation_en": "Subtracting ord('a') maps a..z to 0..25, the modulo wraps in both directions, and adding the base back gives a code point that chr turns into the letter.",
+   "explanation_ru": "Вычитание ord('a') переводит a..z в 0..25, остаток от деления замыкает круг в обе стороны, а прибавление базы обратно даёт код, который chr превращает в букву.",
+   "followups": [],
+   "hints_en": [
+    "ord turns a character into its number; the alphabet has 26 letters, and % keeps the result inside it, even for negative k."
+   ],
+   "hints_ru": [
+    "ord превращает символ в число; в алфавите 26 букв, а % удерживает результат внутри него даже при отрицательном k."
+   ],
+   "id": "l0.strings.secret-shift",
+   "level": 0,
+   "minutes": 3,
+   "model": null,
+   "module": "l0.strings",
+   "order": 30,
+   "solution": "def shift_letter(ch, k):\n    \"\"\"Shift a lowercase letter by k places, wrapping from z back to a.\"\"\"\n    base = ord(\"a\")\n    return chr((ord(ch) - base + k) % 26 + base)\n",
+   "solution_alt": null,
+   "starter": "def shift_letter(ch, k):\n    \"\"\"Shift a lowercase letter by k places, wrapping from z back to a.\"\"\"\n    base = ord(\"a\")\n    return chr((___(ch) - base + k) % ___ + base)\n\n# shift_letter(\"a\", 1) -> \"b\",  shift_letter(\"z\", 1) -> \"a\",  shift_letter(\"c\", -3) -> \"z\"\n",
+   "statement_en": "Fill in the blanks so shift_letter moves a lowercase letter k places along the alphabet and wraps around: shift_letter('z', 1) is 'a' and shift_letter('c', -3) is 'z'.",
+   "story_en": "Ada's recipe book shifts every letter so the seagulls can't read it. The seagulls have not cracked it yet.",
+   "talk_track": [],
+   "tests": "\ndef test_simple(ns, check):\n    check(ns[\"shift_letter\"](\"a\", 1), \"b\", \"shift_letter('a', 1)\")\n\ndef test_wrap_forward(ns, check):\n    check(ns[\"shift_letter\"](\"z\", 1), \"a\", \"shift_letter('z', 1)\")\n\ndef test_wrap_backward(ns, check):\n    check(ns[\"shift_letter\"](\"c\", -3), \"z\", \"shift_letter('c', -3)\")\n\ndef test_rot13(ns, check):\n    check(ns[\"shift_letter\"](\"m\", 13), \"z\", \"shift_letter('m', 13)\")\n",
+   "timeout_ms": null,
+   "title": "Secret shift",
+   "type": "cloze",
+   "variants": [],
+   "world": "everyday"
+  },
+  "l0.strings.slugify": {
+   "complexity": "O(n)",
+   "concepts": [
+    "split-join",
+    "str-case",
+    "str-methods"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "slugify('Emerald Lake: 5 Tips!')",
+     "expected": "'emerald-lake-5-tips'"
+    },
+    {
+     "call": "slugify('  Hello   World ')",
+     "expected": "'hello-world'"
+    }
+   ],
+   "explanation_en": "The whole trick is split() without arguments: it does the trimming and the de-duplication of spaces for you. Replacing instead of deleting symbols keeps 'Over-the-Hill' as three words.",
+   "explanation_ru": "Весь фокус – split() без аргументов: он сам обрезает края и схлопывает пробелы. Замена символов на пробел вместо удаления сохраняет 'Over-the-Hill' как три слова.",
+   "followups": [
+    "How would you limit the slug to 50 characters without cutting a word?",
+    "What about transliterating Cyrillic titles?"
+   ],
+   "hints_en": [
+    "Lowercase first, then walk the characters: keep ch if ch.isalnum() else use a space.",
+    "str.split() with no argument collapses runs of spaces and trims both ends.",
+    "'-'.join(words) puts exactly one dash between words and none at the ends."
+   ],
+   "hints_ru": [
+    "Сначала нижний регистр, потом пройди по символам: оставь ch, если ch.isalnum(), иначе пробел.",
+    "str.split() без аргумента схлопывает серии пробелов и обрезает концы.",
+    "'-'.join(words) ставит ровно один дефис между словами и ни одного по краям."
+   ],
+   "id": "l0.strings.slugify",
+   "level": 0,
+   "minutes": 6,
+   "model": null,
+   "module": "l0.strings",
+   "order": 70,
+   "solution": "def slugify(title):\n    chars = []\n    for ch in title.lower():\n        chars.append(ch if ch.isalnum() else \" \")\n    return \"-\".join(\"\".join(chars).split())\n",
+   "solution_alt": null,
+   "starter": "def slugify(title):\n    ...\n",
+   "statement_en": "Write slugify(title) -> str: lowercase the title, replace every character that is not a letter or a digit with a space, then join the words with single dashes. Leading, trailing and repeated spaces must not produce dashes. An empty or symbols-only title gives ''.",
+   "story_en": "Pixel's Shorts channel 'Emerald Lake' needs URL slugs. YouTube does not accept exclamation marks, however excited the title is.",
+   "talk_track": [
+    "Say the trick is split() without arguments: trimming and repeats handled at once.",
+    "Mention isalnum keeps Unicode letters too; ask whether ASCII-only slugs are wanted."
+   ],
+   "tests": "\ndef test_title_with_symbols(ns, check):\n    check(ns[\"slugify\"](\"Emerald Lake: 5 Tips!\"), \"emerald-lake-5-tips\", \"slugify('Emerald Lake: 5 Tips!')\")\n\ndef test_spaces(ns, check):\n    check(ns[\"slugify\"](\"  Hello   World \"), \"hello-world\", \"slugify('  Hello   World ')\")\n\ndef test_dashes_become_words(ns, check):\n    check(ns[\"slugify\"](\"Over-the-Hill mods!!!\"), \"over-the-hill-mods\", \"slugify('Over-the-Hill mods!!!')\")\n\ndef test_empty_and_symbols(ns, check):\n    check((ns[\"slugify\"](\"\"), ns[\"slugify\"](\"!!! ???\")), (\"\", \"\"), \"empty and symbols-only\")\n\ndef test_unicode_letters(ns, check):\n    check(ns[\"slugify\"](\"Шортс про Бали\"), \"шортс-про-бали\", \"slugify('Шортс про Бали')\")\n",
+   "timeout_ms": null,
+   "title": "Slugify a title",
+   "type": "task",
+   "variants": [],
+   "world": "shorts"
+  }
+ }
+}
