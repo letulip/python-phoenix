@@ -27,6 +27,7 @@ const SHELL = [
   "./src/runner/worker.js",
   "./src/ui/dom.js",
   "./src/ui/i18n.js",
+  "./src/ui/mismatch.js",
   "./src/ui/router.js",
   "./src/ui/screens/card.js",
   "./src/ui/screens/diagnostic.js",

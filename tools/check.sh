@@ -4,5 +4,6 @@ set -e
 cd "$(dirname "$0")/.."
 python3 tools/build_content.py --check
 python3 tools/check_sw.py
+python3 tools/check_runner.py
 node --test
 echo "gate: OK"

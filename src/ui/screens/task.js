@@ -1,6 +1,7 @@
 import { h, clear, toast, fmtDuration, dots, WORLD_ICON, modKey, debounce } from "../dom.js";
 import { createEditor } from "../../editor/editor.js";
 import { lineDiff } from "../../core/diff.js";
+import { renderMismatch } from "../mismatch.js";
 import { uuid } from "../../core/store.js";
 import { randomFrom } from "../i18n.js";
 import { markSessionStep, recordDiagnosticResult, draftKey } from "../../core/state.js";
@@ -158,7 +159,9 @@ export async function renderTask(ctx, root, param, query) {
       h("table", { class: "table" }, h("tbody", {}, examples.map((ex) => h("tr", { class: ex.status },
         h("td", { class: "icon" }, ex.status === "pass" ? "✓" : ex.status === "fail" ? "✗" : "!"),
         h("td", {}, h("code", {}, ex.call)),
-        h("td", {}, ex.error ? h("span", { class: "error-text" }, describeError(ex.error)) : h("span", {}, `${t("task.wasExpected")} `, h("code", {}, String(ex.expected)), ex.status === "fail" ? [" · ", `${t("task.got")} `, h("code", {}, String(ex.actual))] : null)),
+        h("td", {}, ex.error ? h("span", { class: "error-text" }, describeError(ex.error))
+          : ex.status === "fail" ? renderMismatch(t, ex.expected, ex.actual, ex.mismatch)
+          : h("span", {}, `${t("task.wasExpected")} `, h("code", {}, String(ex.expected)))),
       )))));
   }
   function testsList(tests) {
@@ -166,7 +169,7 @@ export async function renderTask(ctx, root, param, query) {
       h("span", { class: "icon" }, tr.status === "pass" ? "✓" : tr.status === "fail" ? "✗" : "!"),
       h("span", { class: "label" }, tr.label || tr.name),
       !isDiagnostic && tr.status === "fail" && tr.expected !== undefined
-        ? h("div", { class: "detail" }, `${t("task.wasExpected")} `, h("code", {}, tr.expected), ` · ${t("task.got")} `, h("code", {}, tr.actual))
+        ? h("div", { class: "detail" }, renderMismatch(t, tr.expected, tr.actual, tr.mismatch))
         : null,
       !isDiagnostic && tr.status === "error" && tr.error ? h("div", { class: "detail error-text" }, describeError(tr.error)) : null,
     )));

@@ -42,3 +42,21 @@ export function lineDiff(modelText, typedText) {
 export function sameLines(modelText, typedText) {
   return lineDiff(modelText, typedText).every((d) => d.type === "same");
 }
+
+/** Character-level split of two strings into the common prefix, the differing middles and the common suffix.
+ *  Used to highlight exactly where a wrong answer strays from the expected one. */
+export function charDiff(expected, actual) {
+  const a = String(expected);
+  const b = String(actual);
+  const max = Math.min(a.length, b.length);
+  let p = 0;
+  while (p < max && a[p] === b[p]) p++;
+  let s = 0;
+  while (s < max - p && a[a.length - 1 - s] === b[b.length - 1 - s]) s++;
+  return {
+    prefix: a.slice(0, p),
+    aMid: a.slice(p, a.length - s),
+    bMid: b.slice(p, b.length - s),
+    suffix: a.slice(a.length - s),
+  };
+}

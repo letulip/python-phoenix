@@ -61,6 +61,58 @@ def _equal(a, b):
         return False
 
 
+def _first_diff(a, b):
+    """Index of the first character where two strings differ (the shorter length when one is a prefix)."""
+    n = min(len(a), len(b))
+    for i in range(n):
+        if a[i] != b[i]:
+            return i
+    return n
+
+
+def describe_mismatch(expected, actual):
+    """Structured hint about how two unequal values differ; the UI turns it into a highlight."""
+    info = {"etype": type(expected).__name__, "atype": type(actual).__name__}
+    try:
+        if isinstance(expected, str) and isinstance(actual, str):
+            info.update(kind="str", elen=len(expected), alen=len(actual), pos=_first_diff(expected, actual))
+        elif isinstance(expected, (list, tuple)) and isinstance(actual, (list, tuple)):
+            info.update(kind="seq", elen=len(expected), alen=len(actual))
+            items = []
+            for i in range(min(max(len(expected), len(actual)), 30)):
+                has_e, has_a = i < len(expected), i < len(actual)
+                if has_e and has_a and _equal(expected[i], actual[i]):
+                    continue
+                entry = {"index": i,
+                         "expected": short_repr(expected[i]) if has_e else None,
+                         "actual": short_repr(actual[i]) if has_a else None}
+                if has_e and has_a and isinstance(expected[i], str) and isinstance(actual[i], str):
+                    entry.update(kind="str", elen=len(expected[i]), alen=len(actual[i]),
+                                 pos=_first_diff(expected[i], actual[i]))
+                items.append(entry)
+            info["ndiff"] = len(items)
+            info["items"] = items[:6]
+            info["pos"] = items[0]["index"] if items else None
+        elif isinstance(expected, dict) and isinstance(actual, dict):
+            info.update(
+                kind="dict",
+                missing=[short_repr(k) for k in expected if k not in actual][:6],
+                extra=[short_repr(k) for k in actual if k not in expected][:6],
+                changed=[short_repr(k) for k in expected if k in actual and not _equal(expected[k], actual[k])][:6],
+            )
+        elif isinstance(expected, (set, frozenset)) and isinstance(actual, (set, frozenset)):
+            info.update(
+                kind="set",
+                missing=sorted(short_repr(v) for v in expected - actual)[:6],
+                extra=sorted(short_repr(v) for v in actual - expected)[:6],
+            )
+        else:
+            info["kind"] = "other"
+    except Exception:  # pragma: no cover - the hint must never break the report
+        info["kind"] = "other"
+    return info
+
+
 def check(actual, expected, label=""):
     """Assert actual == expected with a readable report."""
     if not _equal(actual, expected):
@@ -273,16 +325,21 @@ def run_examples(ns, examples):
         item = {"call": call}
         try:
             if "prints" in ex:
-                item["expected"] = ex["prints"]
-                actual = capture(lambda: eval(call, ns))
-                item["actual"] = actual.rstrip("\n")
-                ok = _normalize_output(actual) == _normalize_output(ex["prints"])
+                expected_text = _normalize_output(ex["prints"])
+                actual_text = _normalize_output(capture(lambda: eval(call, ns)))
+                item["expected"] = expected_text
+                item["actual"] = actual_text
+                ok = actual_text == expected_text
+                if not ok:
+                    item["mismatch"] = describe_mismatch(expected_text, actual_text)
             else:
                 expected = eval(ex.get("expected", "None"), {"__builtins__": __builtins__})
                 item["expected"] = short_repr(expected)
                 actual = eval(call, ns)
                 item["actual"] = short_repr(actual)
                 ok = _equal(actual, expected)
+                if not ok:
+                    item["mismatch"] = describe_mismatch(expected, actual)
             item["status"] = "pass" if ok else "fail"
         except BaseException as exc:  # noqa: BLE001
             item["status"] = "error"
@@ -348,6 +405,7 @@ def run_tests(code, tests_src):
                 item["label"] = cf.label
             item["expected"] = short_repr(cf.expected)
             item["actual"] = short_repr(cf.actual)
+            item["mismatch"] = describe_mismatch(cf.expected, cf.actual)
         except AssertionError as exc:
             item["status"] = "fail"
             if str(exc):
