@@ -28,6 +28,9 @@
 - Hidden tests must be deterministic and use `check(actual, expected, label)` with a readable label; structural checks go
   through `ast_tools`. Exercises about an idiom should assert the idiom is used (`uses_name`, `count_calls`, ...).
 - Keep stories short: module story ≤ 90 words, exercise flavour line ≤ 60 words (the gate enforces both).
+- Every task/refactor exercise carries `LEVELS`: a middle and a senior solution, each with a short reasoning in both
+  languages (`middle.code` may be omitted and then equals `SOLUTION`). The gate runs both codes against the hidden
+  tests and the examples; drills carry no levels. The senior note says what the code does not decide, not only what it does.
 
 ## Testing in the desktop app
 - Dev server entry `python-phoenix` on port 8126 lives in the session's `.claude/launch.json`

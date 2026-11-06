@@ -79,3 +79,37 @@ def test_duplication_removed(src, ast_tools, check):
     check(ast_tools.count_calls(src, "print") <= 1, True, "a single print call inside a loop")
     check(ast_tools.has_loop(src), True, "print_receipt uses a loop")
 '''
+
+LEVELS = dict(
+    middle=dict(
+        note_en=("The repeated line became format_line and print_receipt loops with tuple unpacking: the duplication is "
+                 "gone and a fourth item costs nothing. What an interviewer still notices: print_receipt both computes "
+                 "the text and prints it, so the only way to test it is to capture stdout, and reusing the lines "
+                 "elsewhere (a file, a window) means touching the function again."),
+        note_ru=("Повторяющаяся строка стала format_line, а print_receipt идёт циклом с распаковкой: дублирование ушло, "
+                 "четвёртая позиция ничего не стоит. Что интервьюер всё ещё видит: print_receipt одновременно считает "
+                 "текст и печатает его, поэтому проверить его можно только перехватом stdout, а переиспользовать строки "
+                 "(файл, окно) – значит снова лезть в функцию."),
+    ),
+    senior=dict(
+        code='''
+def format_line(name, qty, price):
+    return f"{name:<10} x{qty:>2}  {qty * price:>7.2f}"
+
+def receipt_lines(items):
+    return [format_line(name, qty, price) for name, qty, price in items]
+
+def print_receipt(items):
+    for line in receipt_lines(items):
+        print(line)
+''',
+        note_en=("Keeps the I/O at the edge: receipt_lines is a pure function that returns the text and print_receipt is a "
+                 "two-line shell around it. Pure functions are trivial to unit-test and to reuse, which is what "
+                 "'testable design' means when an interviewer says it. And not one step further: no class, no template "
+                 "engine, no configuration object. Knowing where to stop is part of the level."),
+        note_ru=("Ввод-вывод вынесен на край: receipt_lines – чистая функция, которая возвращает текст, а print_receipt – "
+                 "двухстрочная оболочка вокруг неё. Чистые функции тривиально тестировать и переиспользовать; именно это "
+                 "интервьюер имеет в виду под «testable design». И ни шагом дальше: без класса, без шаблонизатора, без "
+                 "объекта настроек. Умение остановиться – тоже часть уровня."),
+    ),
+)

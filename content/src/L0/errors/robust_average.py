@@ -76,3 +76,37 @@ def test_negative_and_scientific(ns, check):
 def test_uses_try(src, ast_tools, check):
     check(ast_tools.has_try(src), True, "uses try/except")
 '''
+
+LEVELS = dict(
+    middle=dict(
+        note_en=("try/except around float() with continue, the empty case first, round at the end: textbook EAFP and the "
+                 "right order of checks. The conversion and the averaging live in one function, so the only way to "
+                 "test 'what counts as a number' is through the average, and the next feed reader will copy the loop."),
+        note_ru=("try/except вокруг float() с continue, пустой случай первым, round в конце: EAFP из учебника и верный "
+                 "порядок проверок. Но конвертация и усреднение живут в одной функции, поэтому проверить «что считается "
+                 "числом» можно только через среднее, а следующий читатель ленты скопирует цикл."),
+    ),
+    senior=dict(
+        code='''
+def parse_float(text):
+    try:
+        return float(text)
+    except ValueError:
+        return None
+
+def average_price(values):
+    valid = [x for x in map(parse_float, values) if x is not None]
+    if not valid:
+        return None
+    return round(sum(valid) / len(valid), 2)
+''',
+        note_en=("The conversion is its own tiny function with one job, so the policy 'what is a valid price' is testable "
+                 "and reusable, and the filter 'is not None' is explicit about the sentinel. A senior adds that float() "
+                 "also accepts 'nan' and 'inf', which would poison the average, asks whether the feed can send them, and "
+                 "names statistics.fmean as the library mean."),
+        note_ru=("Конвертация стала крошечной функцией с одной работой, поэтому правило «что такое валидная цена» "
+                 "тестируется и переиспользуется, а фильтр is not None явно называет сторожевое значение. Сеньор добавит, "
+                 "что float() принимает и 'nan', и 'inf', которые отравят среднее, спросит, может ли лента их прислать, и "
+                 "назовёт statistics.fmean как библиотечное среднее."),
+    ),
+)

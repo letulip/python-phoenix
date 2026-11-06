@@ -249,6 +249,13 @@ export async function renderTask(ctx, root, param, query) {
       h("h4", {}, t("task.solution")), h("pre", { class: "code" }, h("code", {}, task.solution.trim())),
       task.solution_alt ? [h("h4", {}, t("task.solutionAlt")), h("pre", { class: "code" }, h("code", {}, task.solution_alt.trim()))] : null);
   }
+  function levelsBlock(lv) {
+    const column = (key) => h("section", { class: `level ${key}` },
+      h("h5", {}, t(`task.level.${key}`)),
+      h("pre", { class: "code" }, h("code", {}, lv[key].code.trim())),
+      h("p", { class: "note" }, pick(lv[key], "note")));
+    return h("div", {}, h("h4", {}, t("task.levels")), h("div", { class: "levels" }, column("middle"), column("senior")));
+  }
   function revealSolution() {
     if (attempt.revealedSolution) return;
     attempt.revealedSolution = true;
@@ -283,7 +290,11 @@ export async function renderTask(ctx, root, param, query) {
       h("h3", {}, `${result === "passed" ? "✓" : "•"} ${label} · ${fmtDuration(attempt.activeSec)}`),
       isDiagnostic ? null : h("p", { class: "fun" }, randomFrom(t(result === "passed" ? "fun.pass" : "fun.gaveUp"))));
     if (!isDiagnostic) {
-      box.append(h("h4", {}, t("task.explanation")), h("p", {}, pick(task, "explanation")), solutionBlock());
+      box.append(h("h4", {}, t("task.explanation")), h("p", {}, pick(task, "explanation")));
+      const lv = task.levels;
+      const solutionShownAsLevel = lv && [lv.middle.code, lv.senior.code].some((c) => c.trim() === task.solution.trim());
+      if (!solutionShownAsLevel) box.append(solutionBlock());
+      if (lv) box.append(levelsBlock(lv));
       if (task.talk_track?.length) box.append(h("h4", {}, t("task.talk")), h("ul", {}, task.talk_track.map((l) => h("li", {}, l))));
       if (task.followups?.length) box.append(h("h4", {}, t("task.followups")), h("ul", {}, task.followups.map((l) => h("li", {}, l))));
     }

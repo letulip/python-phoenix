@@ -74,3 +74,36 @@ def test_host_is_keyword_only(ns, check, raises):
     params = inspect.signature(ns["invite"]).parameters
     check(params["host"].kind, inspect.Parameter.KEYWORD_ONLY, "host is keyword-only (defined after *friends)")
 '''
+
+LEVELS = dict(
+    middle=dict(
+        note_en=("Builds the guest list once and handles 'one' versus 'many' in a single if: it works and it is clear. "
+                 "What is left on the table: the English list rule ('A, B and C') is buried inside invite, so it cannot "
+                 "be reused for the next message or tested on its own, and the word 'and' is hard-coded, which is exactly "
+                 "what the follow-up question asks about."),
+        note_ru=("Список гостей собран один раз, «один или много» решает единственный if: работает и понятно. "
+                 "Что осталось: правило английского перечисления («A, B and C») зарыто внутри invite, его не переиспользовать "
+                 "в следующем сообщении и не проверить отдельно, а слово and прибито гвоздями – ровно об этом спрашивает "
+                 "дополнительный вопрос."),
+    ),
+    senior=dict(
+        code='''
+def join_names(names, last_sep=" and "):
+    """'A', 'A and B', 'A, B and C'."""
+    if len(names) <= 1:
+        return "".join(names)
+    return ", ".join(names[:-1]) + last_sep + names[-1]
+
+def invite(name, *friends, host="Pixel"):
+    return f"{host} invites {join_names([name, *friends])} to the party!"
+''',
+        note_en=("Two jobs, two functions: joining names in English is a small pure helper with a configurable last "
+                 "separator and its own tests; invite only formats the sentence. The helper handles 0, 1 and n names, "
+                 "so invite needs no special cases at all. host stays keyword-only after *friends, and a senior says "
+                 "that out loud instead of hoping the interviewer notices."),
+        note_ru=("Две работы – две функции: перечисление имён по-английски стало маленьким чистым помощником с настраиваемым "
+                 "последним разделителем и своими тестами, а invite только форматирует предложение. Помощник обрабатывает "
+                 "0, 1 и n имён, поэтому в invite особых случаев нет вовсе. host остаётся только-именованным после *friends, "
+                 "и сеньор говорит это вслух, а не ждёт, пока интервьюер заметит."),
+    ),
+)

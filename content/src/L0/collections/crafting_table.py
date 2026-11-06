@@ -76,3 +76,35 @@ def test_empty_recipe(ns, check):
     check(ns["craft"](inv, {}), True, "empty recipe")
     check(inv, {"stick": 1}, "inventory unchanged by an empty recipe")
 '''
+
+LEVELS = dict(
+    middle=dict(
+        note_en=("Two passes, check then mutate, and dict.get for missing items: the all-or-nothing rule holds and the "
+                 "empty recipe works by construction. The reviewer's notes: the function changes its argument but returns "
+                 "only a bool, so the caller never learns what was missing, and the invariant 'failure leaves no trace' "
+                 "lives in your head rather than in a docstring."),
+        note_ru=("Два прохода, сначала проверка, потом изменение, и dict.get для отсутствующих предметов: правило «всё или "
+                 "ничего» держится, пустой рецепт работает сам собой. Заметки ревьюера: функция меняет аргумент, а "
+                 "возвращает лишь bool, так что вызывающий не узнаёт, чего не хватило, а инвариант «неудача не оставляет "
+                 "следов» живёт у тебя в голове, а не в докстринге."),
+    ),
+    senior=dict(
+        code='''
+def craft(inventory, recipe):
+    """Consume `recipe` from `inventory`: all of it or nothing at all."""
+    short = [item for item, needed in recipe.items() if inventory.get(item, 0) < needed]
+    if short:
+        return False
+    for item, needed in recipe.items():
+        inventory[item] -= needed
+    return True
+''',
+        note_en=("Names the invariant in the docstring and computes the list of missing items instead of a flag: the "
+                 "follow-up 'return what is missing' is now a one-line change. A senior also raises the design question "
+                 "out loud: mutate the inventory or return a new one? The statement says mutate, so mutate, and say that "
+                 "you noticed the choice."),
+        note_ru=("Инвариант назван в докстринге, а вместо флага считается список недостающего: дополнительный вопрос "
+                 "«верни, чего не хватает» теперь меняет одну строку. Сеньор ещё задаёт вопрос о дизайне вслух: менять "
+                 "инвентарь или возвращать новый? Условие говорит менять, значит меняем, но говорим, что выбор заметили."),
+    ),
+)

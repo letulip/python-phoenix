@@ -4,7 +4,7 @@ A browser-only training stand for rebuilding hands-on Python before live-coding 
 hand (pasting is blocked in drills), the code runs in a real CPython 3.14 inside the browser (Pyodide in a Web Worker),
 hidden tests decide, and every attempt is logged to a JSON export that can be analysed later.
 
-Wave 1 ships the engine and Act I of the storyline: six L0 modules, 45 exercises, about 175 minutes of practice.
+Wave 1 ships the engine and Act I of the storyline: six L0 modules, 60 exercises (30 drills, 30 tasks and refactors, each task with a middle and a senior solution), about 259 minutes of practice.
 
 ## Using it
 

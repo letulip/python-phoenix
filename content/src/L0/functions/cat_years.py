@@ -52,12 +52,6 @@ def cat_age(human_years):
     return 24 + 4 * (human_years - 2)
 '''
 
-SOLUTION_ALT = '''
-def cat_age(human_years):
-    steps = [15, 9]
-    return sum(steps[:human_years]) + 4 * max(0, human_years - 2)
-'''
-
 TESTS = '''
 def test_zero(ns, check):
     check(ns["cat_age"](0), 0, "cat_age(0)")
@@ -77,3 +71,37 @@ def test_ten_years(ns, check):
 def test_returns_int(ns, check):
     check(type(ns["cat_age"](7)), int, "type(cat_age(7))")
 '''
+
+LEVELS = dict(
+    middle=dict(
+        note_en=("Correct and easy to read: the special years come first, the formula last, every branch returns. "
+                 "An interviewer would still point at the magic numbers 15, 9 and 4 living inside the logic, at the "
+                 "case for 2 that the formula already covers, and at a negative input that quietly returns nonsense."),
+        note_ru=("Верно и читается легко: особые годы сначала, формула в конце, каждая ветка возвращает. "
+                 "Интервьюер всё же укажет на магические числа 15, 9 и 4 внутри логики, на отдельный случай для 2, "
+                 "который формула и так покрывает, и на отрицательный вход, который тихо возвращает чепуху."),
+    ),
+    senior=dict(
+        code='''
+FIRST_YEAR, SECOND_YEAR, EACH_LATER_YEAR = 15, 9, 4
+
+def cat_age(human_years):
+    """Cat years: 15 for the first human year, 9 for the second, 4 for each one after."""
+    if human_years < 0:
+        raise ValueError("human_years must not be negative")
+    if human_years == 0:
+        return 0
+    if human_years == 1:
+        return FIRST_YEAR
+    return FIRST_YEAR + SECOND_YEAR + EACH_LATER_YEAR * (human_years - 2)
+''',
+        note_en=("Before typing, a senior asks what a negative input means and makes it fail loudly instead of guessing. "
+                 "The rates get names in one place, so the follow-up about configurable constants is already answered, "
+                 "and the docstring states the rule the tests check. The clever one-liner with sum() is avoided on purpose: "
+                 "shorter is not the goal, obvious is."),
+        note_ru=("Прежде чем печатать, сеньор спрашивает, что значит отрицательный вход, и делает так, чтобы он падал громко, "
+                 "а не угадывал. Ставки названы и лежат в одном месте, так что вопрос про настраиваемые константы уже закрыт; "
+                 "докстринг формулирует правило, которое проверяют тесты. Хитрая однострочка с sum() отброшена сознательно: "
+                 "цель не короче, а очевиднее."),
+    ),
+)

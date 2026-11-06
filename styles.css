@@ -205,3 +205,11 @@ dialog.overlay::backdrop { background: rgba(0, 0, 0, .45); }
 .overlay-body .screen-head { margin-bottom: 14px; } .overlay-body .screen-head h1 { font-size: 1.35rem; }
 .overlay-body .snippets { grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
 .card-btn { white-space: nowrap; }
+
+/* middle vs senior solutions in the outcome block */
+.levels { display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 12px; margin-bottom: .8em; }
+.level { border: 1px solid var(--line); border-radius: 10px; padding: 12px 14px; background: var(--bg-elev); }
+.level h5 { margin: 0 0 .5em; font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: var(--fg-muted); }
+.level.senior { border-color: var(--ok); } .level.senior h5 { color: var(--ok); }
+.level pre.code { margin-bottom: .6em; }
+.level .note { margin: 0; font-size: .92rem; }

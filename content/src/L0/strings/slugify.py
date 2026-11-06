@@ -63,3 +63,30 @@ def test_empty_and_symbols(ns, check):
 def test_unicode_letters(ns, check):
     check(ns["slugify"]("Шортс про Бали"), "шортс-про-бали", "slugify('Шортс про Бали')")
 '''
+
+LEVELS = dict(
+    middle=dict(
+        note_en=("Lowercase, replace symbols with spaces, split, join: every step is the right one and the split() trick "
+                 "is used knowingly. The character loop with a list and a second join is slightly more machinery than "
+                 "the idea needs; a reviewer sees that you know the pieces but have not yet compressed them."),
+        note_ru=("Нижний регистр, символы в пробелы, split, join: каждый шаг верный, и трюк со split() применён осознанно. "
+                 "Цикл по символам со списком и вторым join – чуть больше механики, чем нужно идее; ревьюер видит, что "
+                 "детали ты знаешь, но ещё не сжал их."),
+    ),
+    senior=dict(
+        code='''
+def slugify(title):
+    """URL slug: lowercase words joined by single dashes, symbols dropped."""
+    words = "".join(ch if ch.isalnum() else " " for ch in title.lower()).split()
+    return "-".join(words)
+''',
+        note_en=("The same four steps in two lines, each line one idea: normalise into words, join with dashes. A senior "
+                 "then talks about what the code does not decide yet: isalnum keeps Cyrillic and accents, so ask whether "
+                 "the slug must be ASCII (unicodedata.normalize plus an encode is the next step) and whether a maximum "
+                 "length applies. Those questions are the senior part; the code is just the start."),
+        note_ru=("Те же четыре шага в двух строках, по одной идее на строку: нормализовать в слова, склеить дефисами. Дальше "
+                 "сеньор говорит о том, чего код ещё не решает: isalnum оставляет кириллицу и акценты, так что спроси, нужен "
+                 "ли slug только из ASCII (следующий шаг – unicodedata.normalize плюс encode) и есть ли предел длины. Эти "
+                 "вопросы и есть сеньорская часть; код лишь начало."),
+    ),
+)

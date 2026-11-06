@@ -56,14 +56,6 @@ def rating_by_name(players):
     return {name: rating for name, rating in players}
 '''
 
-SOLUTION_ALT = '''
-def long_rallies(rallies):
-    return [r for r in rallies if r >= 10]
-
-def rating_by_name(players):
-    return dict(players)
-'''
-
 TESTS = '''
 def test_long_rallies(ns, check):
     check(ns["long_rallies"]([12, 3, 10, 9]), [12, 10], "long_rallies([12, 3, 10, 9])")
@@ -83,3 +75,33 @@ def test_no_for_statements(src, ast_tools, check):
 def test_uses_comprehension(src, ast_tools, check):
     check(ast_tools.count_nodes(src, "ListComp") >= 1, True, "a list comprehension is used")
 '''
+
+LEVELS = dict(
+    middle=dict(
+        note_en=("Two comprehensions, no temporaries: exactly the refactor requested, and the tests prove the behaviour "
+                 "did not change. The threshold 10 stays a magic number inside long_rallies, which is fine for the "
+                 "exercise and the first thing a reviewer would name, and the dict comprehension spells out what a "
+                 "built-in already does."),
+        note_ru=("Два включения, без временных переменных: ровно тот рефакторинг, что просили, и тесты доказывают, что "
+                 "поведение не изменилось. Порог 10 остаётся магическим числом внутри long_rallies: для упражнения "
+                 "нормально, но ревьюер назовёт это первым, а включение словаря вручную описывает то, что встроенная "
+                 "функция делает сама."),
+    ),
+    senior=dict(
+        code='''
+def long_rallies(rallies, min_shots=10):
+    return [r for r in rallies if r >= min_shots]
+
+def rating_by_name(players):
+    return dict(players)
+''',
+        note_en=("The second function is dict() spelled by hand, so a senior writes dict(players) and says why: a dict "
+                 "comprehension earns its place only when the key or the value is computed. The threshold becomes a "
+                 "parameter with the old default, so no caller changes and the magic number gets a name. A senior also "
+                 "says when they would keep a loop: side effects, early exit, or more than one accumulator."),
+        note_ru=("Вторая функция – это dict(), написанный вручную, поэтому сеньор пишет dict(players) и объясняет: "
+                 "включение словаря оправдано, только когда ключ или значение вычисляются. Порог становится параметром со "
+                 "старым умолчанием, вызовы не меняются, а магическое число получает имя. Сеньор ещё скажет, когда оставил "
+                 "бы цикл: побочные эффекты, ранний выход или больше одного накопителя."),
+    ),
+)

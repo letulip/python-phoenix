@@ -67,3 +67,30 @@ def test_no_self_duels(ns, check):
 def test_order(ns, check):
     check(ns["duels"](["Pixel", "Byte", "Ada"])[0], ("Pixel", "Byte"), "first duel")
 '''
+
+LEVELS = dict(
+    middle=dict(
+        note_en=("Index loops with j starting at i + 1: right answer, right count, no duplicates, and you can explain why. "
+                 "It is still index arithmetic in a language that hands you the pairs for free; an interviewer who hears "
+                 "the word 'combinations' knows you have met itertools, and that is the signal they are listening for."),
+        note_ru=("Индексные циклы с j от i + 1: верный ответ, верное число пар, без дубликатов, и ты можешь объяснить почему. "
+                 "Но это всё ещё арифметика индексов в языке, который отдаёт пары даром; интервьюер, услышав слово "
+                 "combinations, понимает, что ты знаком с itertools, и именно этот сигнал он ловит."),
+    ),
+    senior=dict(
+        code='''
+from itertools import combinations
+
+def duels(crew):
+    """Every unordered pair of crew members once, in crew order."""
+    return list(combinations(crew, 2))
+''',
+        note_en=("Names the pattern and lets the standard library produce it: combinations(crew, 2) yields exactly the "
+                 "n*(n-1)/2 tuples in the required order. A senior says the complexity is the size of the output, so no "
+                 "algorithm beats O(n^2) here, and is ready to write the two loops by hand the moment the interviewer "
+                 "asks to see them."),
+        note_ru=("Паттерн назван, а производит его стандартная библиотека: combinations(crew, 2) выдаёт ровно n*(n-1)/2 "
+                 "кортежей в нужном порядке. Сеньор говорит, что сложность равна размеру ответа, так что никакой алгоритм "
+                 "не обгонит O(n^2), и готов написать два цикла руками в ту же секунду, как интервьюер попросит показать."),
+    ),
+)

@@ -75,3 +75,36 @@ def test_large_shift(ns, check):
 def test_digits_untouched(ns, check):
     check(ns["caesar"]("r2d2", 1), "s2e2", "caesar('r2d2', 1)")
 '''
+
+LEVELS = dict(
+    middle=dict(
+        note_en=("Per-character arithmetic with a base for each case and modulo 26: this is the textbook solution and it "
+                 "handles negative and large shifts correctly. The list-plus-join is the right way to build the string. "
+                 "What a reviewer adds: Python has a translation table built for exactly this, and knowing it changes "
+                 "the loop into one call."),
+        note_ru=("Арифметика по символам с базой для каждого регистра и остатком от 26: это решение из учебника, и "
+                 "отрицательные и большие сдвиги оно обрабатывает верно. Список плюс join – правильный способ собрать "
+                 "строку. Что добавит ревьюер: в Python есть таблица трансляции ровно для этого, и знание о ней "
+                 "превращает цикл в один вызов."),
+    ),
+    senior=dict(
+        code='''
+import string
+
+def caesar(text, k):
+    """Shift ASCII letters by k, keeping case; everything else passes through."""
+    k %= 26
+    lower, upper = string.ascii_lowercase, string.ascii_uppercase
+    table = str.maketrans(lower + upper, lower[k:] + lower[:k] + upper[k:] + upper[:k])
+    return text.translate(table)
+''',
+        note_en=("Builds the shifted alphabet once and lets str.translate do the work in C: no per-character branching, "
+                 "no ord/chr, and case handling falls out of the two alphabets. k %= 26 up front covers negative and "
+                 "oversized shifts in one line. A senior notes the table could be cached per k and that the loop "
+                 "version is what you write on a whiteboard when translate is not in your head."),
+        note_ru=("Сдвинутый алфавит строится один раз, а работу делает str.translate на C: без ветвления по символам, без "
+                 "ord/chr, а регистр получается сам из двух алфавитов. k %= 26 в начале одной строкой закрывает "
+                 "отрицательные и большие сдвиги. Сеньор заметит, что таблицу можно кэшировать по k, а версия с циклом – "
+                 "то, что пишут на доске, когда translate не вспомнился."),
+    ),
+)

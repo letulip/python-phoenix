@@ -49,7 +49,7 @@
 
 Уровни и модули; в скобках – число упражнений. Всего около 145 упражнений на 6 недель при 6 сессиях в неделю.
 
-L0 «Reboot» – синтаксис руками (45: 30 дриллов + 15 задач), неделя 1
+L0 «Reboot» – синтаксис руками (60: 30 дриллов + 30 задач и рефакторингов, у каждой задачи решения middle и senior), неделя 1
 - M0.1 Functions: def/return, аргументы по умолчанию, *args/**kwargs, ранний return, docstring; вынос повторяющегося кода в функцию (тип refactor).
 - M0.2 Collections: list/tuple/dict/set, индексы и срезы, методы, in и len, истинность, None.
 - M0.3 Loops & conditions: for/while, range, enumerate, zip, break/continue/else, тернарник.
@@ -104,7 +104,7 @@ L4 «Mock interviews» – с 4-й недели, еженедельно: спр�
 | predict | отвечает, что напечатает фрагмент | сравнение ответа с фактическим выводом (нормализация пробелов) | дрилл, разминка |
 | explain | называет сложность и ключевую идею решения | самопроверка с раскрытием ответа и самооценкой | после task |
 
-Каждое упражнение несёт: `id`, `type`, `level`, `module`, `concepts[]`, `difficulty` 1–5, `minutes` (целевое время), `world` (shorts | bybit | tennis | oth | everyday | neutral), `title`, `statement_en`, `starter`, `examples` (видимые), `tests` (скрытые), `hints_en` и `hints_ru` (3 ступени: направление → структура → почти код), `solution` (эталон) и `solution_alt` (идиоматичный вариант, по желанию), `explanation_en` и `explanation_ru`, `talk_track` (3–5 фраз для интервьюера по-английски), `complexity`, `variants` (другие данные или соседние задачи для повторения), `followups` (вопросы «а что если», как задаёт интервьюер).
+Каждое упражнение несёт: `id`, `type`, `level`, `module`, `concepts[]`, `difficulty` 1–5, `minutes` (целевое время), `world` (shorts | bybit | tennis | oth | everyday | neutral), `title`, `statement_en`, `starter`, `examples` (видимые), `tests` (скрытые), `hints_en` и `hints_ru` (3 ступени: направление → структура → почти код), `solution` (эталон), `solution_alt` (идиоматичный вариант, по желанию), `levels` (решения middle и senior с обоснованием RU/EN, обязательны для task/refactor), `explanation_en` и `explanation_ru`, `talk_track` (3–5 фраз для интервьюера по-английски), `complexity`, `variants` (другие данные или соседние задачи для повторения), `followups` (вопросы «а что если», как задаёт интервьюер).
 
 ### Пример задачи в авторском формате
 

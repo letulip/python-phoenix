@@ -73,3 +73,49 @@ def test_input_untouched(ns, check):
     ns["top_shorts"](VIDEOS, 0)
     check(VIDEOS, before, "videos list not reordered")
 '''
+
+LEVELS = dict(
+    middle=dict(
+        code='''
+def top_shorts(videos, min_views):
+    shorts = []
+    for v in videos:
+        if v["seconds"] <= 60:
+            if v["views"] >= min_views:
+                shorts.append(v)
+    shorts.sort(key=lambda v: v["views"], reverse=True)
+    titles = []
+    for v in shorts:
+        titles.append(v["title"])
+    return titles
+''',
+        note_en=("Filter, sort, project, in that order: correct, and the stability of sort is used, perhaps without "
+                 "knowing it. The nested ifs are one 'and', the two append loops are two comprehensions, and the magic "
+                 "60 has no name. Each is a small reviewer comment; together they say 'knows the algorithm, not yet the "
+                 "language'."),
+        note_ru=("Отфильтровать, отсортировать, спроецировать, именно в таком порядке: верно, и устойчивость сортировки "
+                 "использована, пусть и неосознанно. Вложенные if – это один and, два цикла с append – два включения, а у "
+                 "магического 60 нет имени. Каждое – мелкое замечание ревьюера; вместе они говорят «знает алгоритм, но "
+                 "ещё не язык»."),
+    ),
+    senior=dict(
+        code='''
+MAX_SHORT_SECONDS = 60
+
+def top_shorts(videos, min_views):
+    """Titles of qualifying Shorts, most viewed first; equal views keep input order."""
+    def qualifies(video):
+        return video["seconds"] <= MAX_SHORT_SECONDS and video["views"] >= min_views
+    ranked = sorted((v for v in videos if qualifies(v)), key=lambda v: v["views"], reverse=True)
+    return [v["title"] for v in ranked]
+''',
+        note_en=("Names the rule and the constant, so the filter reads as a sentence, and sorted over a generator never "
+                 "materialises the intermediate list. A senior says out loud that Python's sort is stable, so reverse=True "
+                 "keeps equal views in input order, and that (-views, title) would be the key the moment a tie-break is "
+                 "requested. Then stops."),
+        note_ru=("Правило и константа названы, поэтому фильтр читается как предложение, а sorted по генератору не "
+                 "материализует промежуточный список. Сеньор вслух говорит, что сортировка в Python устойчива, поэтому "
+                 "reverse=True сохраняет порядок равных просмотров, и что (-views, title) станет ключом, как только "
+                 "попросят разрешать ничьи. И останавливается."),
+    ),
+)

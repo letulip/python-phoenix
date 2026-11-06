@@ -47,12 +47,6 @@ def missing(crew, present):
     return absent
 '''
 
-SOLUTION_ALT = '''
-def missing(crew, present):
-    here = set(present)
-    return [name for name in crew if name not in here]
-'''
-
 TESTS = '''
 def test_basic(ns, check):
     check(ns["missing"](["Pixel", "Byte", "Ada"], {"Byte"}), ["Pixel", "Ada"], "missing(['Pixel', 'Byte', 'Ada'], {'Byte'})")
@@ -72,3 +66,30 @@ def test_order_is_crew_order(ns, check):
 def test_empty_crew(ns, check):
     check(ns["missing"]([], {"x"}), [], "empty crew")
 '''
+
+LEVELS = dict(
+    middle=dict(
+        note_en=("Converts present to a set once and walks the crew in order: the right data structure and the right "
+                 "loop, so the complexity is already O(n + m). It is still a four-line accumulator for a one-line idea; "
+                 "nothing wrong with that, it just stops one step before the idiom."),
+        note_ru=("present превращён в множество один раз, а обход идёт по crew по порядку: верная структура данных и "
+                 "верный цикл, сложность уже O(n + m). Но это четырёхстрочный накопитель для идеи в одну строку; "
+                 "ошибки нет, просто остановка за шаг до идиомы."),
+    ),
+    senior=dict(
+        code='''
+def missing(crew, present):
+    """Crew members absent from `present`, in crew order."""
+    here = set(present)
+    return [name for name in crew if name not in here]
+''',
+        note_en=("The comprehension states the result: crew members not in the set. Building the set once outside the "
+                 "comprehension keeps it O(n + m); writing 'name not in present' on a list would be O(n * m), and a senior "
+                 "names that trap without being asked. Duplicates in crew stay duplicates, which the docstring states if "
+                 "the interviewer cares."),
+        note_ru=("Включение описывает результат: члены команды, которых нет в множестве. Множество построено один раз "
+                 "снаружи включения, поэтому остаётся O(n + m); «name not in present» по списку дало бы O(n * m), и сеньор "
+                 "называет эту ловушку без вопроса. Дубликаты в crew остаются дубликатами, и докстринг это скажет, если "
+                 "интервьюеру важно."),
+    ),
+)

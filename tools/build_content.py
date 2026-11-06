@@ -8,7 +8,9 @@ Usage:
 Authoring format (one file per exercise under content/src/L<level>/<module>/):
   _module.py   MODULE = dict(id, level, order, title_en, title_ru, concepts, card, diagnostic)
   <slug>.py    META = dict(...), STARTER, SOLUTION, TESTS, optional MODEL (retype),
-               EXAMPLES (visible examples), SOLUTION_ALT
+               EXAMPLES (visible examples), SOLUTION_ALT, and for task/refactor LEVELS:
+               dict(middle=dict(code, note_en, note_ru), senior=dict(code, note_en, note_ru)).
+               middle.code may be omitted: it then equals SOLUTION. Both codes must pass the tests.
 
 The gate runs the reference solution against the tests with the same harness the
 browser uses (src/runner/runner.py), checks that the starter does not already pass,
@@ -276,6 +278,7 @@ def build_exercise(path, where, module_id, level, module_info, concepts, runner,
     tests = getattr(mod, "TESTS", None)
     model = getattr(mod, "MODEL", None)
     examples = list(getattr(mod, "EXAMPLES", []) or [])
+    levels = getattr(mod, "LEVELS", None)
 
     if not isinstance(tests, str) or not TEST_DEF_RE.search(tests or ""):
         problems.add(where, "TESTS must define at least one test_ function")
@@ -316,6 +319,8 @@ def build_exercise(path, where, module_id, level, module_info, concepts, runner,
         if starter_res["ok"]:
             problems.add(where, "STARTER already passes the tests – the exercise asks nothing")
 
+    levels_out = validate_levels(levels, is_drill, solution, tests, examples, runner, where, problems)
+
     return {
         "id": ex_id, "type": ex_type, "level": level, "module": module_id,
         "order": order, "difficulty": difficulty, "minutes": minutes,
@@ -331,8 +336,57 @@ def build_exercise(path, where, module_id, level, module_info, concepts, runner,
         "explanation_en": meta.get("explanation_en", ""), "explanation_ru": meta.get("explanation_ru", ""),
         "talk_track": list(talk), "complexity": meta.get("complexity"),
         "variants": list(meta.get("variants", [])), "followups": list(meta.get("followups", [])),
-        "timeout_ms": timeout_ms,
+        "timeout_ms": timeout_ms, "levels": levels_out,
     }
+
+
+LEVEL_NAMES = ("middle", "senior")
+LEVEL_NOTE_MAX_WORDS = 110
+
+
+def validate_levels(levels, is_drill, solution, tests, examples, runner, where, problems):
+    """LEVELS: how a middle and a senior would solve the same task, each with a short reasoning.
+    Required for task/refactor, forbidden for drills. Every code must pass the hidden tests and the examples."""
+    if is_drill:
+        if levels is not None:
+            problems.add(where, "LEVELS belongs to task/refactor exercises only")
+        return None
+    if not isinstance(levels, dict) or tuple(levels) != LEVEL_NAMES:
+        problems.add(where, "LEVELS must be a dict with exactly 'middle' and 'senior' (in that order)")
+        return None
+    out = {}
+    for name in LEVEL_NAMES:
+        entry = levels.get(name)
+        if not isinstance(entry, dict):
+            problems.add(where, f"LEVELS.{name} must be a dict")
+            return None
+        code = entry.get("code")
+        if code is None and name == "middle":
+            code = solution
+        if not isinstance(code, str) or not code.strip():
+            problems.add(where, f"LEVELS.{name}.code is missing")
+            return None
+        for key in ("note_en", "note_ru"):
+            note = entry.get(key)
+            if not isinstance(note, str) or not note.strip():
+                problems.add(where, f"LEVELS.{name}.{key} is missing")
+            elif len(note.split()) > LEVEL_NOTE_MAX_WORDS:
+                problems.add(where, f"LEVELS.{name}.{key} is longer than {LEVEL_NOTE_MAX_WORDS} words")
+        if BLANK in code:
+            problems.add(where, f"LEVELS.{name}.code still contains blanks")
+        if tests:
+            res = runner.run_tests(code, tests)
+            if not res["ok"]:
+                problems.add(where, f"LEVELS.{name}.code fails the tests: {failing_summary(res)}")
+            if examples:
+                ex_res = runner.run_code(code, examples)
+                if not ex_res["ok"]:
+                    bad = [e for e in ex_res["examples"] if e["status"] != "pass"]
+                    problems.add(where, f"EXAMPLES do not hold for LEVELS.{name}.code: {bad[:2]}")
+        out[name] = {"code": code.strip("\n") + "\n", "note_en": entry.get("note_en", ""), "note_ru": entry.get("note_ru", "")}
+    if out["middle"]["code"].strip() == out["senior"]["code"].strip():
+        problems.add(where, "LEVELS.middle.code and LEVELS.senior.code are identical")
+    return out
 
 
 def render_curriculum(data):

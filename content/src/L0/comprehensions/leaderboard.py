@@ -64,3 +64,42 @@ def test_empty(ns, check):
 def test_top_zero(ns, check):
     check(ns["leaderboard"]({"a": 1}, top=0), [], "top=0")
 '''
+
+LEVELS = dict(
+    middle=dict(
+        code='''
+def leaderboard(ratings, top=3):
+    pairs = list(ratings.items())
+    pairs.sort(key=lambda p: p[0])
+    pairs.sort(key=lambda p: p[1], reverse=True)
+    names = []
+    for name, rating in pairs:
+        names.append(name)
+    return names[:top]
+''',
+        note_en=("Two stable sorts, name first and rating second, is a legitimate technique that strong engineers use "
+                 "when a field cannot be negated. Here both rules fit in one key tuple, so the second sort and the "
+                 "manual projection loop are extra steps, and a reviewer asks why the pairs were built at all when the "
+                 "dict's keys are what gets returned."),
+        note_ru=("Две устойчивые сортировки, сначала по имени, потом по рейтингу, – законный приём, которым сильные "
+                 "инженеры пользуются, когда поле нельзя взять с минусом. Здесь оба правила умещаются в один кортеж-ключ, "
+                 "так что вторая сортировка и ручной цикл проекции – лишние шаги, и ревьюер спросит, зачем вообще "
+                 "собирать пары, если возвращаются ключи словаря."),
+    ),
+    senior=dict(
+        code='''
+def leaderboard(ratings, top=3):
+    """Names by rating descending, ties by name ascending, at most `top` of them."""
+    ordered = sorted(ratings, key=lambda name: (-ratings[name], name))
+    return ordered[:top]
+''',
+        note_en=("Sorts the names themselves with one key tuple: the minus flips the rating, the name breaks ties, nothing "
+                 "is projected afterwards. A senior says sorted is stable and O(n log n), that [:top] is safe past the "
+                 "end, that the two-pass stable sort is the tool when the tie-break field is a string, and that "
+                 "heapq.nlargest is the answer when top is tiny and n is huge."),
+        note_ru=("Сортируются сами имена одним кортежем-ключом: минус переворачивает рейтинг, имя разрешает ничьи, "
+                 "проецировать потом нечего. Сеньор скажет, что sorted устойчива и O(n log n), что [:top] безопасен за "
+                 "концом списка, что двухпроходная устойчивая сортировка – инструмент, когда поле для ничьей строковое, "
+                 "и что heapq.nlargest – ответ, когда top крошечный, а n огромный."),
+    ),
+)

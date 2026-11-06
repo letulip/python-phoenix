@@ -305,6 +305,8 @@
     "l0.functions.loot-splitter",
     "l0.functions.sum-of-anything",
     "l0.functions.cat-years",
+    "l0.functions.bake-time",
+    "l0.functions.settings-line",
     "l0.functions.party-invite",
     "l0.functions.extract-helper"
    ],
@@ -396,7 +398,10 @@
     "l0.collections.unpack-the-crate",
     "l0.collections.slice-the-season",
     "l0.collections.crafting-table",
-    "l0.collections.roll-call"
+    "l0.collections.merge-stock",
+    "l0.collections.rotate-shelf",
+    "l0.collections.roll-call",
+    "l0.collections.describe-crate"
    ],
    "id": "l0.collections",
    "level": 0,
@@ -485,7 +490,10 @@
     "l0.loops.find-the-stowaway",
     "l0.loops.steps-to-one",
     "l0.loops.meow-purr",
-    "l0.loops.duel-schedule"
+    "l0.loops.longest-streak",
+    "l0.loops.first-over",
+    "l0.loops.duel-schedule",
+    "l0.loops.price-list"
    ],
    "id": "l0.loops",
    "level": 0,
@@ -567,8 +575,10 @@
     "l0.strings.peek-and-replace",
     "l0.strings.initials",
     "l0.strings.palindrome-check",
+    "l0.strings.censor",
     "l0.strings.slugify",
-    "l0.strings.caesar-cipher"
+    "l0.strings.caesar-cipher",
+    "l0.strings.ticker-line"
    ],
    "id": "l0.strings",
    "level": 0,
@@ -650,6 +660,8 @@
     "l0.comprehensions.any-all-check",
     "l0.comprehensions.two-key-sort",
     "l0.comprehensions.leaderboard",
+    "l0.comprehensions.hashtag-counts",
+    "l0.comprehensions.season-summary",
     "l0.comprehensions.top-shorts",
     "l0.comprehensions.loop-to-comprehension"
    ],
@@ -732,7 +744,10 @@
     "l0.errors.raise-your-own",
     "l0.errors.group-with-setdefault",
     "l0.errors.robust-average",
-    "l0.errors.validate-order"
+    "l0.errors.safe-get",
+    "l0.errors.parse-trade",
+    "l0.errors.validate-order",
+    "l0.errors.lbyl-to-eafp"
    ],
    "id": "l0.errors",
    "level": 0,
@@ -785,6 +800,18 @@
    ],
    "id": "l0.collections.crafting-table",
    "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def craft(inventory, recipe):\n    for item, needed in recipe.items():\n        if inventory.get(item, 0) < needed:\n            return False\n    for item, needed in recipe.items():\n        inventory[item] -= needed\n    return True\n",
+     "note_en": "Two passes, check then mutate, and dict.get for missing items: the all-or-nothing rule holds and the empty recipe works by construction. The reviewer's notes: the function changes its argument but returns only a bool, so the caller never learns what was missing, and the invariant 'failure leaves no trace' lives in your head rather than in a docstring.",
+     "note_ru": "Два прохода, сначала проверка, потом изменение, и dict.get для отсутствующих предметов: правило «всё или ничего» держится, пустой рецепт работает сам собой. Заметки ревьюера: функция меняет аргумент, а возвращает лишь bool, так что вызывающий не узнаёт, чего не хватило, а инвариант «неудача не оставляет следов» живёт у тебя в голове, а не в докстринге."
+    },
+    "senior": {
+     "code": "def craft(inventory, recipe):\n    \"\"\"Consume `recipe` from `inventory`: all of it or nothing at all.\"\"\"\n    short = [item for item, needed in recipe.items() if inventory.get(item, 0) < needed]\n    if short:\n        return False\n    for item, needed in recipe.items():\n        inventory[item] -= needed\n    return True\n",
+     "note_en": "Names the invariant in the docstring and computes the list of missing items instead of a flag: the follow-up 'return what is missing' is now a one-line change. A senior also raises the design question out loud: mutate the inventory or return a new one? The statement says mutate, so mutate, and say that you noticed the choice.",
+     "note_ru": "Инвариант назван в докстринге, а вместо флага считается список недостающего: дополнительный вопрос «верни, чего не хватает» теперь меняет одну строку. Сеньор ещё задаёт вопрос о дизайне вслух: менять инвентарь или возвращать новый? Условие говорит менять, значит меняем, но говорим, что выбор заметили."
+    }
+   },
    "minutes": 7,
    "model": null,
    "module": "l0.collections",
@@ -803,6 +830,76 @@
    "timeout_ms": null,
    "title": "Crafting table",
    "type": "task",
+   "variants": [],
+   "world": "game"
+  },
+  "l0.collections.describe-crate": {
+   "complexity": "O(1)",
+   "concepts": [
+    "tuple-unpacking",
+    "none-check",
+    "truthiness"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "describe_crate(('gold', 12, None))",
+     "expected": "'12 x gold (no note)'"
+    },
+    {
+     "call": "describe_crate(('', 3, 'fragile'))",
+     "expected": "'unlabelled crate'"
+    }
+   ],
+   "explanation_en": "Unpacking gives the parts names at the point where they enter the function, so the reader never translates indexes in their head. 'is None' is the idiom because None is one object and == can be overridden by other types. Truthiness turns a length check into the question you actually meant: is there a label?",
+   "explanation_ru": "Распаковка даёт частям имена там, где они входят в функцию, и читателю не нужно переводить индексы в уме. is None – идиома, потому что None один, а == другие типы могут переопределить. Истинность превращает проверку длины в вопрос, который ты и имел в виду: есть ли подпись?",
+   "followups": [
+    "Would a namedtuple or dataclass for the crate be the next step? Why?",
+    "What if the crate had four fields one day?"
+   ],
+   "hints_en": [
+    "One line replaces three: kind, amount, note = crate.",
+    "None is a single object, so the check is 'note is None'.",
+    "An empty string is falsy: 'if not kind' replaces len(kind) == 0."
+   ],
+   "hints_ru": [
+    "Одна строка вместо трёх: kind, amount, note = crate.",
+    "None – единственный объект, поэтому проверка пишется как note is None.",
+    "Пустая строка ложна: if not kind заменяет len(kind) == 0."
+   ],
+   "id": "l0.collections.describe-crate",
+   "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def describe_crate(crate):\n    kind, amount, note = crate\n    if note is None:\n        note = \"no note\"\n    if not kind:\n        return \"unlabelled crate\"\n    return f\"{amount} x {kind} ({note})\"\n",
+     "note_en": "Exactly the three substitutions the task asked for, in place, nothing else touched: that is a clean refactor, and 'change nothing you were not asked to change' is a real virtue. The function still reassigns note before checking whether the label exists at all, so the reader meets the default before learning it may never be used.",
+     "note_ru": "Ровно три замены, которые просило задание, на месте, больше ничего не тронуто: это чистый рефакторинг, и «не менять того, о чём не просили» – настоящее достоинство. Но функция всё ещё переназначает note до проверки, есть ли подпись вообще, и читатель встречает умолчание раньше, чем узнаёт, что оно может не понадобиться."
+    },
+    "senior": {
+     "code": "NO_NOTE = \"no note\"\n\ndef describe_crate(crate):\n    \"\"\"'<amount> x <kind> (<note>)', or 'unlabelled crate' when the kind is empty.\"\"\"\n    kind, amount, note = crate\n    if not kind:\n        return \"unlabelled crate\"\n    return f\"{amount} x {kind} ({NO_NOTE if note is None else note})\"\n",
+     "note_en": "Guard first, then the one formatted line: the function reads top-down and the default note sits next to the place it is used, with a name instead of a loose string. A senior also says what the real smell was: a crate addressed by position. The next refactor would be a namedtuple or dataclass for the crate, and they say 'next', because this task asked for this one.",
+     "note_ru": "Сначала защита, потом одна отформатированная строка: функция читается сверху вниз, а умолчание для note стоит рядом с местом использования и носит имя вместо голой строки. Сеньор ещё называет настоящий запах: ящик, к которому обращаются по позициям. Следующий рефакторинг – namedtuple или dataclass для ящика, и он говорит «следующий», потому что это задание просило именно этот."
+    }
+   },
+   "minutes": 6,
+   "model": null,
+   "module": "l0.collections",
+   "order": 90,
+   "solution": "def describe_crate(crate):\n    kind, amount, note = crate\n    if note is None:\n        note = \"no note\"\n    if not kind:\n        return \"unlabelled crate\"\n    return f\"{amount} x {kind} ({note})\"\n",
+   "solution_alt": null,
+   "starter": "def describe_crate(crate):\n    kind = crate[0]\n    amount = crate[1]\n    note = crate[2]\n    if note == None:\n        note = \"no note\"\n    if len(kind) == 0:\n        return \"unlabelled crate\"\n    return f\"{amount} x {kind} ({note})\"\n",
+   "statement_en": "describe_crate(crate) works but reads like a parrot wrote it: crate[0], crate[1], crate[2], '== None' and 'len(kind) == 0'. Rewrite it with tuple unpacking into kind, amount and note, compare with None using 'is', and use truthiness for the empty label. No indexing and no len() may remain. Behaviour must not change.",
+   "story_en": "Captain Byte's label printer was written in a hurry by the parrot. The parrot retired. The labels still come out right, which is the only nice thing anyone says about the code.",
+   "talk_track": [
+    "Say unpacking names the parts where they arrive, so no index arithmetic is left in the body.",
+    "Explain 'is None' versus '== None' in one sentence: identity of a singleton.",
+    "Mention that an empty string being falsy is the whole reason 'if not kind' reads as intended."
+   ],
+   "tests": "\ndef test_with_note(ns, check):\n    check(ns[\"describe_crate\"]((\"rum\", 3, \"fragile\")), \"3 x rum (fragile)\", \"describe_crate(('rum', 3, 'fragile'))\")\n\ndef test_without_note(ns, check):\n    check(ns[\"describe_crate\"]((\"gold\", 12, None)), \"12 x gold (no note)\", \"describe_crate(('gold', 12, None))\")\n\ndef test_unlabelled(ns, check):\n    check(ns[\"describe_crate\"]((\"\", 3, \"fragile\")), \"unlabelled crate\", \"empty kind\")\n\ndef test_no_indexing_or_len(src, ast_tools, check):\n    check(ast_tools.count_nodes(src, \"Subscript\"), 0, \"no crate[i] indexing left\")\n    check(ast_tools.count_calls(src, \"len\"), 0, \"no len() call left\")\n\ndef test_unpacks_the_tuple(src, ast_tools, check):\n    check(ast_tools.count_nodes(src, \"Tuple\") >= 1, True, \"the crate is unpacked into names\")\n\ndef test_is_none(src, ast_tools, check):\n    import ast\n    eq_none = any(isinstance(node, ast.Compare)\n                  and any(isinstance(op, ast.Eq) for op in node.ops)\n                  and any(isinstance(c, ast.Constant) and c.value is None for c in node.comparators)\n                  for node in ast.walk(ast.parse(src)))\n    check(eq_none, False, \"no '== None' left\")\n    check(ast_tools.count_nodes(src, \"Is\") >= 1, True, \"compares with 'is None'\")\n",
+   "timeout_ms": null,
+   "title": "Unpack the crate label",
+   "type": "refactor",
    "variants": [],
    "world": "game"
   },
@@ -826,6 +923,7 @@
    ],
    "id": "l0.collections.inventory-lookup",
    "level": 0,
+   "levels": null,
    "minutes": 2,
    "model": null,
    "module": "l0.collections",
@@ -840,6 +938,75 @@
    "timeout_ms": null,
    "title": "Inventory lookup",
    "type": "cloze",
+   "variants": [],
+   "world": "game"
+  },
+  "l0.collections.merge-stock": {
+   "complexity": "O(n + m)",
+   "concepts": [
+    "dict-basics",
+    "dict-get"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [
+    {
+     "call": "merge_stock({'stick': 2}, {'stick': 1, 'coal': 3})",
+     "expected": "{'stick': 3, 'coal': 3}"
+    },
+    {
+     "call": "merge_stock({}, {'gem': 1})",
+     "expected": "{'gem': 1}"
+    }
+   ],
+   "explanation_en": "Copy, then add: a new dict keeps the inputs intact, and dict.get with a default of 0 makes 'present in one chest only' and 'present in both' the same line of code. Key order follows insertion, so a's items come first automatically.",
+   "explanation_ru": "Скопируй, потом прибавляй: новый словарь оставляет входы целыми, а dict.get с умолчанием 0 делает «есть только в одном сундуке» и «есть в обоих» одной строкой кода. Порядок ключей – порядок вставки, поэтому предметы из a сами идут первыми.",
+   "followups": [
+    "How would collections.Counter change this?",
+    "What if counts can be negative, like an IOU?"
+   ],
+   "hints_en": [
+    "Start from a copy of a: dict(a) or a.copy(), never from a itself.",
+    "For each item in b, add its count to what the copy already has: merged.get(item, 0) + count.",
+    "Return the copy; nothing else needs to change."
+   ],
+   "hints_ru": [
+    "Начни с копии a: dict(a) или a.copy(), но не с самого a.",
+    "Для каждого предмета из b прибавь его количество к тому, что уже есть в копии: merged.get(item, 0) + count.",
+    "Верни копию; больше ничего менять не нужно."
+   ],
+   "id": "l0.collections.merge-stock",
+   "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def merge_stock(a, b):\n    result = {}\n    for item in a:\n        result[item] = a[item]\n    for item in b:\n        if item in result:\n            result[item] = result[item] + b[item]\n        else:\n            result[item] = b[item]\n    return result\n",
+     "note_en": "Correct, and it respects the inputs. The first loop is dict(a) spelled by hand, and the if/else is the 'key present or not' dance that dict.get was invented to replace. A reviewer reads it fine; a reviewer also sees that you did not reach for the built-in tools.",
+     "note_ru": "Верно, и входы не тронуты. Но первый цикл – это dict(a), написанный вручную, а if/else – тот самый танец «ключ есть или нет», ради которого придумали dict.get. Ревьюер читает без труда; ревьюер также видит, что ты не взял встроенные инструменты."
+    },
+    "senior": {
+     "code": "def merge_stock(a, b):\n    \"\"\"New dict with the counts of both chests added up; the inputs stay untouched.\"\"\"\n    merged = dict(a)\n    for item, count in b.items():\n        merged[item] = merged.get(item, 0) + count\n    return merged\n",
+     "note_en": "Copy once, then one line per item with .get(item, 0): the two cases collapse. A senior also knows that collections.Counter(a) + Counter(b) is the one-liner, and explains why it is not used here: it drops zero and negative counts and returns a Counter, not the plain dict the caller asked for. Knowing the tool and its edge cases beats using it blindly.",
+     "note_ru": "Одна копия, потом одна строка на предмет через .get(item, 0): два случая схлопнулись. Сеньор также знает, что collections.Counter(a) + Counter(b) – однострочник, и объясняет, почему здесь он не взят: тот выбрасывает нулевые и отрицательные количества и возвращает Counter, а не обычный dict, который просили. Знать инструмент вместе с его краями важнее, чем применить его вслепую."
+    }
+   },
+   "minutes": 5,
+   "model": null,
+   "module": "l0.collections",
+   "order": 62,
+   "solution": "def merge_stock(a, b):\n    merged = dict(a)\n    for item, count in b.items():\n        merged[item] = merged.get(item, 0) + count\n    return merged\n",
+   "solution_alt": null,
+   "starter": "def merge_stock(a, b):\n    ...\n",
+   "statement_en": "Write merge_stock(a, b) -> dict. Both are dicts of item -> count. Return a new dict that holds every item from either chest with the counts added up. Neither input may be modified. Keep the items of a first, in their order, then the items that exist only in b.",
+   "story_en": "Timmy found a second chest. Now he has two chests with sticks in both, and a strong wish to see one number.",
+   "talk_track": [
+    "Say you copy a first so the inputs stay untouched.",
+    "Mention dict.get(item, 0) merges the two cases into one line.",
+    "Complexity O(n + m) in the sizes of the chests."
+   ],
+   "tests": "\ndef test_overlap(ns, check):\n    check(ns[\"merge_stock\"]({\"stick\": 2}, {\"stick\": 1, \"coal\": 3}), {\"stick\": 3, \"coal\": 3}, \"sticks add up, coal joins\")\n\ndef test_disjoint(ns, check):\n    check(ns[\"merge_stock\"]({\"rope\": 1}, {\"gem\": 1}), {\"rope\": 1, \"gem\": 1}, \"disjoint chests\")\n\ndef test_empty(ns, check):\n    check((ns[\"merge_stock\"]({}, {}), ns[\"merge_stock\"]({}, {\"gem\": 1})), ({}, {\"gem\": 1}), \"empty chests\")\n\ndef test_inputs_untouched(ns, check):\n    a, b = {\"stick\": 2}, {\"stick\": 1}\n    out = ns[\"merge_stock\"](a, b)\n    check((a, b), ({\"stick\": 2}, {\"stick\": 1}), \"inputs unchanged\")\n    check(out is a, False, \"a new dict is returned\")\n\ndef test_key_order(ns, check):\n    check(list(ns[\"merge_stock\"]({\"b\": 1, \"a\": 1}, {\"c\": 1, \"a\": 1})), [\"b\", \"a\", \"c\"], \"a's keys first, then b's new ones\")\n",
+   "timeout_ms": null,
+   "title": "Merge two chests",
+   "type": "task",
    "variants": [],
    "world": "game"
   },
@@ -878,12 +1045,24 @@
    ],
    "id": "l0.collections.roll-call",
    "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def missing(crew, present):\n    here = set(present)\n    absent = []\n    for name in crew:\n        if name not in here:\n            absent.append(name)\n    return absent\n",
+     "note_en": "Converts present to a set once and walks the crew in order: the right data structure and the right loop, so the complexity is already O(n + m). It is still a four-line accumulator for a one-line idea; nothing wrong with that, it just stops one step before the idiom.",
+     "note_ru": "present превращён в множество один раз, а обход идёт по crew по порядку: верная структура данных и верный цикл, сложность уже O(n + m). Но это четырёхстрочный накопитель для идеи в одну строку; ошибки нет, просто остановка за шаг до идиомы."
+    },
+    "senior": {
+     "code": "def missing(crew, present):\n    \"\"\"Crew members absent from `present`, in crew order.\"\"\"\n    here = set(present)\n    return [name for name in crew if name not in here]\n",
+     "note_en": "The comprehension states the result: crew members not in the set. Building the set once outside the comprehension keeps it O(n + m); writing 'name not in present' on a list would be O(n * m), and a senior names that trap without being asked. Duplicates in crew stay duplicates, which the docstring states if the interviewer cares.",
+     "note_ru": "Включение описывает результат: члены команды, которых нет в множестве. Множество построено один раз снаружи включения, поэтому остаётся O(n + m); «name not in present» по списку дало бы O(n * m), и сеньор называет эту ловушку без вопроса. Дубликаты в crew остаются дубликатами, и докстринг это скажет, если интервьюеру важно."
+    }
+   },
    "minutes": 5,
    "model": null,
    "module": "l0.collections",
    "order": 70,
    "solution": "def missing(crew, present):\n    here = set(present)\n    absent = []\n    for name in crew:\n        if name not in here:\n            absent.append(name)\n    return absent\n",
-   "solution_alt": "def missing(crew, present):\n    here = set(present)\n    return [name for name in crew if name not in here]\n",
+   "solution_alt": null,
    "starter": "def missing(crew, present):\n    ...\n",
    "statement_en": "Write missing(crew, present) -> list. crew is the list of names in boarding order; present is a list or set of names who showed up. Return the names that did not show up, in crew order. Names in present that are not in crew are ignored.",
    "story_en": "Captain Byte's roll call. The parrot used to do this too. The parrot had a better memory than the first mate.",
@@ -894,6 +1073,76 @@
    "tests": "\ndef test_basic(ns, check):\n    check(ns[\"missing\"]([\"Pixel\", \"Byte\", \"Ada\"], {\"Byte\"}), [\"Pixel\", \"Ada\"], \"missing(['Pixel', 'Byte', 'Ada'], {'Byte'})\")\n\ndef test_everyone_here(ns, check):\n    check(ns[\"missing\"]([\"Pixel\", \"Byte\"], [\"Byte\", \"Pixel\"]), [], \"all present\")\n\ndef test_nobody_here(ns, check):\n    check(ns[\"missing\"]([\"Pixel\", \"Byte\"], []), [\"Pixel\", \"Byte\"], \"nobody present\")\n\ndef test_strangers_ignored(ns, check):\n    check(ns[\"missing\"]([\"Pixel\"], {\"Ghost\", \"Pixel\"}), [], \"strangers in present are ignored\")\n\ndef test_order_is_crew_order(ns, check):\n    check(ns[\"missing\"]([\"c\", \"a\", \"b\"], {\"a\"}), [\"c\", \"b\"], \"crew order kept\")\n\ndef test_empty_crew(ns, check):\n    check(ns[\"missing\"]([], {\"x\"}), [], \"empty crew\")\n",
    "timeout_ms": null,
    "title": "Roll call",
+   "type": "task",
+   "variants": [],
+   "world": "game"
+  },
+  "l0.collections.rotate-shelf": {
+   "complexity": "O(n)",
+   "concepts": [
+    "slicing",
+    "list-methods",
+    "truthiness"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "rotate(['a', 'b', 'c'], 1)",
+     "expected": "['b', 'c', 'a']"
+    },
+    {
+     "call": "rotate(['a', 'b', 'c'], -1)",
+     "expected": "['c', 'a', 'b']"
+    }
+   ],
+   "explanation_en": "Rotation is two slices: the tail from k onwards, then the head before k. The modulo folds every k, including negative ones, into the range 0..len-1, and slices always build a new list, so the input stays as it was.",
+   "explanation_ru": "Поворот – это два среза: хвост от k и дальше, потом голова до k. Остаток сворачивает любое k, включая отрицательное, в диапазон 0..len-1, а срезы всегда строят новый список, поэтому вход не меняется.",
+   "followups": [
+    "Rotate in place without creating a new list.",
+    "What changes if shelf is a string instead of a list?"
+   ],
+   "hints_en": [
+    "An empty shelf has no length to divide by: return [] first.",
+    "Reduce k with k % len(shelf); Python's modulo is never negative for a positive length, so -1 becomes len - 1.",
+    "Two slices glued together do the move: shelf[k:] + shelf[:k]."
+   ],
+   "hints_ru": [
+    "У пустой полки нет длины, на которую можно делить: сначала верни [].",
+    "Сведи k через k % len(shelf); остаток в Python не бывает отрицательным при положительной длине, так что -1 станет len - 1.",
+    "Переезд делают два склеенных среза: shelf[k:] + shelf[:k]."
+   ],
+   "id": "l0.collections.rotate-shelf",
+   "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def rotate(shelf, k):\n    result = list(shelf)\n    if len(result) == 0:\n        return result\n    k = k % len(result)\n    for _ in range(k):\n        first = result.pop(0)\n        result.append(first)\n    return result\n",
+     "note_en": "Copies first, so the input is safe, and the modulo handles negative k: the instincts are right. The engine is the problem: pop(0) shifts the whole list, so the loop is O(n * k), and an interviewer will ask what happens with a million items and k close to n. The answer 'slices' is one line away.",
+     "note_ru": "Сначала копия, значит вход в безопасности, остаток обрабатывает отрицательное k: инстинкты верные. Подводит движок: pop(0) сдвигает весь список, поэтому цикл – O(n * k), и интервьюер спросит, что будет на миллионе элементов при k около n. Ответ «срезы» лежит в одной строке отсюда."
+    },
+    "senior": {
+     "code": "def rotate(shelf, k):\n    \"\"\"New list rotated k positions to the left (negative k rotates right).\"\"\"\n    if not shelf:\n        return []\n    k %= len(shelf)          # -1 -> len - 1, len + 1 -> 1\n    return shelf[k:] + shelf[:k]\n",
+     "note_en": "Two slices and a modulo: O(n), one pass, no mutation. The comment states the one non-obvious fact, that Python's % never goes negative for a positive divisor, instead of leaving the reader to test it. A senior adds that a structure rotated all the time wants collections.deque with rotate(), which is O(k), and that the empty guard is there because len(shelf) would be a zero divisor.",
+     "note_ru": "Два среза и остаток: O(n), один проход, без мутаций. Комментарий фиксирует единственный неочевидный факт – % в Python не уходит в минус при положительном делителе – вместо того чтобы оставить читателю проверять. Сеньор добавит, что структура, которую крутят постоянно, просится в collections.deque с rotate() за O(k), и что защита от пустого списка стоит потому, что len(shelf) был бы нулевым делителем."
+    }
+   },
+   "minutes": 5,
+   "model": null,
+   "module": "l0.collections",
+   "order": 66,
+   "solution": "def rotate(shelf, k):\n    if not shelf:\n        return []\n    k = k % len(shelf)\n    return shelf[k:] + shelf[:k]\n",
+   "solution_alt": null,
+   "starter": "def rotate(shelf, k):\n    ...\n",
+   "statement_en": "Write rotate(shelf, k) -> list: a new list with the items moved k positions to the left, so rotate(['a', 'b', 'c'], 1) is ['b', 'c', 'a']. k may be 0, larger than the length, or negative (negative rotates to the right). The input list must not change and an empty shelf stays empty.",
+   "story_en": "Timmy's hotbar has nine slots and one scroll wheel. Scroll past the end and the first slot comes back around. Scroll backwards and the game cries.",
+   "talk_track": [
+    "Say the modulo normalises k, including negative values, and show -1 % 3 == 2.",
+    "Point out that slicing copies, so the input is untouched by construction.",
+    "Complexity O(n); mention collections.deque.rotate for a structure that rotates often."
+   ],
+   "tests": "\ndef test_left_by_one(ns, check):\n    check(ns[\"rotate\"]([\"a\", \"b\", \"c\"], 1), [\"b\", \"c\", \"a\"], \"rotate(['a', 'b', 'c'], 1)\")\n\ndef test_right_by_one(ns, check):\n    check(ns[\"rotate\"]([\"a\", \"b\", \"c\"], -1), [\"c\", \"a\", \"b\"], \"rotate(['a', 'b', 'c'], -1)\")\n\ndef test_k_larger_than_length(ns, check):\n    check(ns[\"rotate\"]([\"a\", \"b\", \"c\"], 4), [\"b\", \"c\", \"a\"], \"rotate by 4 equals rotate by 1\")\n\ndef test_zero_and_full_turn(ns, check):\n    check((ns[\"rotate\"]([1, 2, 3], 0), ns[\"rotate\"]([1, 2, 3], 3)), ([1, 2, 3], [1, 2, 3]), \"k = 0 and k = len\")\n\ndef test_empty(ns, check):\n    check(ns[\"rotate\"]([], 5), [], \"rotate([], 5)\")\n\ndef test_input_untouched(ns, check):\n    shelf = [\"a\", \"b\", \"c\"]\n    out = ns[\"rotate\"](shelf, 2)\n    check(shelf, [\"a\", \"b\", \"c\"], \"input unchanged\")\n    check(out is shelf, False, \"a new list is returned\")\n",
+   "timeout_ms": null,
+   "title": "Rotate the shelf",
    "type": "task",
    "variants": [],
    "world": "game"
@@ -921,6 +1170,7 @@
    ],
    "id": "l0.collections.shelf-basics",
    "level": 0,
+   "levels": null,
    "minutes": 3,
    "model": "shelf = [\"rope\", \"lamp\", \"map\", \"compass\"]\nfirst, last = shelf[0], shelf[-1]\nmiddle = shelf[1:3]\nshelf.append(\"flag\")\nshelf.remove(\"lamp\")\ncount = len(shelf)\nhas_map = \"map\" in shelf\n",
    "module": "l0.collections",
@@ -957,6 +1207,7 @@
    ],
    "id": "l0.collections.slice-the-season",
    "level": 0,
+   "levels": null,
    "minutes": 3,
    "model": null,
    "module": "l0.collections",
@@ -995,6 +1246,7 @@
    ],
    "id": "l0.collections.unique-viewers",
    "level": 0,
+   "levels": null,
    "minutes": 2,
    "model": null,
    "module": "l0.collections",
@@ -1033,6 +1285,7 @@
    ],
    "id": "l0.collections.unpack-the-crate",
    "level": 0,
+   "levels": null,
    "minutes": 3,
    "model": "crate = (\"gold\", 12, None)\nkind, amount, note = crate\nif note is None:\n    note = \"no note\"\n\nitems = []\nif not items:\n    status = \"empty\"\nelse:\n    status = f\"{len(items)} items\"\n",
    "module": "l0.collections",
@@ -1070,6 +1323,7 @@
    ],
    "id": "l0.comprehensions.any-all-check",
    "level": 0,
+   "levels": null,
    "minutes": 2,
    "model": "serves = [True, True, False, True]\nall_in = all(serves)\nany_fault = any(not s for s in serves)\n\nspeeds = [180, 195, 172]\nfast = any(speed > 190 for speed in speeds)\nslow_all = all(speed < 200 for speed in speeds)\n",
    "module": "l0.comprehensions",
@@ -1108,6 +1362,7 @@
    ],
    "id": "l0.comprehensions.best-and-worst",
    "level": 0,
+   "levels": null,
    "minutes": 3,
    "model": null,
    "module": "l0.comprehensions",
@@ -1147,6 +1402,7 @@
    ],
    "id": "l0.comprehensions.comprehension-trio",
    "level": 0,
+   "levels": null,
    "minutes": 3,
    "model": "scores = [61, 48, 75, 90, 33]\npassed = [s for s in scores if s >= 50]\ndoubled = [s * 2 for s in scores]\nby_score = {s: s >= 50 for s in scores}\ntens = {s // 10 for s in scores}\n",
    "module": "l0.comprehensions",
@@ -1163,6 +1419,76 @@
    "type": "retype",
    "variants": [],
    "world": "tennis"
+  },
+  "l0.comprehensions.hashtag-counts": {
+   "complexity": "O(n) in the total number of words",
+   "concepts": [
+    "list-comprehension",
+    "comprehension-if",
+    "dict-basics"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "hashtag_counts(['Lake #sunrise #Lake', '#lake again'])",
+     "expected": "{'#sunrise': 1, '#lake': 2}"
+    },
+    {
+     "call": "hashtag_counts(['no tags here'])",
+     "expected": "{}"
+    }
+   ],
+   "explanation_en": "A comprehension with two for clauses flattens 'words of every caption' into one list, and the if keeps only hashtags. Counting with dict.get(tag, 0) + 1 is the smallest correct tally; collections.Counter is the same idea with a name.",
+   "explanation_ru": "Включение с двумя for разворачивает «слова каждой подписи» в один список, а if оставляет только хэштеги. Подсчёт через dict.get(tag, 0) + 1 – самый маленький верный счётчик; collections.Counter – та же идея, но с именем.",
+   "followups": [
+    "How would '#lake,' with a trailing comma be counted?",
+    "Return the top three tags instead of all of them."
+   ],
+   "hints_en": [
+    "Collect the tags first: [word.lower() for caption in captions for word in caption.split() if word.startswith('#')].",
+    "Then count: counts[tag] = counts.get(tag, 0) + 1 for every tag.",
+    "The nested comprehension reads like nested loops: outer first, inner second."
+   ],
+   "hints_ru": [
+    "Сначала собери теги: [word.lower() for caption in captions for word in caption.split() if word.startswith('#')].",
+    "Потом сосчитай: counts[tag] = counts.get(tag, 0) + 1 для каждого тега.",
+    "Вложенное включение читается как вложенные циклы: сначала внешний, потом внутренний."
+   ],
+   "id": "l0.comprehensions.hashtag-counts",
+   "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def hashtag_counts(captions):\n    tags = [word.lower() for caption in captions for word in caption.split() if word.startswith(\"#\")]\n    counts = {}\n    for tag in tags:\n        if tag in counts:\n            counts[tag] += 1\n        else:\n            counts[tag] = 1\n    return counts\n",
+     "note_en": "The nested comprehension pulls the tags out in one readable line, which is the hard part. The counting loop is the if/else dance that dict.get(tag, 0) + 1 replaces, and a reviewer will say the word Counter within seconds; have it ready before they do.",
+     "note_ru": "Вложенное включение вытаскивает теги одной читаемой строкой, и это сложная часть. Цикл подсчёта – тот самый танец if/else, который заменяет dict.get(tag, 0) + 1, и ревьюер произнесёт слово Counter за считанные секунды; приготовь его раньше."
+    },
+    "senior": {
+     "code": "from collections import Counter\n\ndef hashtag_counts(captions):\n    \"\"\"How often each hashtag (lowercased) appears across the captions.\"\"\"\n    tags = (word.casefold() for caption in captions for word in caption.split() if word.startswith(\"#\"))\n    return dict(Counter(tags))\n",
+     "note_en": "Extraction stays a comprehension, a generator since it is consumed once, and counting is delegated to collections.Counter, the standard answer to 'how many of each'. casefold rather than lower for the comparison. A senior converts back to a plain dict because the signature promised one, and says a regex is needed the moment '#lake,' with punctuation must count.",
+     "note_ru": "Извлечение остаётся включением, причём генератором, раз оно потребляется один раз, а подсчёт отдан collections.Counter – стандартному ответу на «сколько каждого». Для сравнения casefold, а не lower. Сеньор превращает результат обратно в обычный dict, потому что сигнатура обещала его, и говорит, что понадобится регулярное выражение, как только '#lake,' со знаком препинания должен засчитываться."
+    }
+   },
+   "minutes": 6,
+   "model": null,
+   "module": "l0.comprehensions",
+   "order": 64,
+   "solution": "def hashtag_counts(captions):\n    tags = [word.lower() for caption in captions for word in caption.split() if word.startswith(\"#\")]\n    counts = {}\n    for tag in tags:\n        counts[tag] = counts.get(tag, 0) + 1\n    return counts\n",
+   "solution_alt": null,
+   "starter": "def hashtag_counts(captions):\n    ...\n",
+   "statement_en": "Write hashtag_counts(captions) -> dict. captions is a list of strings; a hashtag is a word (split on whitespace) that starts with '#'. Return a dict of hashtag -> number of appearances across all captions, comparing hashtags in lowercase: '#Lake' and '#lake' are one tag with the key '#lake'. Keys appear in order of first appearance. No hashtags gives {}. Use at least one comprehension.",
+   "story_en": "Pixel tags every Short with #lake, #Lake or #LAKE depending on mood. The analytics machine would like one number per tag and one mood per cat.",
+   "talk_track": [
+    "Say the nested comprehension flattens captions into words and the if keeps hashtags.",
+    "Mention Counter does the counting and why you did or did not use it.",
+    "Complexity O(total words)."
+   ],
+   "tests": "\ndef test_mixed_case(ns, check):\n    check(ns[\"hashtag_counts\"]([\"Lake #sunrise #Lake\", \"#lake again\"]), {\"#sunrise\": 1, \"#lake\": 2}, \"hashtag_counts(['Lake #sunrise #Lake', '#lake again'])\")\n\ndef test_no_tags(ns, check):\n    check((ns[\"hashtag_counts\"]([\"no tags here\"]), ns[\"hashtag_counts\"]([])), ({}, {}), \"no hashtags and no captions\")\n\ndef test_hash_inside_a_word_is_not_a_tag(ns, check):\n    check(ns[\"hashtag_counts\"]([\"c#sharp #csharp\"]), {\"#csharp\": 1}, \"only words starting with # count\")\n\ndef test_order_of_first_appearance(ns, check):\n    check(list(ns[\"hashtag_counts\"]([\"#b #a\", \"#a #c\"])), [\"#b\", \"#a\", \"#c\"], \"keys in order of first appearance\")\n\ndef test_uses_comprehension(src, ast_tools, check):\n    check(ast_tools.has_comprehension(src), True, \"a comprehension is used\")\n",
+   "timeout_ms": null,
+   "title": "Count the hashtags",
+   "type": "task",
+   "variants": [],
+   "world": "shorts"
   },
   "l0.comprehensions.leaderboard": {
    "complexity": "O(n log n)",
@@ -1202,6 +1528,18 @@
    ],
    "id": "l0.comprehensions.leaderboard",
    "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def leaderboard(ratings, top=3):\n    pairs = list(ratings.items())\n    pairs.sort(key=lambda p: p[0])\n    pairs.sort(key=lambda p: p[1], reverse=True)\n    names = []\n    for name, rating in pairs:\n        names.append(name)\n    return names[:top]\n",
+     "note_en": "Two stable sorts, name first and rating second, is a legitimate technique that strong engineers use when a field cannot be negated. Here both rules fit in one key tuple, so the second sort and the manual projection loop are extra steps, and a reviewer asks why the pairs were built at all when the dict's keys are what gets returned.",
+     "note_ru": "Две устойчивые сортировки, сначала по имени, потом по рейтингу, – законный приём, которым сильные инженеры пользуются, когда поле нельзя взять с минусом. Здесь оба правила умещаются в один кортеж-ключ, так что вторая сортировка и ручной цикл проекции – лишние шаги, и ревьюер спросит, зачем вообще собирать пары, если возвращаются ключи словаря."
+    },
+    "senior": {
+     "code": "def leaderboard(ratings, top=3):\n    \"\"\"Names by rating descending, ties by name ascending, at most `top` of them.\"\"\"\n    ordered = sorted(ratings, key=lambda name: (-ratings[name], name))\n    return ordered[:top]\n",
+     "note_en": "Sorts the names themselves with one key tuple: the minus flips the rating, the name breaks ties, nothing is projected afterwards. A senior says sorted is stable and O(n log n), that [:top] is safe past the end, that the two-pass stable sort is the tool when the tie-break field is a string, and that heapq.nlargest is the answer when top is tiny and n is huge.",
+     "note_ru": "Сортируются сами имена одним кортежем-ключом: минус переворачивает рейтинг, имя разрешает ничьи, проецировать потом нечего. Сеньор скажет, что sorted устойчива и O(n log n), что [:top] безопасен за концом списка, что двухпроходная устойчивая сортировка – инструмент, когда поле для ничьей строковое, и что heapq.nlargest – ответ, когда top крошечный, а n огромный."
+    }
+   },
    "minutes": 7,
    "model": null,
    "module": "l0.comprehensions",
@@ -1260,12 +1598,24 @@
    ],
    "id": "l0.comprehensions.loop-to-comprehension",
    "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def long_rallies(rallies):\n    return [r for r in rallies if r >= 10]\n\ndef rating_by_name(players):\n    return {name: rating for name, rating in players}\n",
+     "note_en": "Two comprehensions, no temporaries: exactly the refactor requested, and the tests prove the behaviour did not change. The threshold 10 stays a magic number inside long_rallies, which is fine for the exercise and the first thing a reviewer would name, and the dict comprehension spells out what a built-in already does.",
+     "note_ru": "Два включения, без временных переменных: ровно тот рефакторинг, что просили, и тесты доказывают, что поведение не изменилось. Порог 10 остаётся магическим числом внутри long_rallies: для упражнения нормально, но ревьюер назовёт это первым, а включение словаря вручную описывает то, что встроенная функция делает сама."
+    },
+    "senior": {
+     "code": "def long_rallies(rallies, min_shots=10):\n    return [r for r in rallies if r >= min_shots]\n\ndef rating_by_name(players):\n    return dict(players)\n",
+     "note_en": "The second function is dict() spelled by hand, so a senior writes dict(players) and says why: a dict comprehension earns its place only when the key or the value is computed. The threshold becomes a parameter with the old default, so no caller changes and the magic number gets a name. A senior also says when they would keep a loop: side effects, early exit, or more than one accumulator.",
+     "note_ru": "Вторая функция – это dict(), написанный вручную, поэтому сеньор пишет dict(players) и объясняет: включение словаря оправдано, только когда ключ или значение вычисляются. Порог становится параметром со старым умолчанием, вызовы не меняются, а магическое число получает имя. Сеньор ещё скажет, когда оставил бы цикл: побочные эффекты, ранний выход или больше одного накопителя."
+    }
+   },
    "minutes": 6,
    "model": null,
    "module": "l0.comprehensions",
    "order": 80,
    "solution": "def long_rallies(rallies):\n    return [r for r in rallies if r >= 10]\n\ndef rating_by_name(players):\n    return {name: rating for name, rating in players}\n",
-   "solution_alt": "def long_rallies(rallies):\n    return [r for r in rallies if r >= 10]\n\ndef rating_by_name(players):\n    return dict(players)\n",
+   "solution_alt": null,
    "starter": "def long_rallies(rallies):\n    result = []\n    for r in rallies:\n        if r >= 10:\n            result.append(r)\n    return result\n\ndef rating_by_name(players):\n    table = {}\n    for name, rating in players:\n        table[name] = rating\n    return table\n",
    "statement_en": "Both functions work but build a list and a dict with four-line loops. Rewrite each body as a single comprehension so that no for statement is left in the file. Behaviour must not change.",
    "story_en": "The sorting machine's manual, written by the previous engineer, builds every list with four lines. Pixel has opinions.",
@@ -1277,6 +1627,77 @@
    "timeout_ms": null,
    "title": "Loop to comprehension",
    "type": "refactor",
+   "variants": [],
+   "world": "tennis"
+  },
+  "l0.comprehensions.season-summary": {
+   "complexity": "O(n)",
+   "concepts": [
+    "min-max-key",
+    "sum",
+    "any-all",
+    "lambda"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "season_summary([{'opponent': 'Ada', 'games': 12, 'won': True}, {'opponent': 'Byte', 'games': 18, 'won': False}])",
+     "expected": "{'longest': 'Byte', 'total': 30, 'all_won': False}"
+    },
+    {
+     "call": "season_summary([])",
+     "expected": "{'longest': None, 'total': 0, 'all_won': True}"
+    }
+   ],
+   "explanation_en": "Three questions, three built-ins: max with a key finds the longest match and keeps the first on a tie, sum adds a generator without a temporary list, all answers 'every one?' and is True for an empty season because no match contradicts it. Only max needs the empty case handled.",
+   "explanation_ru": "Три вопроса, три встроенные функции: max с ключом находит самый длинный матч и при ничьей оставляет первый, sum складывает генератор без временного списка, all отвечает «все ли?» и для пустого сезона даёт True, потому что ни один матч этому не противоречит. Пустой случай нужен только max.",
+   "followups": [
+    "Add the win rate as a percentage.",
+    "What if 'games' is missing for an unfinished match?"
+   ],
+   "hints_en": [
+    "max(matches, key=lambda m: m['games']) returns the whole match dict; take its 'opponent'.",
+    "sum(m['games'] for m in matches) and all(m['won'] for m in matches) do the other two in one line each.",
+    "Handle the empty list before calling max, or use max(..., default=None)."
+   ],
+   "hints_ru": [
+    "max(matches, key=lambda m: m['games']) возвращает весь словарь матча; возьми его 'opponent'.",
+    "sum(m['games'] for m in matches) и all(m['won'] for m in matches) делают остальные два по одной строке.",
+    "Пустой список обработай до вызова max или используй max(..., default=None)."
+   ],
+   "id": "l0.comprehensions.season-summary",
+   "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def season_summary(matches):\n    longest = None\n    most_games = -1\n    total = 0\n    all_won = True\n    for m in matches:\n        if m[\"games\"] > most_games:\n            most_games = m[\"games\"]\n            longest = m[\"opponent\"]\n        total = total + m[\"games\"]\n        if not m[\"won\"]:\n            all_won = False\n    return {\"longest\": longest, \"total\": total, \"all_won\": all_won}\n",
+     "note_en": "One pass, four variables, every rule handled by hand: correct, including the empty season, because the starting values were chosen with care. It reads like C. The three questions, max by key, sum and all, each have a built-in that says the question in one word, and the interviewer is waiting to hear them.",
+     "note_ru": "Один проход, четыре переменные, каждое правило вручную: верно, включая пустой сезон, потому что начальные значения выбраны аккуратно. Читается как C. У трёх вопросов – max по ключу, sum и all – есть встроенные функции, которые называют вопрос одним словом, и интервьюер ждёт, когда их услышит."
+    },
+    "senior": {
+     "code": "def season_summary(matches):\n    \"\"\"Opponent of the longest match (first on a tie), total games, and whether every match was won.\"\"\"\n    longest = max(matches, key=lambda m: m[\"games\"], default=None)\n    return {\n        \"longest\": longest[\"opponent\"] if longest else None,\n        \"total\": sum(m[\"games\"] for m in matches),\n        \"all_won\": all(m[\"won\"] for m in matches),\n    }\n",
+     "note_en": "Three built-ins, three lines, and max(..., default=None) removes the special case for an empty season. The vacuous truth of all([]) is stated as intended in the docstring instead of being an accident. A senior says three O(n) passes are fine and would merge them only if profiling asked, and mentions a dataclass for a match would replace the string keys.",
+     "note_ru": "Три встроенные функции, три строки, а max(..., default=None) убирает особый случай пустого сезона. Пустая истинность all([]) заявлена в докстринге как задуманная, а не как случайность. Сеньор говорит, что три прохода O(n) – нормально, и объединил бы их в один цикл только по данным профилировщика, а ещё упоминает, что dataclass для матча заменил бы строковые ключи."
+    }
+   },
+   "minutes": 6,
+   "model": null,
+   "module": "l0.comprehensions",
+   "order": 68,
+   "solution": "def season_summary(matches):\n    if not matches:\n        return {\"longest\": None, \"total\": 0, \"all_won\": True}\n    longest = max(matches, key=lambda m: m[\"games\"])\n    return {\n        \"longest\": longest[\"opponent\"],\n        \"total\": sum(m[\"games\"] for m in matches),\n        \"all_won\": all(m[\"won\"] for m in matches),\n    }\n",
+   "solution_alt": null,
+   "starter": "def season_summary(matches):\n    ...\n",
+   "statement_en": "Write season_summary(matches) -> dict. matches is a list of dicts with keys 'opponent', 'games' and 'won' (bool). Return {'longest': the opponent of the match with the most games (the first one on a tie), 'total': the sum of games, 'all_won': True when every match was won}. For an empty season return {'longest': None, 'total': 0, 'all_won': True}: with no match lost, 'all won' holds.",
+   "story_en": "Coach Topspin wants the season on one index card: the marathon match, the total games for the knees, and whether anyone can say 'undefeated' with a straight face.",
+   "talk_track": [
+    "Say max with a key returns the element, not the key value, so you can read its opponent.",
+    "Point out all([]) is True by definition and that the statement asks for exactly that.",
+    "Mention three passes over the list are O(n) and fine; one merged loop is not worth the readability."
+   ],
+   "tests": "\nSEASON = [\n    {\"opponent\": \"Ada\", \"games\": 12, \"won\": True},\n    {\"opponent\": \"Byte\", \"games\": 18, \"won\": False},\n    {\"opponent\": \"Cid\", \"games\": 9, \"won\": True},\n]\n\ndef test_season(ns, check):\n    check(ns[\"season_summary\"](SEASON), {\"longest\": \"Byte\", \"total\": 39, \"all_won\": False}, \"season_summary(SEASON)\")\n\ndef test_empty_season(ns, check):\n    check(ns[\"season_summary\"]([]), {\"longest\": None, \"total\": 0, \"all_won\": True}, \"season_summary([])\")\n\ndef test_all_won(ns, check):\n    wins = [{\"opponent\": \"Ada\", \"games\": 10, \"won\": True}, {\"opponent\": \"Cid\", \"games\": 8, \"won\": True}]\n    check(ns[\"season_summary\"](wins)[\"all_won\"], True, \"all_won when every match was won\")\n\ndef test_tie_keeps_first(ns, check):\n    tie = [{\"opponent\": \"First\", \"games\": 15, \"won\": True}, {\"opponent\": \"Second\", \"games\": 15, \"won\": True}]\n    check(ns[\"season_summary\"](tie)[\"longest\"], \"First\", \"the first of two equally long matches\")\n\ndef test_keys(ns, check):\n    check(sorted(ns[\"season_summary\"](SEASON)), [\"all_won\", \"longest\", \"total\"], \"exactly the three keys\")\n",
+   "timeout_ms": null,
+   "title": "Season summary",
+   "type": "task",
    "variants": [],
    "world": "tennis"
   },
@@ -1301,6 +1722,7 @@
    ],
    "id": "l0.comprehensions.sort-the-ranking",
    "level": 0,
+   "levels": null,
    "minutes": 2,
    "model": null,
    "module": "l0.comprehensions",
@@ -1352,6 +1774,18 @@
    ],
    "id": "l0.comprehensions.top-shorts",
    "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def top_shorts(videos, min_views):\n    shorts = []\n    for v in videos:\n        if v[\"seconds\"] <= 60:\n            if v[\"views\"] >= min_views:\n                shorts.append(v)\n    shorts.sort(key=lambda v: v[\"views\"], reverse=True)\n    titles = []\n    for v in shorts:\n        titles.append(v[\"title\"])\n    return titles\n",
+     "note_en": "Filter, sort, project, in that order: correct, and the stability of sort is used, perhaps without knowing it. The nested ifs are one 'and', the two append loops are two comprehensions, and the magic 60 has no name. Each is a small reviewer comment; together they say 'knows the algorithm, not yet the language'.",
+     "note_ru": "Отфильтровать, отсортировать, спроецировать, именно в таком порядке: верно, и устойчивость сортировки использована, пусть и неосознанно. Вложенные if – это один and, два цикла с append – два включения, а у магического 60 нет имени. Каждое – мелкое замечание ревьюера; вместе они говорят «знает алгоритм, но ещё не язык»."
+    },
+    "senior": {
+     "code": "MAX_SHORT_SECONDS = 60\n\ndef top_shorts(videos, min_views):\n    \"\"\"Titles of qualifying Shorts, most viewed first; equal views keep input order.\"\"\"\n    def qualifies(video):\n        return video[\"seconds\"] <= MAX_SHORT_SECONDS and video[\"views\"] >= min_views\n    ranked = sorted((v for v in videos if qualifies(v)), key=lambda v: v[\"views\"], reverse=True)\n    return [v[\"title\"] for v in ranked]\n",
+     "note_en": "Names the rule and the constant, so the filter reads as a sentence, and sorted over a generator never materialises the intermediate list. A senior says out loud that Python's sort is stable, so reverse=True keeps equal views in input order, and that (-views, title) would be the key the moment a tie-break is requested. Then stops.",
+     "note_ru": "Правило и константа названы, поэтому фильтр читается как предложение, а sorted по генератору не материализует промежуточный список. Сеньор вслух говорит, что сортировка в Python устойчива, поэтому reverse=True сохраняет порядок равных просмотров, и что (-views, title) станет ключом, как только попросят разрешать ничьи. И останавливается."
+    }
+   },
    "minutes": 6,
    "model": null,
    "module": "l0.comprehensions",
@@ -1392,6 +1826,7 @@
    ],
    "id": "l0.comprehensions.two-key-sort",
    "level": 0,
+   "levels": null,
    "minutes": 3,
    "model": null,
    "module": "l0.comprehensions",
@@ -1429,6 +1864,7 @@
    ],
    "id": "l0.errors.catch-the-key",
    "level": 0,
+   "levels": null,
    "minutes": 2,
    "model": null,
    "module": "l0.errors",
@@ -1466,6 +1902,7 @@
    ],
    "id": "l0.errors.else-and-finally",
    "level": 0,
+   "levels": null,
    "minutes": 3,
    "model": null,
    "module": "l0.errors",
@@ -1503,6 +1940,7 @@
    ],
    "id": "l0.errors.group-with-setdefault",
    "level": 0,
+   "levels": null,
    "minutes": 2,
    "model": null,
    "module": "l0.errors",
@@ -1517,6 +1955,145 @@
    "timeout_ms": null,
    "title": "Group with setdefault",
    "type": "cloze",
+   "variants": [],
+   "world": "bybit"
+  },
+  "l0.errors.lbyl-to-eafp": {
+   "complexity": "O(1)",
+   "concepts": [
+    "eafp-lbyl",
+    "try-except",
+    "dict-get"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "to_cents('12.34')",
+     "expected": "1234"
+    },
+    {
+     "call": "to_cents('n/a')",
+     "expected": "None"
+    },
+    {
+     "call": "balance_of({'ada': 50}, 'byte')",
+     "expected": "0"
+    }
+   ],
+   "explanation_en": "Inspecting a string by hand re-implements float() badly: isdigit rejects '-1.50' and '1e2' that float accepts. Trying the conversion and catching ValueError delegates the definition of 'number' to the one place that owns it. dict.get collapses 'check then read' into one lookup.",
+   "explanation_ru": "Проверка строки вручную плохо переизобретает float(): isdigit отвергает '-1.50' и '1e2', которые float принимает. Попытка конвертации с ловлей ValueError отдаёт определение «числа» тому единственному месту, которое им владеет. dict.get сворачивает «проверь, потом прочитай» в одно обращение.",
+   "followups": [
+    "Why is float the wrong type for money, and what would you use?",
+    "What does round() do with 0.5? Is that what the bot wants?"
+   ],
+   "hints_en": [
+    "to_cents: try: return round(float(text) * 100) except ValueError: return None.",
+    "balance_of: wallets.get(name, 0) is the whole body.",
+    "Delete the isdigit line entirely; float() already knows what a number looks like."
+   ],
+   "hints_ru": [
+    "to_cents: try: return round(float(text) * 100) except ValueError: return None.",
+    "balance_of: wallets.get(name, 0) – это всё тело функции.",
+    "Строку с isdigit удали целиком; float() и так знает, как выглядит число."
+   ],
+   "id": "l0.errors.lbyl-to-eafp",
+   "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def to_cents(text):\n    try:\n        return round(float(text) * 100)\n    except ValueError:\n        return None\n\ndef balance_of(wallets, name):\n    return wallets.get(name, 0)\n",
+     "note_en": "EAFP done right: try the conversion, catch the one expected failure, return the sentinel, and dict.get for the lookup. The one habit a reviewer flags: the try block wraps the multiplication and the rounding too, not only the call that can fail, and that habit later hides real bugs behind an except.",
+     "note_ru": "EAFP как надо: попробовать конвертацию, поймать единственный ожидаемый сбой, вернуть сторожевое значение, и dict.get для поиска. Единственная привычка, которую отметит ревьюер: блок try обёртывает ещё и умножение с округлением, а не только вызов, который может упасть, и позже эта привычка прячет настоящие баги за except."
+    },
+    "senior": {
+     "code": "def to_cents(text):\n    \"\"\"Whole cents for a decimal text, or None when it is not a number.\"\"\"\n    try:\n        amount = float(text)\n    except ValueError:\n        return None\n    return round(amount * 100)\n\ndef balance_of(wallets, name):\n    return wallets.get(name, 0)\n",
+     "note_en": "The try covers exactly the one line that can fail; the arithmetic sits outside, so a bug in it is never mistaken for bad input. A senior then says the two things the exercise does not: float is the wrong type for money (Decimal is the honest one) and round() rounds halves to even, and raises both with the interviewer instead of silently 'fixing' them.",
+     "note_ru": "try накрывает ровно одну строку, которая может упасть; арифметика снаружи, поэтому ошибку в ней никогда не примут за плохой ввод. Дальше сеньор говорит две вещи, которых упражнение не говорит: float – неверный тип для денег (честный – Decimal), а round() округляет половинки к чётному, и поднимает обе темы с интервьюером вместо того, чтобы молча «починить»."
+    }
+   },
+   "minutes": 6,
+   "model": null,
+   "module": "l0.errors",
+   "order": 90,
+   "solution": "def to_cents(text):\n    try:\n        return round(float(text) * 100)\n    except ValueError:\n        return None\n\ndef balance_of(wallets, name):\n    return wallets.get(name, 0)\n",
+   "solution_alt": null,
+   "starter": "def to_cents(text):\n    if text.replace(\".\", \"\", 1).isdigit():\n        return round(float(text) * 100)\n    return None\n\ndef balance_of(wallets, name):\n    if name in wallets:\n        return wallets[name]\n    return 0\n",
+   "statement_en": "Both functions inspect before acting: to_cents checks the text with isdigit before converting, balance_of checks 'name in wallets' before reading. Rewrite them in the EAFP style: to_cents tries float() and returns None on ValueError; balance_of uses dict.get with a default of 0. No isdigit and no if statement may remain, and to_cents must accept every text float() accepts, including '-1.50' and '1e2'.",
+   "story_en": "The bot's old helpers peek before every move: is it a digit, is the key there. They miss negative prices and every wallet lookup is written twice. Pixel calls it 'asking permission from a string'.",
+   "talk_track": [
+    "Say isdigit was a worse float() and name the inputs it rejected.",
+    "Mention dict.get does the check and the read in one lookup instead of two."
+   ],
+   "tests": "\ndef test_plain_number(ns, check):\n    check(ns[\"to_cents\"](\"12.34\"), 1234, \"to_cents('12.34')\")\n\ndef test_negative_and_scientific(ns, check):\n    check((ns[\"to_cents\"](\"-1.50\"), ns[\"to_cents\"](\"1e2\")), (-150, 10000), \"'-1.50' and '1e2' are numbers\")\n\ndef test_not_a_number(ns, check):\n    check(ns[\"to_cents\"](\"n/a\"), None, \"to_cents('n/a')\")\n\ndef test_balance(ns, check):\n    wallets = {\"ada\": 50}\n    check((ns[\"balance_of\"](wallets, \"ada\"), ns[\"balance_of\"](wallets, \"byte\")), (50, 0), \"known and unknown wallet\")\n\ndef test_eafp_style(src, ast_tools, check):\n    check(ast_tools.has_try(src), True, \"to_cents uses try/except\")\n    check(ast_tools.count_calls(src, \"isdigit\"), 0, \"no isdigit left\")\n    check(ast_tools.count_nodes(src, \"If\"), 0, \"no if statements left\")\n    check(ast_tools.count_calls(src, \"get\") >= 1, True, \"balance_of uses dict.get\")\n",
+   "timeout_ms": null,
+   "title": "From look-before-you-leap to EAFP",
+   "type": "refactor",
+   "variants": [],
+   "world": "bybit"
+  },
+  "l0.errors.parse-trade": {
+   "complexity": "O(n) in the length of the line",
+   "concepts": [
+    "raise",
+    "value-error",
+    "try-except"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "parse_trade('btc, 0.5 ,Buy')",
+     "expected": "('BTC', 0.5, 'buy')"
+    }
+   ],
+   "explanation_en": "Validate the shape first (three fields), then the content (a number), and raise with messages that say what the caller has to fix. Catching float's ValueError and raising your own turns a library message into a domain message.",
+   "explanation_ru": "Сначала форма (три поля), потом содержимое (число), и raise с сообщениями, которые говорят, что чинить. Поймать ValueError из float и бросить свой – значит превратить сообщение библиотеки в сообщение предметной области.",
+   "followups": [
+    "Should 'BUY' and 'Sell' be accepted? What about 'hold'?",
+    "How would you report the line number in a file of trades?"
+   ],
+   "hints_en": [
+    "parts = [p.strip() for p in line.split(',')]; check len(parts) before touching the fields.",
+    "Convert the quantity inside try/except ValueError and raise your own ValueError with the exact message.",
+    "Return a tuple: symbol.upper(), qty, side.lower()."
+   ],
+   "hints_ru": [
+    "parts = [p.strip() for p in line.split(',')]; проверь len(parts) до обращения к полям.",
+    "Конвертируй количество внутри try/except ValueError и бросай свой ValueError с точным сообщением.",
+    "Верни кортеж: symbol.upper(), qty, side.lower()."
+   ],
+   "id": "l0.errors.parse-trade",
+   "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def parse_trade(line):\n    parts = line.split(\",\")\n    if len(parts) != 3:\n        raise ValueError(\"expected 3 fields\")\n    symbol = parts[0].strip().upper()\n    side = parts[2].strip().lower()\n    try:\n        qty = float(parts[1].strip())\n    except ValueError:\n        raise ValueError(\"qty is not a number\")\n    return (symbol, qty, side)\n",
+     "note_en": "Split, count, convert, with the right exception class and the exact messages: it does the job. parts[0], parts[1], parts[2] is positional access where unpacking would name the fields, and the re-raise inside the except keeps the original ValueError chained as context, so the user of this function sees two tracebacks for one bad number.",
+     "note_ru": "Разрезать, сосчитать, сконвертировать, с верным классом исключения и точными сообщениями: работу делает. parts[0], parts[1], parts[2] – обращение по позиции там, где распаковка дала бы полям имена, а raise внутри except оставляет исходный ValueError прицепленным как контекст, поэтому пользователь этой функции видит два трейсбека на одно плохое число."
+    },
+    "senior": {
+     "code": "def parse_trade(line):\n    \"\"\"'symbol,qty,side' -> (SYMBOL, float qty, side) with the fields stripped.\"\"\"\n    try:\n        symbol, qty_text, side = (part.strip() for part in line.split(\",\"))\n    except ValueError:\n        raise ValueError(\"expected 3 fields\") from None\n    try:\n        qty = float(qty_text)\n    except ValueError:\n        raise ValueError(\"qty is not a number\") from None\n    return symbol.upper(), qty, side.lower()\n",
+     "note_en": "Unpacking names the three fields and makes the count check free: the wrong number of fields is itself a ValueError, caught and renamed. 'from None' cuts the chained traceback, because the caller cares about 'qty is not a number', not about float's internals. A senior says real code would return a NamedTuple or dataclass, and asks which sides are valid instead of lower-casing blindly.",
+     "note_ru": "Распаковка называет три поля и делает проверку количества бесплатной: неверное число полей само по себе ValueError, который ловится и переименовывается. from None обрезает цепочку трейсбеков, потому что вызывающему важно «qty is not a number», а не внутренности float. Сеньор скажет, что настоящий код вернул бы NamedTuple или dataclass, и спросит, какие стороны допустимы, вместо того чтобы вслепую приводить к нижнему регистру."
+    }
+   },
+   "minutes": 6,
+   "model": null,
+   "module": "l0.errors",
+   "order": 68,
+   "solution": "def parse_trade(line):\n    parts = [part.strip() for part in line.split(\",\")]\n    if len(parts) != 3:\n        raise ValueError(\"expected 3 fields\")\n    symbol, qty_text, side = parts\n    try:\n        qty = float(qty_text)\n    except ValueError:\n        raise ValueError(\"qty is not a number\")\n    return symbol.upper(), qty, side.lower()\n",
+   "solution_alt": null,
+   "starter": "def parse_trade(line):\n    ...\n",
+   "statement_en": "Write parse_trade(line) -> tuple. A line looks like 'BTC,0.5,buy': symbol, quantity and side separated by commas, possibly with spaces around the fields, which must be stripped. Return (symbol upper-cased, quantity as float, side lower-cased). Raise ValueError('expected 3 fields') when the number of comma-separated fields is not 3, and ValueError('qty is not a number') when the quantity cannot be converted to float.",
+   "story_en": "Dr. Candle types his trades into a text file at night. 'btc, 0.5 ,Buy' is a good night. 'btc,lots,buy' is a bad night. The parser must tell them apart politely.",
+   "talk_track": [
+    "Say you validate shape before content and fail with precise messages.",
+    "Mention you re-raise float's ValueError as a domain error, and what 'from None' would change.",
+    "Complexity O(len(line))."
+   ],
+   "tests": "\ndef test_happy_path(ns, check):\n    check(ns[\"parse_trade\"](\"btc, 0.5 ,Buy\"), (\"BTC\", 0.5, \"buy\"), \"parse_trade('btc, 0.5 ,Buy')\")\n\ndef test_returns_tuple(ns, check):\n    check(type(ns[\"parse_trade\"](\"ETH,2,sell\")), tuple, \"type of the result\")\n\ndef test_two_fields(ns, check, raises):\n    check(str(raises(ValueError, ns[\"parse_trade\"], \"BTC,0.5\")), \"expected 3 fields\", \"two fields\")\n\ndef test_four_fields(ns, check, raises):\n    check(str(raises(ValueError, ns[\"parse_trade\"], \"BTC,0.5,buy,now\")), \"expected 3 fields\", \"four fields\")\n\ndef test_bad_qty(ns, check, raises):\n    check(str(raises(ValueError, ns[\"parse_trade\"], \"btc,lots,buy\")), \"qty is not a number\", \"qty 'lots'\")\n\ndef test_integer_qty_becomes_float(ns, check):\n    check(ns[\"parse_trade\"](\"SOL,3,SELL\"), (\"SOL\", 3.0, \"sell\"), \"qty 3 becomes 3.0\")\n",
+   "timeout_ms": null,
+   "title": "Parse a trade line",
+   "type": "task",
    "variants": [],
    "world": "bybit"
   },
@@ -1541,6 +2118,7 @@
    ],
    "id": "l0.errors.raise-your-own",
    "level": 0,
+   "levels": null,
    "minutes": 3,
    "model": "def withdraw(balance, amount):\n    if amount <= 0:\n        raise ValueError(\"amount must be positive\")\n    if amount > balance:\n        raise ValueError(\"insufficient funds\")\n    return balance - amount\n",
    "module": "l0.errors",
@@ -1600,6 +2178,18 @@
    ],
    "id": "l0.errors.robust-average",
    "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def average_price(values):\n    valid = []\n    for text in values:\n        try:\n            valid.append(float(text))\n        except ValueError:\n            continue\n    if not valid:\n        return None\n    return round(sum(valid) / len(valid), 2)\n",
+     "note_en": "try/except around float() with continue, the empty case first, round at the end: textbook EAFP and the right order of checks. The conversion and the averaging live in one function, so the only way to test 'what counts as a number' is through the average, and the next feed reader will copy the loop.",
+     "note_ru": "try/except вокруг float() с continue, пустой случай первым, round в конце: EAFP из учебника и верный порядок проверок. Но конвертация и усреднение живут в одной функции, поэтому проверить «что считается числом» можно только через среднее, а следующий читатель ленты скопирует цикл."
+    },
+    "senior": {
+     "code": "def parse_float(text):\n    try:\n        return float(text)\n    except ValueError:\n        return None\n\ndef average_price(values):\n    valid = [x for x in map(parse_float, values) if x is not None]\n    if not valid:\n        return None\n    return round(sum(valid) / len(valid), 2)\n",
+     "note_en": "The conversion is its own tiny function with one job, so the policy 'what is a valid price' is testable and reusable, and the filter 'is not None' is explicit about the sentinel. A senior adds that float() also accepts 'nan' and 'inf', which would poison the average, asks whether the feed can send them, and names statistics.fmean as the library mean.",
+     "note_ru": "Конвертация стала крошечной функцией с одной работой, поэтому правило «что такое валидная цена» тестируется и переиспользуется, а фильтр is not None явно называет сторожевое значение. Сеньор добавит, что float() принимает и 'nan', и 'inf', которые отравят среднее, спросит, может ли лента их прислать, и назовёт statistics.fmean как библиотечное среднее."
+    }
+   },
    "minutes": 6,
    "model": null,
    "module": "l0.errors",
@@ -1617,6 +2207,77 @@
    "tests": "\ndef test_simple(ns, check):\n    check(ns[\"average_price\"]([\"1.5\", \"2.5\"]), 2.0, \"average_price(['1.5', '2.5'])\")\n\ndef test_skips_garbage(ns, check):\n    check(ns[\"average_price\"]([\"n/a\", \"3\", \"reconnecting...\"]), 3.0, \"garbage skipped\")\n\ndef test_empty(ns, check):\n    check(ns[\"average_price\"]([]), None, \"average_price([])\")\n\ndef test_all_garbage(ns, check):\n    check(ns[\"average_price\"]([\"a\", \"b\"]), None, \"nothing valid\")\n\ndef test_rounding(ns, check):\n    check(ns[\"average_price\"]([\"1\", \"2\", \"4\"]), 2.33, \"rounded to 2 decimals\")\n\ndef test_negative_and_scientific(ns, check):\n    check(ns[\"average_price\"]([\"-1\", \"3\", \"1e1\"]), 4.0, \"'-1' and '1e1' are valid floats\")\n\ndef test_uses_try(src, ast_tools, check):\n    check(ast_tools.has_try(src), True, \"uses try/except\")\n",
    "timeout_ms": null,
    "title": "Robust average",
+   "type": "task",
+   "variants": [],
+   "world": "bybit"
+  },
+  "l0.errors.safe-get": {
+   "complexity": "O(k) for k keys in the path",
+   "concepts": [
+    "try-except",
+    "key-error",
+    "dict-get",
+    "eafp-lbyl"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "safe_get({'ticker': {'BTC': {'last': 68000}}}, ['ticker', 'BTC', 'last'])",
+     "expected": "68000"
+    },
+    {
+     "call": "safe_get({'ticker': {}}, ['ticker', 'ETH', 'last'], 0)",
+     "expected": "0"
+    }
+   ],
+   "explanation_en": "EAFP: attempt the lookup and catch the two ways it fails, instead of inspecting the type and the key before every step. The happy path stays one indented line, and the function works for any mapping, not only dict.",
+   "explanation_ru": "EAFP: попробовать обращение и поймать два способа, которыми оно ломается, вместо проверки типа и ключа перед каждым шагом. Счастливый путь остаётся одной строкой, а функция работает с любым отображением, не только с dict.",
+   "followups": [
+    "Should an int key into a list on the way be allowed?",
+    "How would you write it recursively, and would you?"
+   ],
+   "hints_en": [
+    "Walk with a loop: current = data, then current = current[key] for each key.",
+    "Two things can go wrong: KeyError (missing key) and TypeError (current is not subscriptable). Catch both.",
+    "Return default from inside the except; after the loop return current."
+   ],
+   "hints_ru": [
+    "Иди циклом: current = data, затем current = current[key] для каждого ключа.",
+    "Сломаться могут две вещи: KeyError (нет ключа) и TypeError (current нельзя индексировать). Лови обе.",
+    "Верни default прямо из except; после цикла верни current."
+   ],
+   "id": "l0.errors.safe-get",
+   "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def safe_get(data, path, default=None):\n    current = data\n    for key in path:\n        if isinstance(current, dict) and key in current:\n            current = current[key]\n        else:\n            return default\n    return current\n",
+     "note_en": "Look before you leap: the isinstance-and-in check is explicit, easy to read and correct. Its weakness is that it bakes in 'dict' and 'in': a Mapping that is not a dict, or an object with __getitem__, fails the check although the lookup would work. When the interviewer asks 'why not try/except', the answer should be a comparison, not a shrug.",
+     "note_ru": "Проверка перед прыжком: isinstance плюс in – явно, легко читается и верно. Слабость в том, что сюда вшиты именно dict и in: отображение, которое не dict, или объект с __getitem__ не пройдут проверку, хотя обращение сработало бы. Когда интервьюер спросит «почему не try/except», ответом должно быть сравнение, а не пожатие плечами."
+    },
+    "senior": {
+     "code": "def safe_get(data, path, default=None):\n    \"\"\"Value at the nested `path` of keys, or `default` when the path breaks.\"\"\"\n    current = data\n    for key in path:\n        try:\n            current = current[key]\n        except (KeyError, TypeError):\n            return default\n    return current\n",
+     "note_en": "EAFP: attempt the lookup and catch exactly the two ways it fails, a missing key and a non-subscriptable value. It works for any mapping and keeps the happy path unindented. A senior names the trade-off, EAFP wins when failures are rare and LBYL reads better when they are the norm, and mentions functools.reduce or recursion as alternatives they chose not to write.",
+     "note_ru": "EAFP: попробовать обращение и поймать ровно два способа провала – отсутствующий ключ и значение, которое нельзя индексировать. Работает с любым отображением и держит счастливый путь без отступов. Сеньор называет компромисс: EAFP выигрывает, когда провалы редки, а LBYL читается лучше, когда они норма, и упоминает functools.reduce или рекурсию как варианты, которые сознательно не стал писать."
+    }
+   },
+   "minutes": 6,
+   "model": null,
+   "module": "l0.errors",
+   "order": 64,
+   "solution": "def safe_get(data, path, default=None):\n    current = data\n    for key in path:\n        try:\n            current = current[key]\n        except (KeyError, TypeError):\n            return default\n    return current\n",
+   "solution_alt": null,
+   "starter": "def safe_get(data, path, default=None):\n    ...\n",
+   "statement_en": "Write safe_get(data, path, default=None). data is a nested structure of dicts and path is a list of string keys. Follow the keys one by one and return the value at the end. If a key is missing, or the value on the way is not a dict while keys remain, return default instead. An empty path returns data itself.",
+   "story_en": "The exchange answers with a dict inside a dict inside a dict. Some nights a level is missing. Dr. Candle's bot used to dig anyway and hit bedrock.",
+   "talk_track": [
+    "Name the two failure modes: a missing key and a non-dict in the middle of the path.",
+    "Say EAFP keeps the happy path flat; LBYL would check isinstance and 'in' at every step.",
+    "Complexity O(len(path))."
+   ],
+   "tests": "\nDATA = {\"ticker\": {\"BTC\": {\"last\": 68000, \"bid\": 67990}}, \"status\": \"ok\"}\n\ndef test_found(ns, check):\n    check(ns[\"safe_get\"](DATA, [\"ticker\", \"BTC\", \"last\"]), 68000, \"safe_get(DATA, ['ticker', 'BTC', 'last'])\")\n\ndef test_missing_key(ns, check):\n    check(ns[\"safe_get\"](DATA, [\"ticker\", \"ETH\", \"last\"]), None, \"missing coin gives None\")\n\ndef test_custom_default(ns, check):\n    check(ns[\"safe_get\"](DATA, [\"ticker\", \"ETH\", \"last\"], 0), 0, \"missing coin gives the default\")\n\ndef test_not_a_dict_on_the_way(ns, check):\n    check(ns[\"safe_get\"](DATA, [\"status\", \"code\"], \"n/a\"), \"n/a\", \"a string in the middle of the path\")\n\ndef test_empty_path(ns, check):\n    check(ns[\"safe_get\"](DATA, []) is DATA, True, \"empty path returns data itself\")\n\ndef test_partial_path(ns, check):\n    check(ns[\"safe_get\"](DATA, [\"ticker\", \"BTC\"]), {\"last\": 68000, \"bid\": 67990}, \"a path ending at a dict returns that dict\")\n",
+   "timeout_ms": null,
+   "title": "Safe nested lookup",
    "type": "task",
    "variants": [],
    "world": "bybit"
@@ -1642,6 +2303,7 @@
    ],
    "id": "l0.errors.safe-parse",
    "level": 0,
+   "levels": null,
    "minutes": 3,
    "model": "def parse_price(text):\n    try:\n        return float(text)\n    except ValueError:\n        return None\n\ndef first_or_default(items, default=\"none\"):\n    try:\n        return items[0]\n    except IndexError:\n        return default\n",
    "module": "l0.errors",
@@ -1693,6 +2355,18 @@
    ],
    "id": "l0.errors.validate-order",
    "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def validate_order(order):\n    symbol = order.get(\"symbol\")\n    if not isinstance(symbol, str) or not symbol:\n        raise ValueError(\"symbol is required\")\n    qty = order.get(\"qty\")\n    if isinstance(qty, bool) or not isinstance(qty, (int, float)) or qty <= 0:\n        raise ValueError(\"qty must be positive\")\n    side = order.get(\"side\")\n    if not isinstance(side, str) or side.lower() not in (\"buy\", \"sell\"):\n        raise ValueError(\"side must be buy or sell\")\n    return {\"symbol\": symbol.upper(), \"qty\": float(qty), \"side\": side.lower()}\n",
+     "note_en": "Fixed order, fail fast, precise messages, bool excluded, a new dict returned: everything the statement asked for, and the hard parts (bool is an int, .get instead of KeyError) are handled. The three if/raise pairs are the same shape repeated, which is the first thing a reviewer circles.",
+     "note_ru": "Фиксированный порядок, быстрое падение, точные сообщения, bool исключён, возвращается новый словарь: всё, что просило условие, и сложные места (bool – это int, .get вместо KeyError) закрыты. Три пары if/raise – одна и та же форма трижды, и ревьюер обведёт это первым."
+    },
+    "senior": {
+     "code": "SIDES = (\"buy\", \"sell\")\n\ndef _require(condition, message):\n    if not condition:\n        raise ValueError(message)\n\ndef validate_order(order):\n    \"\"\"Normalised copy of `order`; ValueError with a precise message on the first broken rule.\"\"\"\n    symbol, qty, side = order.get(\"symbol\"), order.get(\"qty\"), order.get(\"side\")\n    _require(isinstance(symbol, str) and symbol, \"symbol is required\")\n    _require(isinstance(qty, (int, float)) and not isinstance(qty, bool) and qty > 0, \"qty must be positive\")\n    _require(isinstance(side, str) and side.lower() in SIDES, \"side must be buy or sell\")\n    return {\"symbol\": symbol.upper(), \"qty\": float(qty), \"side\": side.lower()}\n",
+     "note_en": "The repeated if-not-condition-raise becomes one helper, so each rule is a single readable line with its message beside it, and the allowed sides are a named constant. A senior says that in a real codebase these rules belong to a dataclass or a pydantic model validated at the boundary, and that collecting all errors instead of stopping at the first is a product decision to ask about, not to assume.",
+     "note_ru": "Повторяющееся «если не условие – raise» стало одним помощником, поэтому каждое правило – одна читаемая строка с сообщением рядом, а допустимые стороны – именованная константа. Сеньор скажет, что в настоящем коде эти правила живут в dataclass или модели pydantic с валидацией на границе, а собирать все ошибки вместо остановки на первой – продуктовое решение, о котором спрашивают, а не предполагают."
+    }
+   },
    "minutes": 8,
    "model": null,
    "module": "l0.errors",
@@ -1713,6 +2387,80 @@
    "type": "task",
    "variants": [],
    "world": "bybit"
+  },
+  "l0.functions.bake-time": {
+   "complexity": "O(1)",
+   "concepts": [
+    "default-args",
+    "early-return",
+    "def-return"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [
+    {
+     "call": "bake_time(4)",
+     "expected": "50"
+    },
+    {
+     "call": "bake_time(5)",
+     "expected": "75"
+    },
+    {
+     "call": "bake_time(3, 30, oven_slots=3)",
+     "expected": "30"
+    }
+   ],
+   "explanation_en": "Default arguments give the common case a one-argument call while keeping the oven configurable. The ceiling trick (a + b - 1) // b avoids floats and math.ceil, and the early return for zero loaves keeps the main formula free of special cases.",
+   "explanation_ru": "Аргументы по умолчанию дают обычному случаю вызов с одним аргументом, а печь остаётся настраиваемой. Трюк округления вверх (a + b - 1) // b обходится без float и math.ceil, а ранний return для нуля буханок оставляет основную формулу без особых случаев.",
+   "followups": [
+    "What should happen with oven_slots=0 or a negative loaf count?",
+    "How would you return the finishing time of day instead?"
+   ],
+   "hints_en": [
+    "Zero loaves is the special case: return 0 before any division.",
+    "The number of batches is loaves divided by oven_slots, rounded up: (loaves + oven_slots - 1) // oven_slots.",
+    "Multiply the batches by minutes_each and return an int; do not use float division."
+   ],
+   "hints_ru": [
+    "Ноль буханок – особый случай: верни 0 до любого деления.",
+    "Число партий – loaves, делённое на oven_slots с округлением вверх: (loaves + oven_slots - 1) // oven_slots.",
+    "Умножь партии на minutes_each и верни int; дробное деление не используй."
+   ],
+   "id": "l0.functions.bake-time",
+   "level": 0,
+   "levels": {
+    "middle": {
+     "code": "import math\n\ndef bake_time(loaves, minutes_each=25, oven_slots=2):\n    if loaves == 0:\n        return 0\n    batches = math.ceil(loaves / oven_slots)\n    return batches * minutes_each\n",
+     "note_en": "Correct, and math.ceil says 'round up' in plain words, which is good. The division goes through float, so for huge counts the result can drift, and the function has no opinion about oven_slots=0: it just crashes with ZeroDivisionError somewhere the caller did not expect. An interviewer will ask about that case, so have the answer ready.",
+     "note_ru": "Верно, и math.ceil прямо говорит «округли вверх», это плюс. Но деление идёт через float, на огромных числах результат может поплыть, а про oven_slots=0 у функции нет мнения: она просто падает с ZeroDivisionError там, где вызывающий не ждал. Интервьюер спросит про этот случай, так что ответ лучше иметь заранее."
+    },
+    "senior": {
+     "code": "def bake_time(loaves, minutes_each=25, oven_slots=2):\n    \"\"\"Minutes to bake `loaves` when the oven takes `oven_slots` loaves per batch.\"\"\"\n    if oven_slots <= 0:\n        raise ValueError(\"oven_slots must be positive\")\n    if loaves <= 0:\n        return 0\n    batches = -(-loaves // oven_slots)\n    return batches * minutes_each\n",
+     "note_en": "States the contract first: a zero-slot oven is a ValueError with a message, not a crash three frames deeper. The integer ceiling -(-a // b) stays in int arithmetic; a senior knows the idiom and also knows to say 'I would use (a + b - 1) // b or a comment if the team finds this cryptic'. Negative loaves are treated as zero on purpose, and the docstring says what the function promises.",
+     "note_ru": "Сначала контракт: печь без слотов – ValueError с сообщением, а не падение тремя кадрами глубже. Целочисленное округление вверх -(-a // b) остаётся в int; сеньор знает идиому и знает сказать: «возьму (a + b - 1) // b или комментарий, если команде это кажется загадкой». Отрицательные буханки сознательно считаются нулём, а докстринг говорит, что функция обещает."
+    }
+   },
+   "minutes": 5,
+   "model": null,
+   "module": "l0.functions",
+   "order": 64,
+   "solution": "def bake_time(loaves, minutes_each=25, oven_slots=2):\n    if loaves == 0:\n        return 0\n    batches = (loaves + oven_slots - 1) // oven_slots\n    return batches * minutes_each\n",
+   "solution_alt": null,
+   "starter": "def bake_time(loaves, minutes_each=25, oven_slots=2):\n    ...\n",
+   "statement_en": "Write bake_time(loaves, minutes_each=25, oven_slots=2) -> int. The oven bakes up to oven_slots loaves at once and every batch takes minutes_each minutes, so the answer is the number of batches times minutes_each. Zero loaves take zero minutes. Callers may pass the extra arguments by name.",
+   "story_en": "Grandma Ada's oven takes two trays at a time. She wants to know when the bread is done, not a lecture about ovens.",
+   "talk_track": [
+    "Say the batches are a ceiling division and show the integer trick.",
+    "Point out the defaults keep the common call short while the oven stays configurable.",
+    "Mention the zero case and that the result is an int."
+   ],
+   "tests": "\ndef test_two_batches(ns, check):\n    check(ns[\"bake_time\"](4), 50, \"bake_time(4)\")\n\ndef test_rounds_up(ns, check):\n    check(ns[\"bake_time\"](5), 75, \"bake_time(5): five loaves need three batches\")\n\ndef test_zero(ns, check):\n    check(ns[\"bake_time\"](0), 0, \"bake_time(0)\")\n\ndef test_custom_oven(ns, check):\n    check(ns[\"bake_time\"](3, 30, oven_slots=3), 30, \"bake_time(3, 30, oven_slots=3)\")\n\ndef test_keyword_call(ns, check):\n    check(ns[\"bake_time\"](2, oven_slots=1), 50, \"bake_time(2, oven_slots=1)\")\n\ndef test_returns_int(ns, check):\n    check(type(ns[\"bake_time\"](7)), int, \"type(bake_time(7))\")\n",
+   "timeout_ms": null,
+   "title": "Bake time",
+   "type": "task",
+   "variants": [],
+   "world": "everyday"
   },
   "l0.functions.cat-years": {
    "complexity": "O(1)",
@@ -1755,12 +2503,24 @@
    ],
    "id": "l0.functions.cat-years",
    "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def cat_age(human_years):\n    if human_years == 0:\n        return 0\n    if human_years == 1:\n        return 15\n    if human_years == 2:\n        return 24\n    return 24 + 4 * (human_years - 2)\n",
+     "note_en": "Correct and easy to read: the special years come first, the formula last, every branch returns. An interviewer would still point at the magic numbers 15, 9 and 4 living inside the logic, at the case for 2 that the formula already covers, and at a negative input that quietly returns nonsense.",
+     "note_ru": "Верно и читается легко: особые годы сначала, формула в конце, каждая ветка возвращает. Интервьюер всё же укажет на магические числа 15, 9 и 4 внутри логики, на отдельный случай для 2, который формула и так покрывает, и на отрицательный вход, который тихо возвращает чепуху."
+    },
+    "senior": {
+     "code": "FIRST_YEAR, SECOND_YEAR, EACH_LATER_YEAR = 15, 9, 4\n\ndef cat_age(human_years):\n    \"\"\"Cat years: 15 for the first human year, 9 for the second, 4 for each one after.\"\"\"\n    if human_years < 0:\n        raise ValueError(\"human_years must not be negative\")\n    if human_years == 0:\n        return 0\n    if human_years == 1:\n        return FIRST_YEAR\n    return FIRST_YEAR + SECOND_YEAR + EACH_LATER_YEAR * (human_years - 2)\n",
+     "note_en": "Before typing, a senior asks what a negative input means and makes it fail loudly instead of guessing. The rates get names in one place, so the follow-up about configurable constants is already answered, and the docstring states the rule the tests check. The clever one-liner with sum() is avoided on purpose: shorter is not the goal, obvious is.",
+     "note_ru": "Прежде чем печатать, сеньор спрашивает, что значит отрицательный вход, и делает так, чтобы он падал громко, а не угадывал. Ставки названы и лежат в одном месте, так что вопрос про настраиваемые константы уже закрыт; докстринг формулирует правило, которое проверяют тесты. Хитрая однострочка с sum() отброшена сознательно: цель не короче, а очевиднее."
+    }
+   },
    "minutes": 5,
    "model": null,
    "module": "l0.functions",
    "order": 60,
    "solution": "def cat_age(human_years):\n    if human_years == 0:\n        return 0\n    if human_years == 1:\n        return 15\n    if human_years == 2:\n        return 24\n    return 24 + 4 * (human_years - 2)\n",
-   "solution_alt": "def cat_age(human_years):\n    steps = [15, 9]\n    return sum(steps[:human_years]) + 4 * max(0, human_years - 2)\n",
+   "solution_alt": null,
    "starter": "def cat_age(human_years):\n    ...\n",
    "statement_en": "Pixel the cat demands a birthday card in cat years. Write cat_age(human_years) -> int. The first human year counts as 15 cat years, the second adds 9, and every year after that adds 4. Zero human years is zero cat years. human_years is a non-negative int.",
    "story_en": "Pixel's birthday card must say the right age, or the card goes under the sofa with the other mistakes.",
@@ -1796,6 +2556,7 @@
    ],
    "id": "l0.functions.default-greeting",
    "level": 0,
+   "levels": null,
    "minutes": 2,
    "model": null,
    "module": "l0.functions",
@@ -1833,6 +2594,7 @@
    ],
    "id": "l0.functions.early-exit",
    "level": 0,
+   "levels": null,
    "minutes": 3,
    "model": null,
    "module": "l0.functions",
@@ -1883,6 +2645,18 @@
    ],
    "id": "l0.functions.extract-helper",
    "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def format_line(name, qty, price):\n    return f\"{name:<10} x{qty:>2}  {qty * price:>7.2f}\"\n\ndef print_receipt(items):\n    for name, qty, price in items:\n        print(format_line(name, qty, price))\n",
+     "note_en": "The repeated line became format_line and print_receipt loops with tuple unpacking: the duplication is gone and a fourth item costs nothing. What an interviewer still notices: print_receipt both computes the text and prints it, so the only way to test it is to capture stdout, and reusing the lines elsewhere (a file, a window) means touching the function again.",
+     "note_ru": "Повторяющаяся строка стала format_line, а print_receipt идёт циклом с распаковкой: дублирование ушло, четвёртая позиция ничего не стоит. Что интервьюер всё ещё видит: print_receipt одновременно считает текст и печатает его, поэтому проверить его можно только перехватом stdout, а переиспользовать строки (файл, окно) – значит снова лезть в функцию."
+    },
+    "senior": {
+     "code": "def format_line(name, qty, price):\n    return f\"{name:<10} x{qty:>2}  {qty * price:>7.2f}\"\n\ndef receipt_lines(items):\n    return [format_line(name, qty, price) for name, qty, price in items]\n\ndef print_receipt(items):\n    for line in receipt_lines(items):\n        print(line)\n",
+     "note_en": "Keeps the I/O at the edge: receipt_lines is a pure function that returns the text and print_receipt is a two-line shell around it. Pure functions are trivial to unit-test and to reuse, which is what 'testable design' means when an interviewer says it. And not one step further: no class, no template engine, no configuration object. Knowing where to stop is part of the level.",
+     "note_ru": "Ввод-вывод вынесен на край: receipt_lines – чистая функция, которая возвращает текст, а print_receipt – двухстрочная оболочка вокруг неё. Чистые функции тривиально тестировать и переиспользовать; именно это интервьюер имеет в виду под «testable design». И ни шагом дальше: без класса, без шаблонизатора, без объекта настроек. Умение остановиться – тоже часть уровня."
+    }
+   },
    "minutes": 6,
    "model": null,
    "module": "l0.functions",
@@ -1926,6 +2700,7 @@
    ],
    "id": "l0.functions.greet-the-crew",
    "level": 0,
+   "levels": null,
    "minutes": 3,
    "model": "def greet(name, excitement=1):\n    \"\"\"Return a greeting; more excitement means more exclamation marks.\"\"\"\n    return \"Hello, \" + name + \"!\" * excitement\n\nprint(greet(\"Pixel\"))\nprint(greet(\"Captain Byte\", excitement=3))\n",
    "module": "l0.functions",
@@ -1965,6 +2740,7 @@
    ],
    "id": "l0.functions.loot-splitter",
    "level": 0,
+   "levels": null,
    "minutes": 4,
    "model": "def total_loot(*chests):\n    \"\"\"Sum any number of chests; each chest is a number of coins.\"\"\"\n    total = 0\n    for coins in chests:\n        total += coins\n    return total\n\ndef shares(**crew):\n    \"\"\"crew holds name=share pairs; return 'name: share' lines.\"\"\"\n    lines = []\n    for name, share in crew.items():\n        lines.append(f\"{name}: {share}\")\n    return lines\n",
    "module": "l0.functions",
@@ -2023,6 +2799,18 @@
    ],
    "id": "l0.functions.party-invite",
    "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def invite(name, *friends, host=\"Pixel\"):\n    guests = [name, *friends]\n    if len(guests) == 1:\n        guest_text = guests[0]\n    else:\n        guest_text = \", \".join(guests[:-1]) + \" and \" + guests[-1]\n    return f\"{host} invites {guest_text} to the party!\"\n",
+     "note_en": "Builds the guest list once and handles 'one' versus 'many' in a single if: it works and it is clear. What is left on the table: the English list rule ('A, B and C') is buried inside invite, so it cannot be reused for the next message or tested on its own, and the word 'and' is hard-coded, which is exactly what the follow-up question asks about.",
+     "note_ru": "Список гостей собран один раз, «один или много» решает единственный if: работает и понятно. Что осталось: правило английского перечисления («A, B and C») зарыто внутри invite, его не переиспользовать в следующем сообщении и не проверить отдельно, а слово and прибито гвоздями – ровно об этом спрашивает дополнительный вопрос."
+    },
+    "senior": {
+     "code": "def join_names(names, last_sep=\" and \"):\n    \"\"\"'A', 'A and B', 'A, B and C'.\"\"\"\n    if len(names) <= 1:\n        return \"\".join(names)\n    return \", \".join(names[:-1]) + last_sep + names[-1]\n\ndef invite(name, *friends, host=\"Pixel\"):\n    return f\"{host} invites {join_names([name, *friends])} to the party!\"\n",
+     "note_en": "Two jobs, two functions: joining names in English is a small pure helper with a configurable last separator and its own tests; invite only formats the sentence. The helper handles 0, 1 and n names, so invite needs no special cases at all. host stays keyword-only after *friends, and a senior says that out loud instead of hoping the interviewer notices.",
+     "note_ru": "Две работы – две функции: перечисление имён по-английски стало маленьким чистым помощником с настраиваемым последним разделителем и своими тестами, а invite только форматирует предложение. Помощник обрабатывает 0, 1 и n имён, поэтому в invite особых случаев нет вовсе. host остаётся только-именованным после *friends, и сеньор говорит это вслух, а не ждёт, пока интервьюер заметит."
+    }
+   },
    "minutes": 7,
    "model": null,
    "module": "l0.functions",
@@ -2044,6 +2832,76 @@
    "variants": [],
    "world": "game"
   },
+  "l0.functions.settings-line": {
+   "complexity": "O(k log k) for k options",
+   "concepts": [
+    "kwargs",
+    "early-return",
+    "def-return"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "settings_line(res='1080p', fps=60)",
+     "expected": "'fps=60, res=1080p'"
+    },
+    {
+     "call": "settings_line()",
+     "expected": "'defaults'"
+    }
+   ],
+   "explanation_en": "Inside the function **options is an ordinary dict, so sorting and joining are the ordinary dict tools. Sorting by key makes the output deterministic whatever order the caller used; the empty case gets its own early return so the join never has to deal with it.",
+   "explanation_ru": "Внутри функции **options – обычный словарь, так что сортировка и склейка – обычные инструменты словаря. Сортировка по ключу делает вывод детерминированным при любом порядке вызова; пустой случай получает свой ранний return, чтобы join с ним не возился.",
+   "followups": [
+    "How would you hide options that still hold their default value?",
+    "What if a value contains a comma?"
+   ],
+   "hints_en": [
+    "**options arrives as a dict; the empty-dict case is the early return with 'defaults'.",
+    "sorted(options.items()) gives (key, value) pairs in key order.",
+    "Build the pieces as f'{key}={value}' and join them with ', '."
+   ],
+   "hints_ru": [
+    "**options приходит словарём; пустой словарь – ранний return с 'defaults'.",
+    "sorted(options.items()) даёт пары (ключ, значение) в порядке ключей.",
+    "Собери кусочки как f'{key}={value}' и соедини через ', '."
+   ],
+   "id": "l0.functions.settings-line",
+   "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def settings_line(**options):\n    if len(options) == 0:\n        return \"defaults\"\n    result = \"\"\n    for key in sorted(options.keys()):\n        result += key + \"=\" + str(options[key]) + \", \"\n    return result[:-2]\n",
+     "note_en": "It passes, but look at the seams: the separator is appended every time and then cut off with [:-2], the classic home of an off-by-one. len(options) == 0 works where 'if not options' is the idiom, and str() plus + is the hard way to format. Each is small; together they are what 'middle' looks like to a reviewer.",
+     "note_ru": "Проходит, но видны швы: разделитель добавляется каждый раз и потом отрезается через [:-2] – классический дом ошибки на единицу. len(options) == 0 работает там, где идиома – if not options, а str() и + – тяжёлый способ форматировать. Каждая мелочь мала; вместе они и есть «middle» в глазах ревьюера."
+    },
+    "senior": {
+     "code": "def settings_line(**options):\n    \"\"\"'key=value' pairs sorted by key, or 'defaults' when nothing was set.\"\"\"\n    if not options:\n        return \"defaults\"\n    return \", \".join(f\"{key}={value}\" for key, value in sorted(options.items()))\n",
+     "note_en": "One early return for the empty case, then one expression that says exactly what the output is: sorted pairs, formatted, joined. join puts separators between items, so there is nothing to trim. A senior also says why the sort is there (a deterministic line) and asks whether values with commas need quoting before promising this format to anyone.",
+     "note_ru": "Один ранний return для пустого случая, потом одно выражение, которое буквально описывает результат: отсортированные пары, отформатированы, склеены. join ставит разделители между элементами, обрезать нечего. Сеньор ещё объясняет, зачем сортировка (детерминированная строка), и спрашивает, надо ли экранировать значения с запятыми, прежде чем обещать кому-то этот формат."
+    }
+   },
+   "minutes": 5,
+   "model": null,
+   "module": "l0.functions",
+   "order": 68,
+   "solution": "def settings_line(**options):\n    if not options:\n        return \"defaults\"\n    parts = []\n    for key, value in sorted(options.items()):\n        parts.append(f\"{key}={value}\")\n    return \", \".join(parts)\n",
+   "solution_alt": null,
+   "starter": "def settings_line(**options):\n    ...\n",
+   "statement_en": "Write settings_line(**options) -> str. It accepts any keyword arguments and returns them as 'key=value' pairs joined with ', ', sorted by key. With no arguments it returns 'defaults'. Example: settings_line(res='1080p', fps=60) -> 'fps=60, res=1080p'.",
+   "story_en": "Pixel's streaming setup has eleven knobs. The overlay should list the ones that were touched in a tidy row, or say 'defaults'.",
+   "talk_track": [
+    "Say **options is a dict and that you sort it so the output does not depend on call order.",
+    "Mention the empty case returns a word instead of an empty string.",
+    "Note that ', '.join avoids a trailing separator."
+   ],
+   "tests": "\ndef test_two_options_sorted(ns, check):\n    check(ns[\"settings_line\"](res=\"1080p\", fps=60), \"fps=60, res=1080p\", \"settings_line(res='1080p', fps=60)\")\n\ndef test_empty(ns, check):\n    check(ns[\"settings_line\"](), \"defaults\", \"settings_line()\")\n\ndef test_single(ns, check):\n    check(ns[\"settings_line\"](mic=\"on\"), \"mic=on\", \"settings_line(mic='on')\")\n\ndef test_three_keys(ns, check):\n    check(ns[\"settings_line\"](c=3, a=1, b=2), \"a=1, b=2, c=3\", \"keys sorted\")\n\ndef test_accepts_keywords_only(ns, check):\n    import inspect\n    kinds = [p.kind for p in inspect.signature(ns[\"settings_line\"]).parameters.values()]\n    check(kinds, [inspect.Parameter.VAR_KEYWORD], \"the only parameter is **options\")\n",
+   "timeout_ms": null,
+   "title": "Settings line",
+   "type": "task",
+   "variants": [],
+   "world": "shorts"
+  },
   "l0.functions.sum-of-anything": {
    "complexity": null,
    "concepts": [
@@ -2064,6 +2922,7 @@
    ],
    "id": "l0.functions.sum-of-anything",
    "level": 0,
+   "levels": null,
    "minutes": 2,
    "model": null,
    "module": "l0.functions",
@@ -2102,6 +2961,7 @@
    ],
    "id": "l0.loops.count-the-coins",
    "level": 0,
+   "levels": null,
    "minutes": 3,
    "model": "coins = [5, 10, 25, 10]\ntotal = 0\nfor coin in coins:\n    total += coin\n\ncountdown = []\nfor n in range(3, 0, -1):\n    countdown.append(n)\n\nevens = []\nfor n in range(0, 10, 2):\n    evens.append(n)\n",
    "module": "l0.loops",
@@ -2156,6 +3016,18 @@
    ],
    "id": "l0.loops.duel-schedule",
    "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def duels(crew):\n    pairs = []\n    for i in range(len(crew)):\n        for j in range(i + 1, len(crew)):\n            pairs.append((crew[i], crew[j]))\n    return pairs\n",
+     "note_en": "Index loops with j starting at i + 1: right answer, right count, no duplicates, and you can explain why. It is still index arithmetic in a language that hands you the pairs for free; an interviewer who hears the word 'combinations' knows you have met itertools, and that is the signal they are listening for.",
+     "note_ru": "Индексные циклы с j от i + 1: верный ответ, верное число пар, без дубликатов, и ты можешь объяснить почему. Но это всё ещё арифметика индексов в языке, который отдаёт пары даром; интервьюер, услышав слово combinations, понимает, что ты знаком с itertools, и именно этот сигнал он ловит."
+    },
+    "senior": {
+     "code": "from itertools import combinations\n\ndef duels(crew):\n    \"\"\"Every unordered pair of crew members once, in crew order.\"\"\"\n    return list(combinations(crew, 2))\n",
+     "note_en": "Names the pattern and lets the standard library produce it: combinations(crew, 2) yields exactly the n*(n-1)/2 tuples in the required order. A senior says the complexity is the size of the output, so no algorithm beats O(n^2) here, and is ready to write the two loops by hand the moment the interviewer asks to see them.",
+     "note_ru": "Паттерн назван, а производит его стандартная библиотека: combinations(crew, 2) выдаёт ровно n*(n-1)/2 кортежей в нужном порядке. Сеньор говорит, что сложность равна размеру ответа, так что никакой алгоритм не обгонит O(n^2), и готов написать два цикла руками в ту же секунду, как интервьюер попросит показать."
+    }
+   },
    "minutes": 6,
    "model": null,
    "module": "l0.loops",
@@ -2198,6 +3070,7 @@
    ],
    "id": "l0.loops.find-the-stowaway",
    "level": 0,
+   "levels": null,
    "minutes": 4,
    "model": "def first_negative(numbers):\n    for n in numbers:\n        if n < 0:\n            return n\n    return None\n\ndef find_stowaway(crew, allowed):\n    for name in crew:\n        if name not in allowed:\n            break\n    else:\n        return None\n    return name\n",
    "module": "l0.loops",
@@ -2214,6 +3087,143 @@
    "type": "retype",
    "variants": [],
    "world": "game"
+  },
+  "l0.loops.first-over": {
+   "complexity": "O(n) worst case",
+   "concepts": [
+    "enumerate",
+    "for-loop",
+    "early-return"
+   ],
+   "diagnostic": false,
+   "difficulty": 1,
+   "examples": [
+    {
+     "call": "first_over([64000, 67500, 69100, 68000], 68000)",
+     "expected": "2"
+    },
+    {
+     "call": "first_over([1, 2], 5)",
+     "expected": "-1"
+    }
+   ],
+   "explanation_en": "enumerate removes the counter you would otherwise maintain by hand, and returning from inside the loop stops the search at the first hit. The return after the loop is the 'not found' path and runs only when nothing matched.",
+   "explanation_ru": "enumerate убирает счётчик, который иначе пришлось бы вести руками, а return внутри цикла останавливает поиск на первом совпадении. return после цикла – путь «не найдено», он выполняется только когда ничего не подошло.",
+   "followups": [
+    "Why -1 and not None? Which would you choose in Python?",
+    "How would you find the first price over the line after a given index?"
+   ],
+   "hints_en": [
+    "for index, price in enumerate(prices): gives you both the position and the value.",
+    "Return the index as soon as price > limit; after the loop, return -1."
+   ],
+   "hints_ru": [
+    "for index, price in enumerate(prices): даёт и позицию, и значение.",
+    "Верни index, как только price > limit; после цикла верни -1."
+   ],
+   "id": "l0.loops.first-over",
+   "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def first_over(prices, limit):\n    found = -1\n    for index, price in enumerate(prices):\n        if price > limit:\n            found = index\n            break\n    return found\n",
+     "note_en": "enumerate instead of a hand counter: good. The found flag plus break is the long way to say 'return as soon as you know': two extra lines and one more variable whose value the reader has to track to the end. Nothing wrong, just not the direct form.",
+     "note_ru": "enumerate вместо ручного счётчика: хорошо. Флаг found плюс break – длинный способ сказать «вернись, как только узнал»: две лишние строки и ещё одна переменная, значение которой читателю приходится держать в голове до конца. Ошибки нет, просто не прямая форма."
+    },
+    "senior": {
+     "code": "def first_over(prices, limit):\n    \"\"\"Index of the first price strictly above `limit`, or -1.\"\"\"\n    return next((index for index, price in enumerate(prices) if price > limit), -1)\n",
+     "note_en": "next() with a default on a generator is the standard 'first match or fallback': it stops at the first hit, allocates nothing and reads as the sentence it implements. A senior adds that the early-return loop is the readable twin for a team that does not know next(), and that -1 for 'not found' is a C habit: in Python None is the usual answer, so ask the caller which one they want.",
+     "note_ru": "next() с умолчанием поверх генератора – стандартное «первое совпадение или запасное значение»: останавливается на первом попадании, ничего не выделяет и читается как фраза, которую реализует. Сеньор добавит, что цикл с ранним return – читаемый близнец для команды, не знающей next(), а -1 для «не найдено» – привычка из C: в Python обычный ответ None, так что спроси вызывающего, что ему нужно."
+    }
+   },
+   "minutes": 4,
+   "model": null,
+   "module": "l0.loops",
+   "order": 68,
+   "solution": "def first_over(prices, limit):\n    for index, price in enumerate(prices):\n        if price > limit:\n            return index\n    return -1\n",
+   "solution_alt": null,
+   "starter": "def first_over(prices, limit):\n    ...\n",
+   "statement_en": "Write first_over(prices, limit) -> int: the index of the first price strictly greater than limit, or -1 when no price qualifies. Use enumerate for the index; no manual counter.",
+   "story_en": "Dr. Candle wants to know the first minute the price crossed his line. Not every minute. Not a chart. The first one.",
+   "talk_track": [
+    "Say enumerate gives index and value together, so no counter is needed.",
+    "Mention the early return stops at the first match: O(n) worst case, often far less."
+   ],
+   "tests": "\ndef test_found(ns, check):\n    check(ns[\"first_over\"]([64000, 67500, 69100, 68000], 68000), 2, \"first_over([64000, 67500, 69100, 68000], 68000)\")\n\ndef test_not_found(ns, check):\n    check(ns[\"first_over\"]([1, 2], 5), -1, \"first_over([1, 2], 5)\")\n\ndef test_empty(ns, check):\n    check(ns[\"first_over\"]([], 5), -1, \"first_over([], 5)\")\n\ndef test_equal_does_not_count(ns, check):\n    check(ns[\"first_over\"]([5, 6], 5), 1, \"5 is not over 5, 6 is\")\n\ndef test_first_index(ns, check):\n    check(ns[\"first_over\"]([9, 1], 0), 0, \"a hit at index 0\")\n\ndef test_uses_enumerate(src, ast_tools, check):\n    check(ast_tools.uses_name(src, \"enumerate\"), True, \"enumerate is used\")\n",
+   "timeout_ms": null,
+   "title": "First price over the line",
+   "type": "task",
+   "variants": [],
+   "world": "bybit"
+  },
+  "l0.loops.longest-streak": {
+   "complexity": "O(n) time, O(1) space",
+   "concepts": [
+    "for-loop",
+    "accumulator",
+    "ternary"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "longest_win_streak(['W', 'W', 'L', 'W', 'W', 'W'])",
+     "expected": "3"
+    },
+    {
+     "call": "longest_win_streak(['L', 'L'])",
+     "expected": "0"
+    }
+   ],
+   "explanation_en": "The accumulator pattern with a twist: one counter grows and resets, another remembers the maximum. Updating best after every step, not only on a loss, is what makes a streak at the very end count.",
+   "explanation_ru": "Паттерн накопителя с поворотом: один счётчик растёт и сбрасывается, другой помнит максимум. Обновление best после каждого шага, а не только при поражении, и даёт засчитать серию в самом конце.",
+   "followups": [
+    "Return the start index of the longest streak as well.",
+    "What should happen with a value other than 'W' or 'L'?"
+   ],
+   "hints_en": [
+    "Two counters: current (the run you are in) and best (the longest run so far).",
+    "A 'W' adds one to current, an 'L' resets it to 0; after every step best = max(best, current).",
+    "Return best; the empty list never enters the loop and returns 0 on its own."
+   ],
+   "hints_ru": [
+    "Два счётчика: current (серия, в которой ты сейчас) и best (самая длинная серия на данный момент).",
+    "'W' прибавляет единицу к current, 'L' сбрасывает его в 0; после каждого шага best = max(best, current).",
+    "Верни best; пустой список не входит в цикл и сам даёт 0."
+   ],
+   "id": "l0.loops.longest-streak",
+   "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def longest_win_streak(results):\n    best = 0\n    current = 0\n    for result in results:\n        if result == \"W\":\n            current += 1\n            if current > best:\n                best = current\n        else:\n            current = 0\n    return best\n",
+     "note_en": "Two counters, reset on a loss, best updated inside the loop: the logic is exactly right, including the streak-at-the-end trap. The nested if is the only thing a reviewer trims: max(best, current) after every step says the same in one line and cannot be forgotten on one branch.",
+     "note_ru": "Два счётчика, сброс на поражении, best обновляется внутри цикла: логика ровно верная, включая ловушку с серией в конце. Ревьюер подрежет только вложенный if: max(best, current) после каждого шага говорит то же одной строкой, и его нельзя забыть в одной из веток."
+    },
+    "senior": {
+     "code": "from itertools import groupby\n\ndef longest_win_streak(results):\n    \"\"\"Length of the longest run of consecutive 'W'.\"\"\"\n    runs = (len(list(group)) for value, group in groupby(results) if value == \"W\")\n    return max(runs, default=0)\n",
+     "note_en": "Sees the problem as 'runs' and asks the library for them: groupby splits the sequence into runs of equal values, the generator keeps the W runs, max with default=0 covers the empty case. A senior says the two-counter loop is just as good and O(1) in memory; the point is naming the concept. They also ask whether anything but 'W' and 'L' can appear before promising anything.",
+     "note_ru": "Видит задачу как «серии» и просит их у библиотеки: groupby режет последовательность на серии одинаковых значений, генератор оставляет серии W, max с default=0 закрывает пустой случай. Сеньор говорит, что цикл с двумя счётчиками ничуть не хуже и O(1) по памяти; суть в том, чтобы назвать понятие. И спрашивает, может ли прийти что-то кроме 'W' и 'L', прежде чем что-либо обещать."
+    }
+   },
+   "minutes": 6,
+   "model": null,
+   "module": "l0.loops",
+   "order": 64,
+   "solution": "def longest_win_streak(results):\n    best = 0\n    current = 0\n    for result in results:\n        current = current + 1 if result == \"W\" else 0\n        best = max(best, current)\n    return best\n",
+   "solution_alt": null,
+   "starter": "def longest_win_streak(results):\n    ...\n",
+   "statement_en": "Write longest_win_streak(results) -> int. results is a list of 'W' and 'L' strings in match order. Return the length of the longest run of consecutive 'W'. No wins, or an empty list, gives 0.",
+   "story_en": "Coach Topspin pins the season on the wall as a row of W and L. He wants one number for the poster: the longest winning streak. Losses reset it. Coach knows all about resets.",
+   "talk_track": [
+    "Say there are two counters: the current run and the best run.",
+    "Point out the trap: a streak at the end counts only if best is updated inside the loop.",
+    "Complexity O(n), O(1) memory."
+   ],
+   "tests": "\ndef test_middle_and_end(ns, check):\n    check(ns[\"longest_win_streak\"]([\"W\", \"W\", \"L\", \"W\", \"W\", \"W\"]), 3, \"longest_win_streak(['W', 'W', 'L', 'W', 'W', 'W'])\")\n\ndef test_no_wins(ns, check):\n    check(ns[\"longest_win_streak\"]([\"L\", \"L\"]), 0, \"longest_win_streak(['L', 'L'])\")\n\ndef test_empty(ns, check):\n    check(ns[\"longest_win_streak\"]([]), 0, \"longest_win_streak([])\")\n\ndef test_all_wins(ns, check):\n    check(ns[\"longest_win_streak\"]([\"W\"] * 5), 5, \"five wins in a row\")\n\ndef test_single(ns, check):\n    check(ns[\"longest_win_streak\"]([\"W\"]), 1, \"longest_win_streak(['W'])\")\n\ndef test_streak_at_the_end(ns, check):\n    check(ns[\"longest_win_streak\"]([\"L\", \"W\", \"W\"]), 2, \"a streak that ends the season still counts\")\n\ndef test_returns_int(ns, check):\n    check(type(ns[\"longest_win_streak\"]([\"W\", \"L\"])), int, \"type of the result\")\n",
+   "timeout_ms": null,
+   "title": "Longest winning streak",
+   "type": "task",
+   "variants": [],
+   "world": "tennis"
   },
   "l0.loops.meow-purr": {
    "complexity": "O(n)",
@@ -2252,6 +3262,18 @@
    ],
    "id": "l0.loops.meow-purr",
    "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def meow_purr(n):\n    result = []\n    for i in range(1, n + 1):\n        if i % 15 == 0:\n            result.append(\"MeowPurr\")\n        elif i % 3 == 0:\n            result.append(\"Meow\")\n        elif i % 5 == 0:\n            result.append(\"Purr\")\n        else:\n            result.append(str(i))\n    return result\n",
+     "note_en": "The classic chain, and it is correct because 15 is checked first; plenty of candidates get that wrong once. The cost shows the moment a third word arrives: the chain needs a branch for every combination, and the magic 15 hides the rule 'divisible by both' instead of stating it.",
+     "note_ru": "Классическая цепочка, и она верна, потому что 15 проверяется первым; многие кандидаты один раз на этом ошибаются. Цена видна в момент, когда приходит третье слово: цепочке нужна ветка на каждую комбинацию, а магическое 15 прячет правило «делится на оба» вместо того, чтобы его назвать."
+    },
+    "senior": {
+     "code": "RULES = ((3, \"Meow\"), (5, \"Purr\"))\n\ndef meow_purr(n):\n    result = []\n    for i in range(1, n + 1):\n        word = \"\".join(name for divisor, name in RULES if i % divisor == 0)\n        result.append(word or str(i))\n    return result\n",
+     "note_en": "Data instead of branches: the rules are a table, the loop builds the word from every matching rule, and 'word or str(i)' is the fallback idiom. A third word is one tuple, not a rewrite, and 15 appears nowhere because 'both' falls out of the join. A senior offers the generator version for a huge n and does not write it until asked.",
+     "note_ru": "Данные вместо веток: правила – таблица, цикл собирает слово из всех подошедших правил, а «word or str(i)» – идиома запасного значения. Третье слово – один кортеж, а не переписывание, и 15 нигде нет, потому что «оба» получается само из join. Сеньор предложит версию с генератором для огромного n и не станет писать её, пока не попросят."
+    }
+   },
    "minutes": 5,
    "model": null,
    "module": "l0.loops",
@@ -2293,6 +3315,7 @@
    ],
    "id": "l0.loops.numbered-lines",
    "level": 0,
+   "levels": null,
    "minutes": 2,
    "model": null,
    "module": "l0.loops",
@@ -2331,6 +3354,7 @@
    ],
    "id": "l0.loops.pair-up",
    "level": 0,
+   "levels": null,
    "minutes": 3,
    "model": null,
    "module": "l0.loops",
@@ -2345,6 +3369,71 @@
    "timeout_ms": null,
    "title": "Pair up names and prices",
    "type": "cloze",
+   "variants": [],
+   "world": "everyday"
+  },
+  "l0.loops.price-list": {
+   "complexity": "O(n)",
+   "concepts": [
+    "zip",
+    "enumerate",
+    "for-loop"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "price_list(['rope', 'lamp'], [3, 12])",
+     "expected": "['1. rope: 3', '2. lamp: 12']"
+    }
+   ],
+   "explanation_en": "zip pairs the lists by position, enumerate numbers the pairs, and start=1 replaces the hand-held counter. The nested unpacking number, (name, price) is the standard shape for 'numbered pairs'; the index variable disappears because nothing needs it any more.",
+   "explanation_ru": "zip соединяет списки по позициям, enumerate нумерует пары, а start=1 заменяет ручной счётчик. Вложенная распаковка number, (name, price) – стандартная форма для «пронумерованных пар»; переменная-индекс исчезает, потому что она больше никому не нужна.",
+   "followups": [
+    "What happens when names and prices differ in length? How would you make that loud?",
+    "How would you format the price with two decimals?"
+   ],
+   "hints_en": [
+    "zip(names, prices) yields (name, price) pairs; enumerate(..., start=1) numbers whatever you give it.",
+    "Combine them: for number, (name, price) in enumerate(zip(names, prices), start=1).",
+    "The f-string stays the same, only the names inside it change."
+   ],
+   "hints_ru": [
+    "zip(names, prices) выдаёт пары (name, price); enumerate(..., start=1) нумерует всё, что ему дали.",
+    "Соедини их: for number, (name, price) in enumerate(zip(names, prices), start=1).",
+    "f-строка остаётся той же, меняются только имена внутри неё."
+   ],
+   "id": "l0.loops.price-list",
+   "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def price_list(names, prices):\n    lines = []\n    for number, (name, price) in enumerate(zip(names, prices), start=1):\n        lines.append(f\"{number}. {name}: {price}\")\n    return lines\n",
+     "note_en": "zip pairs the lists, enumerate numbers the pairs, start=1 replaces the hand counter: this is the refactor the task asked for and it is idiomatic. The nested unpacking is the one line a reviewer reads twice; that is fine, it is the standard shape. What is still unsaid: what should happen when the lists differ in length, because zip silently stops at the shorter one.",
+     "note_ru": "zip соединяет списки, enumerate нумерует пары, start=1 заменяет ручной счётчик: это тот рефакторинг, который просило задание, и он идиоматичен. Вложенную распаковку ревьюер прочитает дважды; это нормально, форма стандартная. Не сказано лишь одно: что делать, если списки разной длины, ведь zip молча останавливается на более коротком."
+    },
+    "senior": {
+     "code": "def price_list(names, prices):\n    \"\"\"Numbered 'n. name: price' lines; names and prices must have the same length.\"\"\"\n    pairs = zip(names, prices, strict=True)\n    return [f\"{number}. {name}: {price}\" for number, (name, price) in enumerate(pairs, start=1)]\n",
+     "note_en": "The comprehension states the output, and zip(strict=True) turns the silent truncation of mismatched lists into a loud ValueError, which is what a price list wants: a missing price is a bug, not a shorter list. A senior raises that before the interviewer asks 'what if the lists differ in length', and puts the contract into the docstring.",
+     "note_ru": "Включение описывает результат, а zip(strict=True) превращает тихое усечение разных по длине списков в громкий ValueError, чего прайс-лист и хочет: пропавшая цена – это баг, а не список покороче. Сеньор поднимает это раньше, чем интервьюер спросит «а если списки разной длины», и записывает контракт в докстринг."
+    }
+   },
+   "minutes": 6,
+   "model": null,
+   "module": "l0.loops",
+   "order": 90,
+   "solution": "def price_list(names, prices):\n    lines = []\n    for number, (name, price) in enumerate(zip(names, prices), start=1):\n        lines.append(f\"{number}. {name}: {price}\")\n    return lines\n",
+   "solution_alt": null,
+   "starter": "def price_list(names, prices):\n    lines = []\n    number = 1\n    for i in range(len(names)):\n        lines.append(f\"{number}. {names[i]}: {prices[i]}\")\n        number = number + 1\n    return lines\n",
+   "statement_en": "price_list(names, prices) returns numbered 'n. name: price' lines and works, but it indexes two lists in parallel through range(len(names)) and counts by hand. Rewrite it with zip to walk both lists together and enumerate for the numbering from 1. No range(len(...)), no indexing and no manual counter may remain. Behaviour must not change.",
+   "story_en": "Grandma Ada's price list is printed by a loop that counts on its fingers. It has never been wrong. It has also never been read twice by anyone who stayed calm.",
+   "talk_track": [
+    "Say zip walks the lists together and enumerate numbers the result, so no index is left.",
+    "Mention zip stops at the shorter list and that strict=True turns a mismatch into an error."
+   ],
+   "tests": "\ndef test_two_items(ns, check):\n    check(ns[\"price_list\"]([\"rope\", \"lamp\"], [3, 12]), [\"1. rope: 3\", \"2. lamp: 12\"], \"price_list(['rope', 'lamp'], [3, 12])\")\n\ndef test_empty(ns, check):\n    check(ns[\"price_list\"]([], []), [], \"price_list([], [])\")\n\ndef test_three_items(ns, check):\n    check(ns[\"price_list\"]([\"a\", \"b\", \"c\"], [1, 2, 3]), [\"1. a: 1\", \"2. b: 2\", \"3. c: 3\"], \"three items numbered from 1\")\n\ndef test_no_index_arithmetic(src, ast_tools, check):\n    check(ast_tools.count_calls(src, \"range\"), 0, \"no range(len(...)) left\")\n    check(ast_tools.count_nodes(src, \"Subscript\"), 0, \"no names[i] indexing left\")\n\ndef test_uses_zip_and_enumerate(src, ast_tools, check):\n    check(ast_tools.uses_name(src, \"zip\"), True, \"zip is used\")\n    check(ast_tools.uses_name(src, \"enumerate\"), True, \"enumerate is used\")\n\ndef test_no_manual_counter(src, ast_tools, check):\n    check(ast_tools.count_nodes(src, \"AugAssign\") + src.count(\"+ 1\"), 0, \"no hand-held counter left\")\n",
+   "timeout_ms": null,
+   "title": "Price list without index arithmetic",
+   "type": "refactor",
    "variants": [],
    "world": "everyday"
   },
@@ -2369,6 +3458,7 @@
    ],
    "id": "l0.loops.steps-to-one",
    "level": 0,
+   "levels": null,
    "minutes": 3,
    "model": null,
    "module": "l0.loops",
@@ -2423,6 +3513,18 @@
    ],
    "id": "l0.strings.caesar-cipher",
    "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def caesar(text, k):\n    out = []\n    for ch in text:\n        if ch.isalpha() and ch.isascii():\n            base = ord(\"A\") if ch.isupper() else ord(\"a\")\n            out.append(chr((ord(ch) - base + k) % 26 + base))\n        else:\n            out.append(ch)\n    return \"\".join(out)\n",
+     "note_en": "Per-character arithmetic with a base for each case and modulo 26: this is the textbook solution and it handles negative and large shifts correctly. The list-plus-join is the right way to build the string. What a reviewer adds: Python has a translation table built for exactly this, and knowing it changes the loop into one call.",
+     "note_ru": "Арифметика по символам с базой для каждого регистра и остатком от 26: это решение из учебника, и отрицательные и большие сдвиги оно обрабатывает верно. Список плюс join – правильный способ собрать строку. Что добавит ревьюер: в Python есть таблица трансляции ровно для этого, и знание о ней превращает цикл в один вызов."
+    },
+    "senior": {
+     "code": "import string\n\ndef caesar(text, k):\n    \"\"\"Shift ASCII letters by k, keeping case; everything else passes through.\"\"\"\n    k %= 26\n    lower, upper = string.ascii_lowercase, string.ascii_uppercase\n    table = str.maketrans(lower + upper, lower[k:] + lower[:k] + upper[k:] + upper[:k])\n    return text.translate(table)\n",
+     "note_en": "Builds the shifted alphabet once and lets str.translate do the work in C: no per-character branching, no ord/chr, and case handling falls out of the two alphabets. k %= 26 up front covers negative and oversized shifts in one line. A senior notes the table could be cached per k and that the loop version is what you write on a whiteboard when translate is not in your head.",
+     "note_ru": "Сдвинутый алфавит строится один раз, а работу делает str.translate на C: без ветвления по символам, без ord/chr, а регистр получается сам из двух алфавитов. k %= 26 в начале одной строкой закрывает отрицательные и большие сдвиги. Сеньор заметит, что таблицу можно кэшировать по k, а версия с циклом – то, что пишут на доске, когда translate не вспомнился."
+    }
+   },
    "minutes": 7,
    "model": null,
    "module": "l0.strings",
@@ -2443,6 +3545,76 @@
    "type": "task",
    "variants": [],
    "world": "everyday"
+  },
+  "l0.strings.censor": {
+   "complexity": "O(n) with a set of banned words",
+   "concepts": [
+    "split-join",
+    "str-case",
+    "str-methods"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "censor('you NOOB lol', {'noob'})",
+     "expected": "'you **** lol'"
+    },
+    {
+     "call": "censor('gg everyone', {'noob'})",
+     "expected": "'gg everyone'"
+    }
+   ],
+   "explanation_en": "split, decide per word, join: the standard shape for 'transform some words'. Lowercasing only the comparison keeps the original spelling of the allowed words, and '*' * len(word) keeps the line the same width, so the message still looks like a message.",
+   "explanation_ru": "split, решение по каждому слову, join: стандартная форма для «преобразовать некоторые слова». Нижний регистр только для сравнения сохраняет исходное написание разрешённых слов, а '*' * len(word) сохраняет ширину строки, так что сообщение по-прежнему выглядит как сообщение.",
+   "followups": [
+    "What about 'noob!' with punctuation attached?",
+    "How would you censor 'n00b' spelled with zeros?"
+   ],
+   "hints_en": [
+    "text.split(' ') gives the words; compare word.lower() with the banned set.",
+    "A banned word becomes '*' * len(word); an allowed word stays as it was.",
+    "Collect the results in a list and ' '.join them."
+   ],
+   "hints_ru": [
+    "text.split(' ') даёт слова; сравнивай word.lower() с множеством banned.",
+    "Запрещённое слово становится '*' * len(word); разрешённое остаётся как было.",
+    "Собери результаты в список и склей через ' '.join."
+   ],
+   "id": "l0.strings.censor",
+   "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def censor(text, banned):\n    result = \"\"\n    for word in text.split(\" \"):\n        if word.lower() in banned:\n            result = result + \"*\" * len(word) + \" \"\n        else:\n            result = result + word + \" \"\n    return result.strip()\n",
+     "note_en": "Passes the tests, and that is the problem: it passes by accident. The trailing space is added every time and removed with strip(), which would also eat spaces that belong to the message. Building a string with + in a loop is the habit reviewers notice first; the fix is the list-and-join shape.",
+     "note_ru": "Тесты проходит, и в этом проблема: проходит случайно. Хвостовой пробел добавляется каждый раз и снимается через strip(), который съел бы и пробелы, принадлежащие сообщению. Сборка строки через + в цикле – привычка, которую ревьюеры замечают первой; лекарство – форма «список и join»."
+    },
+    "senior": {
+     "code": "def censor(text, banned):\n    \"\"\"Replace banned words (case-insensitive) with asterisks of the same length.\"\"\"\n    return \" \".join(\"*\" * len(word) if word.casefold() in banned else word for word in text.split(\" \"))\n",
+     "note_en": "One join over a generator with a conditional expression: the whole rule in a line that still reads left to right. casefold is the correct case-insensitive comparison, not lower. A senior then says what the function does not handle, punctuation glued to words and leetspeak, and asks whether banned arrives lowercase or should be normalised at the boundary, before writing a single extra line.",
+     "note_ru": "Один join по генератору с условным выражением: всё правило в одной строке, которая читается слева направо. casefold – корректное сравнение без учёта регистра, а не lower. Дальше сеньор говорит, чего функция не делает: знаки препинания, приклеенные к словам, и leetspeak, и спрашивает, приходит ли banned в нижнем регистре или его нормализовать на границе, прежде чем писать хоть одну лишнюю строку."
+    }
+   },
+   "minutes": 6,
+   "model": null,
+   "module": "l0.strings",
+   "order": 65,
+   "solution": "def censor(text, banned):\n    words = []\n    for word in text.split(\" \"):\n        if word.lower() in banned:\n            words.append(\"*\" * len(word))\n        else:\n            words.append(word)\n    return \" \".join(words)\n",
+   "solution_alt": null,
+   "starter": "def censor(text, banned):\n    ...\n",
+   "statement_en": "Write censor(text, banned) -> str. text is words separated by single spaces; banned is a set of lowercase words. Replace every word whose lowercase form is in banned with asterisks of the same length, keep every other word as it is, and join the words back with single spaces. An empty text returns ''.",
+   "story_en": "Timmy's game chat has a word filter. It replaces rude words with asterisks and, according to Timmy, 'ruins everything'. Pixel approves of the filter.",
+   "talk_track": [
+    "Say you split, decide per word, and join: the transformation never touches the original string.",
+    "Mention the comparison is lowercased but the output keeps the original case of allowed words.",
+    "Complexity O(n) with a set for banned; a list would make it O(n * m)."
+   ],
+   "tests": "\ndef test_one_banned_word(ns, check):\n    check(ns[\"censor\"](\"you NOOB lol\", {\"noob\"}), \"you **** lol\", \"censor('you NOOB lol', {'noob'})\")\n\ndef test_nothing_banned(ns, check):\n    check(ns[\"censor\"](\"gg everyone\", {\"noob\"}), \"gg everyone\", \"censor('gg everyone', {'noob'})\")\n\ndef test_several(ns, check):\n    check(ns[\"censor\"](\"noob says Noob\", {\"noob\", \"says\"}), \"**** **** ****\", \"every banned word, any case\")\n\ndef test_empty_text(ns, check):\n    check(ns[\"censor\"](\"\", {\"noob\"}), \"\", \"censor('', ...)\")\n\ndef test_keeps_case_of_allowed_words(ns, check):\n    check(ns[\"censor\"](\"GG Pixel\", {\"noob\"}), \"GG Pixel\", \"allowed words keep their case\")\n\ndef test_length_preserved(ns, check):\n    check(len(ns[\"censor\"](\"a verylongword b\", {\"verylongword\"})), len(\"a verylongword b\"), \"asterisks keep the width\")\n",
+   "timeout_ms": null,
+   "title": "Chat filter",
+   "type": "task",
+   "variants": [],
+   "world": "game"
   },
   "l0.strings.clean-the-order": {
    "complexity": null,
@@ -2465,6 +3637,7 @@
    ],
    "id": "l0.strings.clean-the-order",
    "level": 0,
+   "levels": null,
    "minutes": 3,
    "model": "raw = \"  Cinnamon ROLL, sourdough , Rye bread \"\nitems = []\nfor part in raw.split(\",\"):\n    items.append(part.strip().lower())\nlabel = \" | \".join(items).title()\n",
    "module": "l0.strings",
@@ -2503,6 +3676,7 @@
    ],
    "id": "l0.strings.initials",
    "level": 0,
+   "levels": null,
    "minutes": 2,
    "model": null,
    "module": "l0.strings",
@@ -2557,12 +3731,24 @@
    ],
    "id": "l0.strings.palindrome-check",
    "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def is_palindrome(text):\n    cleaned = \"\"\n    for ch in text:\n        if ch.isalnum():\n            cleaned += ch.lower()\n    return cleaned == cleaned[::-1]\n",
+     "note_en": "Normalise, then compare with the reversed slice: the shape is right and the empty string works for free. Building cleaned with += in a loop is what most people write first; it is O(n) in practice thanks to CPython's string trick, but a reviewer will still ask why not join, and 'I always do it this way' is not the answer they want.",
+     "note_ru": "Нормализовать, потом сравнить с перевёрнутым срезом: форма верная, пустая строка работает даром. Сборка cleaned через += в цикле – то, что большинство пишет первым; на практике это O(n) благодаря трюку CPython, но ревьюер всё равно спросит, почему не join, и «я всегда так пишу» – не тот ответ, которого он ждёт."
+    },
+    "senior": {
+     "code": "def is_palindrome(text):\n    \"\"\"True when `text` reads the same both ways, ignoring case and non-alphanumerics.\"\"\"\n    cleaned = \"\".join(ch.casefold() for ch in text if ch.isalnum())\n    return cleaned == cleaned[::-1]\n",
+     "note_en": "One expression for the normalisation, one for the check. casefold instead of lower is the senior tell: it handles the German sharp s and friends that lower() leaves alone. A senior also names the two-pointer version (O(1) extra space, no copy) and explains when it matters: streams or very long inputs, not a sentence on a birthday card.",
+     "note_ru": "Одно выражение на нормализацию, одно на проверку. casefold вместо lower – сеньорская примета: он справляется с немецким эсцетом и прочими случаями, которые lower() не трогает. Сеньор ещё назовёт версию с двумя указателями (O(1) дополнительной памяти, без копии) и скажет, когда она важна: потоки или очень длинные входы, а не фраза на поздравительной открытке."
+    }
+   },
    "minutes": 6,
    "model": null,
    "module": "l0.strings",
    "order": 60,
    "solution": "def is_palindrome(text):\n    cleaned = \"\"\n    for ch in text:\n        if ch.isalnum():\n            cleaned += ch.lower()\n    return cleaned == cleaned[::-1]\n",
-   "solution_alt": "def is_palindrome(text):\n    cleaned = \"\".join(ch.lower() for ch in text if ch.isalnum())\n    return cleaned == cleaned[::-1]\n",
+   "solution_alt": null,
    "starter": "def is_palindrome(text):\n    ...\n",
    "statement_en": "Write is_palindrome(text) -> bool: True when text reads the same forwards and backwards if you ignore case and keep only letters and digits. An empty string counts as a palindrome.",
    "story_en": "Pixel's favourite phrase is 'Taco cat'. Timmy says it is just a cat and a taco. The function decides.",
@@ -2600,6 +3786,7 @@
    ],
    "id": "l0.strings.peek-and-replace",
    "level": 0,
+   "levels": null,
    "minutes": 3,
    "model": "sign = \"Ada's Bakery: fresh bread daily\"\nhas_bread = \"bread\" in sign\nwhere = sign.find(\"fresh\")\nshouting = sign.upper()\nfixed = sign.replace(\"daily\", \"every day\")\nfirst_word = sign[:5]\nlast_word = sign[-5:]\n",
    "module": "l0.strings",
@@ -2637,6 +3824,7 @@
    ],
    "id": "l0.strings.price-tag",
    "level": 0,
+   "levels": null,
    "minutes": 3,
    "model": null,
    "module": "l0.strings",
@@ -2673,6 +3861,7 @@
    ],
    "id": "l0.strings.secret-shift",
    "level": 0,
+   "levels": null,
    "minutes": 3,
    "model": null,
    "module": "l0.strings",
@@ -2727,6 +3916,18 @@
    ],
    "id": "l0.strings.slugify",
    "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def slugify(title):\n    chars = []\n    for ch in title.lower():\n        chars.append(ch if ch.isalnum() else \" \")\n    return \"-\".join(\"\".join(chars).split())\n",
+     "note_en": "Lowercase, replace symbols with spaces, split, join: every step is the right one and the split() trick is used knowingly. The character loop with a list and a second join is slightly more machinery than the idea needs; a reviewer sees that you know the pieces but have not yet compressed them.",
+     "note_ru": "Нижний регистр, символы в пробелы, split, join: каждый шаг верный, и трюк со split() применён осознанно. Цикл по символам со списком и вторым join – чуть больше механики, чем нужно идее; ревьюер видит, что детали ты знаешь, но ещё не сжал их."
+    },
+    "senior": {
+     "code": "def slugify(title):\n    \"\"\"URL slug: lowercase words joined by single dashes, symbols dropped.\"\"\"\n    words = \"\".join(ch if ch.isalnum() else \" \" for ch in title.lower()).split()\n    return \"-\".join(words)\n",
+     "note_en": "The same four steps in two lines, each line one idea: normalise into words, join with dashes. A senior then talks about what the code does not decide yet: isalnum keeps Cyrillic and accents, so ask whether the slug must be ASCII (unicodedata.normalize plus an encode is the next step) and whether a maximum length applies. Those questions are the senior part; the code is just the start.",
+     "note_ru": "Те же четыре шага в двух строках, по одной идее на строку: нормализовать в слова, склеить дефисами. Дальше сеньор говорит о том, чего код ещё не решает: isalnum оставляет кириллицу и акценты, так что спроси, нужен ли slug только из ASCII (следующий шаг – unicodedata.normalize плюс encode) и есть ли предел длины. Эти вопросы и есть сеньорская часть; код лишь начало."
+    }
+   },
    "minutes": 6,
    "model": null,
    "module": "l0.strings",
@@ -2746,6 +3947,75 @@
    "type": "task",
    "variants": [],
    "world": "shorts"
+  },
+  "l0.strings.ticker-line": {
+   "complexity": "O(1)",
+   "concepts": [
+    "f-string",
+    "format-spec",
+    "str-methods"
+   ],
+   "diagnostic": false,
+   "difficulty": 2,
+   "examples": [
+    {
+     "call": "ticker_line('BTC', 68000, 1.5)",
+     "expected": "'BTC     68000.00  +1.5%'"
+    },
+    {
+     "call": "ticker_line('ETH', 3500.123, -2.25)",
+     "expected": "'ETH      3500.12  -2.2%'"
+    }
+   ],
+   "explanation_en": "Format specs do alignment, width, precision and sign in one place, so the padding arithmetic and the sign branch disappear. One f-string also shows the shape of the row at a glance, which the concatenation version never could.",
+   "explanation_ru": "Спецификаторы формата делают выравнивание, ширину, точность и знак в одном месте, поэтому арифметика отступов и ветка со знаком исчезают. Одна f-строка ещё и показывает форму строки с первого взгляда, чего версия со склейкой не могла никогда.",
+   "followups": [
+    "How would you format thousands separators? Python has a flag for that.",
+    "What should happen if a symbol is longer than 6 characters?"
+   ],
+   "hints_en": [
+    "Left alignment is {symbol:<6}; right alignment with decimals is {price:>10.2f}.",
+    "A sign on positive numbers too is the + flag: {change:+.1f}.",
+    "The literal percent sign is just a character after the braces: f'...{change:+.1f}%'."
+   ],
+   "hints_ru": [
+    "Выравнивание влево – {symbol:<6}; вправо с десятичными – {price:>10.2f}.",
+    "Знак и у положительных чисел – флаг +: {change:+.1f}.",
+    "Сам знак процента – просто символ после скобок: f'...{change:+.1f}%'."
+   ],
+   "id": "l0.strings.ticker-line",
+   "level": 0,
+   "levels": {
+    "middle": {
+     "code": "def ticker_line(symbol, price, change):\n    return f\"{symbol:<6}{price:>10.2f}  {change:+.1f}%\"\n",
+     "note_en": "One f-string with three format specs: exactly the refactor asked for, and the output is identical. A reviewer has nothing to fix here; what they might ask is what the function promises when the symbol is longer than six characters, because the alignment silently breaks and the code does not say so.",
+     "note_ru": "Одна f-строка с тремя спецификаторами: ровно тот рефакторинг, который просили, и вывод идентичен. Ревьюеру чинить нечего; спросить он может лишь, что функция обещает, когда тикер длиннее шести символов, потому что выравнивание тихо ломается, а код об этом молчит."
+    },
+    "senior": {
+     "code": "SYMBOL_WIDTH, PRICE_WIDTH = 6, 10\n\ndef ticker_line(symbol, price, change):\n    \"\"\"One aligned ticker row; a symbol longer than SYMBOL_WIDTH pushes the price right.\"\"\"\n    return f\"{symbol:<{SYMBOL_WIDTH}}{price:>{PRICE_WIDTH}.2f}  {change:+.1f}%\"\n",
+     "note_en": "Same f-string, but the widths are named constants and the specs take them as nested fields, so the layout is one place to change and the docstring states the known limit instead of hiding it. A senior mentions the thousands-separator flag ({price:>12,.2f}) and that a real ticker would take a dataclass, not three loose arguments, and leaves both for the follow-up.",
+     "note_ru": "Та же f-строка, но ширины – именованные константы, а спецификаторы берут их вложенными полями, так что раскладка меняется в одном месте, а докстринг называет известный предел, а не прячет его. Сеньор упомянет флаг разделителя тысяч ({price:>12,.2f}) и то, что настоящий тикер принимал бы dataclass, а не три отдельных аргумента, и оставит оба пункта на дополнительный вопрос."
+    }
+   },
+   "minutes": 6,
+   "model": null,
+   "module": "l0.strings",
+   "order": 90,
+   "solution": "def ticker_line(symbol, price, change):\n    return f\"{symbol:<6}{price:>10.2f}  {change:+.1f}%\"\n",
+   "solution_alt": null,
+   "starter": "def ticker_line(symbol, price, change):\n    padded = symbol + \" \" * (6 - len(symbol))\n    price_text = \"%.2f\" % price\n    price_text = \" \" * (10 - len(price_text)) + price_text\n    sign = \"+\" if change >= 0 else \"\"\n    return padded + price_text + \"  \" + sign + \"%.1f\" % change + \"%\"\n",
+   "statement_en": "ticker_line(symbol, price, change) returns one aligned ticker row and works, but it is built from + concatenation, old %-formatting and hand-made padding with len. Rewrite it as a single f-string with format specs: symbol left-aligned in 6, price right-aligned in 10 with 2 decimals, two spaces, change with an explicit sign and 1 decimal, then '%'. No %, no len() and no + on strings may remain. Output must not change.",
+   "story_en": "Dr. Candle's ticker is glued together from pieces with + and %, padded by hand. It lines up. Nobody dares to touch it. Today, you dare.",
+   "talk_track": [
+    "Say the format spec encodes width, alignment, precision and sign, so no manual padding is needed.",
+    "Mention the + flag prints the sign for positive numbers too."
+   ],
+   "tests": "\ndef test_positive_change(ns, check):\n    check(ns[\"ticker_line\"](\"BTC\", 68000, 1.5), \"BTC     68000.00  +1.5%\", \"ticker_line('BTC', 68000, 1.5)\")\n\ndef test_negative_change(ns, check):\n    check(ns[\"ticker_line\"](\"ETH\", 3500.123, -2.25), \"ETH      3500.12  -2.2%\", \"ticker_line('ETH', 3500.123, -2.25)\")\n\ndef test_zero_change(ns, check):\n    check(ns[\"ticker_line\"](\"DOGE\", 0.1, 0), \"DOGE        0.10  +0.0%\", \"zero change keeps the plus sign\")\n\ndef test_width(ns, check):\n    check(len(ns[\"ticker_line\"](\"SOL\", 150, 3)), 23, \"the row is 23 characters wide\")\n\ndef test_uses_fstring_only(src, ast_tools, check):\n    check(ast_tools.count_fstrings(src) >= 1, True, \"an f-string is used\")\n    check(ast_tools.count_nodes(src, \"Mod\"), 0, \"no %-formatting left\")\n    check(ast_tools.count_calls(src, \"len\"), 0, \"no len() padding left\")\n    check(ast_tools.count_nodes(src, \"Add\"), 0, \"no + concatenation left\")\n",
+   "timeout_ms": null,
+   "title": "Ticker line with f-strings",
+   "type": "refactor",
+   "variants": [],
+   "world": "bybit"
   }
  }
 }

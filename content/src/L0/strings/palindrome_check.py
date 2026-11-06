@@ -49,12 +49,6 @@ def is_palindrome(text):
     return cleaned == cleaned[::-1]
 '''
 
-SOLUTION_ALT = '''
-def is_palindrome(text):
-    cleaned = "".join(ch.lower() for ch in text if ch.isalnum())
-    return cleaned == cleaned[::-1]
-'''
-
 TESTS = '''
 def test_taco_cat(ns, check):
     check(ns["is_palindrome"]("Taco cat"), True, "is_palindrome('Taco cat')")
@@ -77,3 +71,32 @@ def test_two_letters(ns, check):
 def test_lemon(ns, check):
     check(ns["is_palindrome"]("No lemon, no melon"), True, "No lemon, no melon")
 '''
+
+LEVELS = dict(
+    middle=dict(
+        note_en=("Normalise, then compare with the reversed slice: the shape is right and the empty string works for "
+                 "free. Building cleaned with += in a loop is what most people write first; it is O(n) in practice "
+                 "thanks to CPython's string trick, but a reviewer will still ask why not join, and 'I always do it "
+                 "this way' is not the answer they want."),
+        note_ru=("Нормализовать, потом сравнить с перевёрнутым срезом: форма верная, пустая строка работает даром. "
+                 "Сборка cleaned через += в цикле – то, что большинство пишет первым; на практике это O(n) благодаря "
+                 "трюку CPython, но ревьюер всё равно спросит, почему не join, и «я всегда так пишу» – не тот ответ, "
+                 "которого он ждёт."),
+    ),
+    senior=dict(
+        code='''
+def is_palindrome(text):
+    """True when `text` reads the same both ways, ignoring case and non-alphanumerics."""
+    cleaned = "".join(ch.casefold() for ch in text if ch.isalnum())
+    return cleaned == cleaned[::-1]
+''',
+        note_en=("One expression for the normalisation, one for the check. casefold instead of lower is the senior tell: "
+                 "it handles the German sharp s and friends that lower() leaves alone. A senior also names the "
+                 "two-pointer version (O(1) extra space, no copy) and explains when it matters: streams or very long "
+                 "inputs, not a sentence on a birthday card."),
+        note_ru=("Одно выражение на нормализацию, одно на проверку. casefold вместо lower – сеньорская примета: он "
+                 "справляется с немецким эсцетом и прочими случаями, которые lower() не трогает. Сеньор ещё назовёт версию "
+                 "с двумя указателями (O(1) дополнительной памяти, без копии) и скажет, когда она важна: потоки или очень "
+                 "длинные входы, а не фраза на поздравительной открытке."),
+    ),
+)
