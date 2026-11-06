@@ -56,6 +56,12 @@ The content gate runs each reference solution against its tests with the same ha
 (`src/runner/runner.py`), checks that the starter does not already pass, that visible examples hold, that every hint,
 explanation and story field exists in both languages where required, and that ids, concepts and worlds are valid.
 
+### Deployment and CI
+
+- `.github/workflows/pages.yml` publishes the repository root to GitHub Pages on every push to `main` (the Pages source
+  must be "GitHub Actions"); "Run workflow" in the Actions tab deploys any branch by hand, for a preview before a merge.
+- `.github/workflows/gate.yml` runs `npm run check` on every pull request; it needs only CPython 3.14 and Node, no npm install.
+
 ### Authoring an exercise
 
 ```python

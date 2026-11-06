@@ -1,0 +1,20 @@
+# The same gate as `npm run check`: content build, service-worker precache list, harness check, node tests.
+# One light job on pull requests; "Run workflow" in the Actions tab runs it on any branch by hand.
+name: Gate
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm run check
