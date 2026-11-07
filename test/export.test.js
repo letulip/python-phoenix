@@ -45,3 +45,15 @@ test("validateImport rejects foreign files", () => {
   assert.throws(() => validateImport({ app: "python-phoenix", schema: 2, attempts: [] }), /schema/);
   assert.throws(() => validateImport({ app: "python-phoenix", schema: 1, attempts: [{ id: "x" }] }), /taskId/);
 });
+
+test("srs cards and gym rounds travel with the export and merge by recency", () => {
+  const srs = { "gym.a.1": { box: 2, due: "2026-11-10", seen: 2, lastAt: "2026-11-06T10:00:00Z" } };
+  const rounds = [{ startedAt: "2026-11-06T09:00:00Z", date: "2026-11-06", items: 5, passed: 4 }];
+  const file = buildExport({ version: "0.2.0", profile: { startedAt: "2026-11-01T00:00:00Z", placement: null }, settings: {}, attempts: [attempt("1")], events: [], sessions: [], content, srs, gymRounds: rounds });
+  assert.deepEqual(file.srs, srs);
+  assert.equal(file.gymRounds.length, 1);
+  const local = { profile: {}, settings: {}, attempts: [attempt("1")], events: [], sessions: [], srs: { "gym.a.1": { box: 0, due: "2026-11-08", seen: 3, lastAt: "2026-11-07T10:00:00Z" } }, gymRounds: [{ startedAt: "2026-11-07T09:00:00Z", date: "2026-11-07", items: 5, passed: 5 }] };
+  const merged = mergeImport(local, file);
+  assert.equal(merged.srs["gym.a.1"].box, 0, "the later local attempt wins");
+  assert.equal(merged.gymRounds.length, 2);
+});

@@ -1,12 +1,15 @@
 import { h, toast, fmtDuration } from "../dom.js";
 import { aggregateStats, sortedModules, todayKey } from "../../core/progress.js";
 import { buildExport, mergeImport } from "../../core/export.js";
+import { familySummary } from "../../core/srs.js";
 
 async function collect(ctx) {
   return {
     attempts: await ctx.store.getAttempts(),
     events: await ctx.store.getEvents(),
     sessions: await ctx.store.kvGet("sessions", []),
+    srs: await ctx.store.kvGet("srs", {}),
+    gymRounds: await ctx.store.kvGet("gymRounds", []),
   };
 }
 
@@ -21,23 +24,25 @@ function download(name, text) {
 
 export async function renderProgress(ctx, root) {
   const { t, content } = ctx;
-  const { attempts, events, sessions } = await collect(ctx);
+  const { attempts, events, sessions, srs, gymRounds } = await collect(ctx);
   const stats = aggregateStats(content, attempts);
   const conceptName = (id) => content.concepts[id]?.[ctx.settings.lang] || content.concepts[id]?.en || id;
 
-  const exportJson = () => JSON.stringify(buildExport({ version: ctx.version, profile: ctx.profile, settings: ctx.settings, attempts, events, sessions, content }), null, 1);
+  const exportJson = () => JSON.stringify(buildExport({ version: ctx.version, profile: ctx.profile, settings: ctx.settings, attempts, events, sessions, content, srs, gymRounds }), null, 1);
 
   const fileInput = h("input", { type: "file", accept: "application/json,.json", style: "display:none", onchange: async (e) => {
     const file = e.target.files[0];
     if (!file) return;
     try {
       const imported = JSON.parse(await file.text());
-      const merged = mergeImport({ profile: ctx.profile, settings: ctx.settings, attempts, events, sessions }, imported);
+      const merged = mergeImport({ profile: ctx.profile, settings: ctx.settings, attempts, events, sessions, srs, gymRounds }, imported);
       const localIds = new Set(attempts.map((a) => a.id));
       for (const a of merged.attempts) if (!localIds.has(a.id)) await ctx.store.putAttempt(a);
       const localEvents = new Set(events.map((ev) => ev.id));
       for (const ev of merged.events) if (!localEvents.has(ev.id)) await ctx.store.addEvent(ev);
       await ctx.store.kvSet("sessions", merged.sessions);
+      await ctx.store.kvSet("srs", merged.srs);
+      await ctx.store.kvSet("gymRounds", merged.gymRounds);
       ctx.profile = merged.profile; await ctx.saveProfile();
       Object.assign(ctx.settings, merged.settings); await ctx.saveSettings();
       toast(t("progress.imported", { attempts: merged.added.attempts }), "ok");
@@ -70,6 +75,21 @@ export async function renderProgress(ctx, root) {
       const pct = m.total ? Math.round((m.passed / m.total) * 100) : 0;
       return h("div", { class: "module-row" }, h("span", {}, `L${mod.level} · ${ctx.pick(mod, "title")}`), h("div", { class: "progress-bar" }, h("div", { class: "progress-fill", style: `width:${pct}%` })), h("span", { class: "muted" }, `${m.passed}/${m.total}`));
     })));
+
+  if (content.gym?.families?.length) {
+    const today = todayKey();
+    const summary = familySummary(content, srs, today);
+    root.append(h("section", { class: "card" }, h("h2", {}, t("progress.idioms")),
+      h("p", { class: "muted" }, t("progress.idioms.rounds", { n: gymRounds.length })),
+      h("table", { class: "table" },
+        h("thead", {}, h("tr", {}, h("th", {}, t("progress.col.family")), h("th", {}, t("progress.col.mastery")), h("th", {}, t("progress.col.due")), h("th", {}, t("progress.col.nextDue")), h("th", {}, t("progress.col.passFail")))),
+        h("tbody", {}, summary.map((f) => {
+          const family = content.gym.families.find((x) => x.id === f.id);
+          return h("tr", { class: f.fails > f.passes ? "weak" : "" },
+            h("td", {}, ctx.pick(family, "title")), h("td", {}, `${Math.round(f.mastery * 100)}% · ${f.mastered}/${f.total}`),
+            h("td", {}, String(f.due + f.fresh)), h("td", {}, f.nextDue || "–"), h("td", {}, `${f.passes} / ${f.fails}`));
+        })))));
+  }
 
   root.append(h("section", { class: "card" }, h("h2", {}, t("progress.concepts")),
     h("table", { class: "table" },
