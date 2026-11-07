@@ -39,4 +39,8 @@ def test_single(ns, check):
 
 def test_no_len(src, ast_tools, check):
     check(ast_tools.count_calls(src, "len"), 0, "no len() call left")
+
+def test_single_expression(src, ast_tools, check):
+    check(ast_tools.count_nodes(src, "ListComp") + ast_tools.count_nodes(src, "GeneratorExp"), 0, "no comprehension around the slice")
+    check(ast_tools.body_lines(src) <= 2, True, "def plus one return line")
 '''

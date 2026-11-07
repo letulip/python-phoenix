@@ -22,3 +22,7 @@ section with 8 families (41 drills, 123 data variants), two new drill types (rew
 five with spaced repetition (Leitner boxes 1/2/4/7/14/30 days, a miss returns tomorrow), the idiom rule after every drill,
 a home-screen card, a per-family table on the progress screen, srs and rounds in the export. Tier 2 (sorting keys, itertools,
 EAFP, f-string specs, string methods) is the next step once the owner has trained on tier 1.
+
+### Wave 2 · round 1
+
+1. The single-slice drills (last item, everything but the last, backwards copy) accepted `[i for i in items[:-1]]`: a comprehension is not a `for` statement, so "no loop" passed. Fixed in feat/wave-2: those three drills also forbid comprehensions and generator expressions and cap the body at one return line. The other rewrite drills were checked for the same trick: where a comprehension is the idiom it is allowed, elsewhere the structural tests already catch map/filter, elif chains and tuple-index tricks.

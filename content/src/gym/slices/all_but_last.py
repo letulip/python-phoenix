@@ -50,4 +50,8 @@ def test_slice_not_loop(src, ast_tools, check):
     check(ast_tools.has_loop(src), False, "no loop left")
     check(ast_tools.count_calls(src, "range"), 0, "no range() left")
     check(ast_tools.count_nodes(src, "Slice") >= 1, True, "a slice is used")
+
+def test_single_expression(src, ast_tools, check):
+    check(ast_tools.count_nodes(src, "ListComp") + ast_tools.count_nodes(src, "GeneratorExp"), 0, "no comprehension around the slice")
+    check(ast_tools.body_lines(src) <= 2, True, "def plus one return line")
 '''

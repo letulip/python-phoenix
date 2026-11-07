@@ -3107,7 +3107,7 @@
    "statement_en": "@NAME@(@ARG@) copies every item except the last one with an index loop. Rewrite it as a single slice: no loop and no range() may remain.",
    "story_en": "",
    "talk_track": [],
-   "tests": "\ndef test_sample(ns, check):\n    check(ns[\"drop_last\"]([1, 2, 3]), [1, 2], \"drop_last([1, 2, 3])\")\n\ndef test_short_lists(ns, check):\n    check((ns[\"drop_last\"]([]), ns[\"drop_last\"]([9])), ([], []), \"empty and one-item lists\")\n\ndef test_input_untouched(ns, check):\n    data = [1, 2, 3]\n    out = ns[\"drop_last\"](data)\n    check(data, [1, 2, 3], \"input unchanged\")\n    check(out is data, False, \"a new list comes back\")\n\ndef test_slice_not_loop(src, ast_tools, check):\n    check(ast_tools.has_loop(src), False, \"no loop left\")\n    check(ast_tools.count_calls(src, \"range\"), 0, \"no range() left\")\n    check(ast_tools.count_nodes(src, \"Slice\") >= 1, True, \"a slice is used\")\n",
+   "tests": "\ndef test_sample(ns, check):\n    check(ns[\"drop_last\"]([1, 2, 3]), [1, 2], \"drop_last([1, 2, 3])\")\n\ndef test_short_lists(ns, check):\n    check((ns[\"drop_last\"]([]), ns[\"drop_last\"]([9])), ([], []), \"empty and one-item lists\")\n\ndef test_input_untouched(ns, check):\n    data = [1, 2, 3]\n    out = ns[\"drop_last\"](data)\n    check(data, [1, 2, 3], \"input unchanged\")\n    check(out is data, False, \"a new list comes back\")\n\ndef test_slice_not_loop(src, ast_tools, check):\n    check(ast_tools.has_loop(src), False, \"no loop left\")\n    check(ast_tools.count_calls(src, \"range\"), 0, \"no range() left\")\n    check(ast_tools.count_nodes(src, \"Slice\") >= 1, True, \"a slice is used\")\n\ndef test_single_expression(src, ast_tools, check):\n    check(ast_tools.count_nodes(src, \"ListComp\") + ast_tools.count_nodes(src, \"GeneratorExp\"), 0, \"no comprehension around the slice\")\n    check(ast_tools.body_lines(src) <= 2, True, \"def plus one return line\")\n",
    "timeout_ms": null,
    "title": "Everything but the last",
    "type": "rewrite",
@@ -3124,7 +3124,7 @@
      "snippet": null,
      "solution": "def drop_last(items):\n    return items[:-1]\n",
      "starter": "def drop_last(items):\n    result = []\n    for i in range(len(items) - 1):\n        result.append(items[i])\n    return result\n",
-     "tests": "\ndef test_sample(ns, check):\n    check(ns[\"drop_last\"]([1, 2, 3]), [1, 2], \"drop_last([1, 2, 3])\")\n\ndef test_short_lists(ns, check):\n    check((ns[\"drop_last\"]([]), ns[\"drop_last\"]([9])), ([], []), \"empty and one-item lists\")\n\ndef test_input_untouched(ns, check):\n    data = [1, 2, 3]\n    out = ns[\"drop_last\"](data)\n    check(data, [1, 2, 3], \"input unchanged\")\n    check(out is data, False, \"a new list comes back\")\n\ndef test_slice_not_loop(src, ast_tools, check):\n    check(ast_tools.has_loop(src), False, \"no loop left\")\n    check(ast_tools.count_calls(src, \"range\"), 0, \"no range() left\")\n    check(ast_tools.count_nodes(src, \"Slice\") >= 1, True, \"a slice is used\")\n"
+     "tests": "\ndef test_sample(ns, check):\n    check(ns[\"drop_last\"]([1, 2, 3]), [1, 2], \"drop_last([1, 2, 3])\")\n\ndef test_short_lists(ns, check):\n    check((ns[\"drop_last\"]([]), ns[\"drop_last\"]([9])), ([], []), \"empty and one-item lists\")\n\ndef test_input_untouched(ns, check):\n    data = [1, 2, 3]\n    out = ns[\"drop_last\"](data)\n    check(data, [1, 2, 3], \"input unchanged\")\n    check(out is data, False, \"a new list comes back\")\n\ndef test_slice_not_loop(src, ast_tools, check):\n    check(ast_tools.has_loop(src), False, \"no loop left\")\n    check(ast_tools.count_calls(src, \"range\"), 0, \"no range() left\")\n    check(ast_tools.count_nodes(src, \"Slice\") >= 1, True, \"a slice is used\")\n\ndef test_single_expression(src, ast_tools, check):\n    check(ast_tools.count_nodes(src, \"ListComp\") + ast_tools.count_nodes(src, \"GeneratorExp\"), 0, \"no comprehension around the slice\")\n    check(ast_tools.body_lines(src) <= 2, True, \"def plus one return line\")\n"
     },
     {
      "examples": [
@@ -3138,7 +3138,7 @@
      "snippet": null,
      "solution": "def without_newest(prices):\n    return prices[:-1]\n",
      "starter": "def without_newest(prices):\n    result = []\n    for i in range(len(prices) - 1):\n        result.append(prices[i])\n    return result\n",
-     "tests": "\ndef test_sample(ns, check):\n    check(ns[\"without_newest\"]([5, 6, 7, 8]), [5, 6, 7], \"without_newest([5, 6, 7, 8])\")\n\ndef test_short_lists(ns, check):\n    check((ns[\"without_newest\"]([]), ns[\"without_newest\"]([9])), ([], []), \"empty and one-item lists\")\n\ndef test_input_untouched(ns, check):\n    data = [1, 2, 3]\n    out = ns[\"without_newest\"](data)\n    check(data, [1, 2, 3], \"input unchanged\")\n    check(out is data, False, \"a new list comes back\")\n\ndef test_slice_not_loop(src, ast_tools, check):\n    check(ast_tools.has_loop(src), False, \"no loop left\")\n    check(ast_tools.count_calls(src, \"range\"), 0, \"no range() left\")\n    check(ast_tools.count_nodes(src, \"Slice\") >= 1, True, \"a slice is used\")\n"
+     "tests": "\ndef test_sample(ns, check):\n    check(ns[\"without_newest\"]([5, 6, 7, 8]), [5, 6, 7], \"without_newest([5, 6, 7, 8])\")\n\ndef test_short_lists(ns, check):\n    check((ns[\"without_newest\"]([]), ns[\"without_newest\"]([9])), ([], []), \"empty and one-item lists\")\n\ndef test_input_untouched(ns, check):\n    data = [1, 2, 3]\n    out = ns[\"without_newest\"](data)\n    check(data, [1, 2, 3], \"input unchanged\")\n    check(out is data, False, \"a new list comes back\")\n\ndef test_slice_not_loop(src, ast_tools, check):\n    check(ast_tools.has_loop(src), False, \"no loop left\")\n    check(ast_tools.count_calls(src, \"range\"), 0, \"no range() left\")\n    check(ast_tools.count_nodes(src, \"Slice\") >= 1, True, \"a slice is used\")\n\ndef test_single_expression(src, ast_tools, check):\n    check(ast_tools.count_nodes(src, \"ListComp\") + ast_tools.count_nodes(src, \"GeneratorExp\"), 0, \"no comprehension around the slice\")\n    check(ast_tools.body_lines(src) <= 2, True, \"def plus one return line\")\n"
     },
     {
      "examples": [
@@ -3152,7 +3152,7 @@
      "snippet": null,
      "solution": "def all_but_last(names):\n    return names[:-1]\n",
      "starter": "def all_but_last(names):\n    result = []\n    for i in range(len(names) - 1):\n        result.append(names[i])\n    return result\n",
-     "tests": "\ndef test_sample(ns, check):\n    check(ns[\"all_but_last\"](['ann', 'bob']), ['ann'], \"all_but_last(['ann', 'bob'])\")\n\ndef test_short_lists(ns, check):\n    check((ns[\"all_but_last\"]([]), ns[\"all_but_last\"]([9])), ([], []), \"empty and one-item lists\")\n\ndef test_input_untouched(ns, check):\n    data = [1, 2, 3]\n    out = ns[\"all_but_last\"](data)\n    check(data, [1, 2, 3], \"input unchanged\")\n    check(out is data, False, \"a new list comes back\")\n\ndef test_slice_not_loop(src, ast_tools, check):\n    check(ast_tools.has_loop(src), False, \"no loop left\")\n    check(ast_tools.count_calls(src, \"range\"), 0, \"no range() left\")\n    check(ast_tools.count_nodes(src, \"Slice\") >= 1, True, \"a slice is used\")\n"
+     "tests": "\ndef test_sample(ns, check):\n    check(ns[\"all_but_last\"](['ann', 'bob']), ['ann'], \"all_but_last(['ann', 'bob'])\")\n\ndef test_short_lists(ns, check):\n    check((ns[\"all_but_last\"]([]), ns[\"all_but_last\"]([9])), ([], []), \"empty and one-item lists\")\n\ndef test_input_untouched(ns, check):\n    data = [1, 2, 3]\n    out = ns[\"all_but_last\"](data)\n    check(data, [1, 2, 3], \"input unchanged\")\n    check(out is data, False, \"a new list comes back\")\n\ndef test_slice_not_loop(src, ast_tools, check):\n    check(ast_tools.has_loop(src), False, \"no loop left\")\n    check(ast_tools.count_calls(src, \"range\"), 0, \"no range() left\")\n    check(ast_tools.count_nodes(src, \"Slice\") >= 1, True, \"a slice is used\")\n\ndef test_single_expression(src, ast_tools, check):\n    check(ast_tools.count_nodes(src, \"ListComp\") + ast_tools.count_nodes(src, \"GeneratorExp\"), 0, \"no comprehension around the slice\")\n    check(ast_tools.body_lines(src) <= 2, True, \"def plus one return line\")\n"
     }
    ],
    "world": "neutral"
@@ -3196,7 +3196,7 @@
    "statement_en": "last(items) works, but it computes the index of the last element by hand. Rewrite it with a negative index: no len() call may remain.",
    "story_en": "",
    "talk_track": [],
-   "tests": "\ndef test_last(ns, check):\n    check(ns[\"last\"](['rope', 'lamp', 'map']), 'map', \"last(['rope', 'lamp', 'map'])\")\n\ndef test_single(ns, check):\n    check(ns[\"last\"]([7]), 7, \"a one-item list\")\n\ndef test_no_len(src, ast_tools, check):\n    check(ast_tools.count_calls(src, \"len\"), 0, \"no len() call left\")\n",
+   "tests": "\ndef test_last(ns, check):\n    check(ns[\"last\"](['rope', 'lamp', 'map']), 'map', \"last(['rope', 'lamp', 'map'])\")\n\ndef test_single(ns, check):\n    check(ns[\"last\"]([7]), 7, \"a one-item list\")\n\ndef test_no_len(src, ast_tools, check):\n    check(ast_tools.count_calls(src, \"len\"), 0, \"no len() call left\")\n\ndef test_single_expression(src, ast_tools, check):\n    check(ast_tools.count_nodes(src, \"ListComp\") + ast_tools.count_nodes(src, \"GeneratorExp\"), 0, \"no comprehension around the slice\")\n    check(ast_tools.body_lines(src) <= 2, True, \"def plus one return line\")\n",
    "timeout_ms": null,
    "title": "The last item",
    "type": "rewrite",
@@ -3213,7 +3213,7 @@
      "snippet": null,
      "solution": "def last(items):\n    return items[-1]\n",
      "starter": "def last(items):\n    return items[len(items) - 1]\n",
-     "tests": "\ndef test_last(ns, check):\n    check(ns[\"last\"](['rope', 'lamp', 'map']), 'map', \"last(['rope', 'lamp', 'map'])\")\n\ndef test_single(ns, check):\n    check(ns[\"last\"]([7]), 7, \"a one-item list\")\n\ndef test_no_len(src, ast_tools, check):\n    check(ast_tools.count_calls(src, \"len\"), 0, \"no len() call left\")\n"
+     "tests": "\ndef test_last(ns, check):\n    check(ns[\"last\"](['rope', 'lamp', 'map']), 'map', \"last(['rope', 'lamp', 'map'])\")\n\ndef test_single(ns, check):\n    check(ns[\"last\"]([7]), 7, \"a one-item list\")\n\ndef test_no_len(src, ast_tools, check):\n    check(ast_tools.count_calls(src, \"len\"), 0, \"no len() call left\")\n\ndef test_single_expression(src, ast_tools, check):\n    check(ast_tools.count_nodes(src, \"ListComp\") + ast_tools.count_nodes(src, \"GeneratorExp\"), 0, \"no comprehension around the slice\")\n    check(ast_tools.body_lines(src) <= 2, True, \"def plus one return line\")\n"
     },
     {
      "examples": [
@@ -3227,7 +3227,7 @@
      "snippet": null,
      "solution": "def newest(prices):\n    return prices[-1]\n",
      "starter": "def newest(prices):\n    return prices[len(prices) - 1]\n",
-     "tests": "\ndef test_last(ns, check):\n    check(ns[\"newest\"]([68000, 67950, 68210]), 68210, \"newest([68000, 67950, 68210])\")\n\ndef test_single(ns, check):\n    check(ns[\"newest\"]([7]), 7, \"a one-item list\")\n\ndef test_no_len(src, ast_tools, check):\n    check(ast_tools.count_calls(src, \"len\"), 0, \"no len() call left\")\n"
+     "tests": "\ndef test_last(ns, check):\n    check(ns[\"newest\"]([68000, 67950, 68210]), 68210, \"newest([68000, 67950, 68210])\")\n\ndef test_single(ns, check):\n    check(ns[\"newest\"]([7]), 7, \"a one-item list\")\n\ndef test_no_len(src, ast_tools, check):\n    check(ast_tools.count_calls(src, \"len\"), 0, \"no len() call left\")\n\ndef test_single_expression(src, ast_tools, check):\n    check(ast_tools.count_nodes(src, \"ListComp\") + ast_tools.count_nodes(src, \"GeneratorExp\"), 0, \"no comprehension around the slice\")\n    check(ast_tools.body_lines(src) <= 2, True, \"def plus one return line\")\n"
     },
     {
      "examples": [
@@ -3241,7 +3241,7 @@
      "snippet": null,
      "solution": "def final_word(words):\n    return words[-1]\n",
      "starter": "def final_word(words):\n    return words[len(words) - 1]\n",
-     "tests": "\ndef test_last(ns, check):\n    check(ns[\"final_word\"](['game', 'set', 'match']), 'match', \"final_word(['game', 'set', 'match'])\")\n\ndef test_single(ns, check):\n    check(ns[\"final_word\"]([7]), 7, \"a one-item list\")\n\ndef test_no_len(src, ast_tools, check):\n    check(ast_tools.count_calls(src, \"len\"), 0, \"no len() call left\")\n"
+     "tests": "\ndef test_last(ns, check):\n    check(ns[\"final_word\"](['game', 'set', 'match']), 'match', \"final_word(['game', 'set', 'match'])\")\n\ndef test_single(ns, check):\n    check(ns[\"final_word\"]([7]), 7, \"a one-item list\")\n\ndef test_no_len(src, ast_tools, check):\n    check(ast_tools.count_calls(src, \"len\"), 0, \"no len() call left\")\n\ndef test_single_expression(src, ast_tools, check):\n    check(ast_tools.count_nodes(src, \"ListComp\") + ast_tools.count_nodes(src, \"GeneratorExp\"), 0, \"no comprehension around the slice\")\n    check(ast_tools.body_lines(src) <= 2, True, \"def plus one return line\")\n"
     }
    ],
    "world": "neutral"
@@ -3285,7 +3285,7 @@
    "statement_en": "@NAME@(@ARG@) builds the reversed list with a counting-down range. Rewrite it as one slice with a negative step: no loop and no range() may remain, and the input must stay untouched.",
    "story_en": "",
    "talk_track": [],
-   "tests": "\ndef test_sample(ns, check):\n    check(ns[\"backwards\"]([1, 2, 3]), [3, 2, 1], \"backwards([1, 2, 3])\")\n\ndef test_empty(ns, check):\n    check(ns[\"backwards\"]([]), [], \"backwards([])\")\n\ndef test_input_untouched(ns, check):\n    data = [1, 2, 3]\n    out = ns[\"backwards\"](data)\n    check(data, [1, 2, 3], \"input unchanged\")\n    check(out is data, False, \"a new list comes back\")\n\ndef test_slice_not_loop(src, ast_tools, check):\n    check(ast_tools.has_loop(src), False, \"no loop left\")\n    check(ast_tools.count_calls(src, \"range\"), 0, \"no range() left\")\n    check(ast_tools.count_nodes(src, \"Slice\") >= 1, True, \"a slice is used\")\n",
+   "tests": "\ndef test_sample(ns, check):\n    check(ns[\"backwards\"]([1, 2, 3]), [3, 2, 1], \"backwards([1, 2, 3])\")\n\ndef test_empty(ns, check):\n    check(ns[\"backwards\"]([]), [], \"backwards([])\")\n\ndef test_input_untouched(ns, check):\n    data = [1, 2, 3]\n    out = ns[\"backwards\"](data)\n    check(data, [1, 2, 3], \"input unchanged\")\n    check(out is data, False, \"a new list comes back\")\n\ndef test_slice_not_loop(src, ast_tools, check):\n    check(ast_tools.has_loop(src), False, \"no loop left\")\n    check(ast_tools.count_calls(src, \"range\"), 0, \"no range() left\")\n    check(ast_tools.count_nodes(src, \"Slice\") >= 1, True, \"a slice is used\")\n\ndef test_single_expression(src, ast_tools, check):\n    check(ast_tools.count_nodes(src, \"ListComp\") + ast_tools.count_nodes(src, \"GeneratorExp\"), 0, \"no comprehension around the slice\")\n    check(ast_tools.body_lines(src) <= 2, True, \"def plus one return line\")\n",
    "timeout_ms": null,
    "title": "Backwards copy",
    "type": "rewrite",
@@ -3302,7 +3302,7 @@
      "snippet": null,
      "solution": "def backwards(steps):\n    return steps[::-1]\n",
      "starter": "def backwards(steps):\n    result = []\n    for i in range(len(steps) - 1, -1, -1):\n        result.append(steps[i])\n    return result\n",
-     "tests": "\ndef test_sample(ns, check):\n    check(ns[\"backwards\"]([1, 2, 3]), [3, 2, 1], \"backwards([1, 2, 3])\")\n\ndef test_empty(ns, check):\n    check(ns[\"backwards\"]([]), [], \"backwards([])\")\n\ndef test_input_untouched(ns, check):\n    data = [1, 2, 3]\n    out = ns[\"backwards\"](data)\n    check(data, [1, 2, 3], \"input unchanged\")\n    check(out is data, False, \"a new list comes back\")\n\ndef test_slice_not_loop(src, ast_tools, check):\n    check(ast_tools.has_loop(src), False, \"no loop left\")\n    check(ast_tools.count_calls(src, \"range\"), 0, \"no range() left\")\n    check(ast_tools.count_nodes(src, \"Slice\") >= 1, True, \"a slice is used\")\n"
+     "tests": "\ndef test_sample(ns, check):\n    check(ns[\"backwards\"]([1, 2, 3]), [3, 2, 1], \"backwards([1, 2, 3])\")\n\ndef test_empty(ns, check):\n    check(ns[\"backwards\"]([]), [], \"backwards([])\")\n\ndef test_input_untouched(ns, check):\n    data = [1, 2, 3]\n    out = ns[\"backwards\"](data)\n    check(data, [1, 2, 3], \"input unchanged\")\n    check(out is data, False, \"a new list comes back\")\n\ndef test_slice_not_loop(src, ast_tools, check):\n    check(ast_tools.has_loop(src), False, \"no loop left\")\n    check(ast_tools.count_calls(src, \"range\"), 0, \"no range() left\")\n    check(ast_tools.count_nodes(src, \"Slice\") >= 1, True, \"a slice is used\")\n\ndef test_single_expression(src, ast_tools, check):\n    check(ast_tools.count_nodes(src, \"ListComp\") + ast_tools.count_nodes(src, \"GeneratorExp\"), 0, \"no comprehension around the slice\")\n    check(ast_tools.body_lines(src) <= 2, True, \"def plus one return line\")\n"
     },
     {
      "examples": [
@@ -3316,7 +3316,7 @@
      "snippet": null,
      "solution": "def reversed_names(names):\n    return names[::-1]\n",
      "starter": "def reversed_names(names):\n    result = []\n    for i in range(len(names) - 1, -1, -1):\n        result.append(names[i])\n    return result\n",
-     "tests": "\ndef test_sample(ns, check):\n    check(ns[\"reversed_names\"](['ann', 'bob', 'cid']), ['cid', 'bob', 'ann'], \"reversed_names(['ann', 'bob', 'cid'])\")\n\ndef test_empty(ns, check):\n    check(ns[\"reversed_names\"]([]), [], \"reversed_names([])\")\n\ndef test_input_untouched(ns, check):\n    data = [1, 2, 3]\n    out = ns[\"reversed_names\"](data)\n    check(data, [1, 2, 3], \"input unchanged\")\n    check(out is data, False, \"a new list comes back\")\n\ndef test_slice_not_loop(src, ast_tools, check):\n    check(ast_tools.has_loop(src), False, \"no loop left\")\n    check(ast_tools.count_calls(src, \"range\"), 0, \"no range() left\")\n    check(ast_tools.count_nodes(src, \"Slice\") >= 1, True, \"a slice is used\")\n"
+     "tests": "\ndef test_sample(ns, check):\n    check(ns[\"reversed_names\"](['ann', 'bob', 'cid']), ['cid', 'bob', 'ann'], \"reversed_names(['ann', 'bob', 'cid'])\")\n\ndef test_empty(ns, check):\n    check(ns[\"reversed_names\"]([]), [], \"reversed_names([])\")\n\ndef test_input_untouched(ns, check):\n    data = [1, 2, 3]\n    out = ns[\"reversed_names\"](data)\n    check(data, [1, 2, 3], \"input unchanged\")\n    check(out is data, False, \"a new list comes back\")\n\ndef test_slice_not_loop(src, ast_tools, check):\n    check(ast_tools.has_loop(src), False, \"no loop left\")\n    check(ast_tools.count_calls(src, \"range\"), 0, \"no range() left\")\n    check(ast_tools.count_nodes(src, \"Slice\") >= 1, True, \"a slice is used\")\n\ndef test_single_expression(src, ast_tools, check):\n    check(ast_tools.count_nodes(src, \"ListComp\") + ast_tools.count_nodes(src, \"GeneratorExp\"), 0, \"no comprehension around the slice\")\n    check(ast_tools.body_lines(src) <= 2, True, \"def plus one return line\")\n"
     },
     {
      "examples": [
@@ -3330,7 +3330,7 @@
      "snippet": null,
      "solution": "def countdown(numbers):\n    return numbers[::-1]\n",
      "starter": "def countdown(numbers):\n    result = []\n    for i in range(len(numbers) - 1, -1, -1):\n        result.append(numbers[i])\n    return result\n",
-     "tests": "\ndef test_sample(ns, check):\n    check(ns[\"countdown\"]([10, 20, 30, 40]), [40, 30, 20, 10], \"countdown([10, 20, 30, 40])\")\n\ndef test_empty(ns, check):\n    check(ns[\"countdown\"]([]), [], \"countdown([])\")\n\ndef test_input_untouched(ns, check):\n    data = [1, 2, 3]\n    out = ns[\"countdown\"](data)\n    check(data, [1, 2, 3], \"input unchanged\")\n    check(out is data, False, \"a new list comes back\")\n\ndef test_slice_not_loop(src, ast_tools, check):\n    check(ast_tools.has_loop(src), False, \"no loop left\")\n    check(ast_tools.count_calls(src, \"range\"), 0, \"no range() left\")\n    check(ast_tools.count_nodes(src, \"Slice\") >= 1, True, \"a slice is used\")\n"
+     "tests": "\ndef test_sample(ns, check):\n    check(ns[\"countdown\"]([10, 20, 30, 40]), [40, 30, 20, 10], \"countdown([10, 20, 30, 40])\")\n\ndef test_empty(ns, check):\n    check(ns[\"countdown\"]([]), [], \"countdown([])\")\n\ndef test_input_untouched(ns, check):\n    data = [1, 2, 3]\n    out = ns[\"countdown\"](data)\n    check(data, [1, 2, 3], \"input unchanged\")\n    check(out is data, False, \"a new list comes back\")\n\ndef test_slice_not_loop(src, ast_tools, check):\n    check(ast_tools.has_loop(src), False, \"no loop left\")\n    check(ast_tools.count_calls(src, \"range\"), 0, \"no range() left\")\n    check(ast_tools.count_nodes(src, \"Slice\") >= 1, True, \"a slice is used\")\n\ndef test_single_expression(src, ast_tools, check):\n    check(ast_tools.count_nodes(src, \"ListComp\") + ast_tools.count_nodes(src, \"GeneratorExp\"), 0, \"no comprehension around the slice\")\n    check(ast_tools.body_lines(src) <= 2, True, \"def plus one return line\")\n"
     }
    ],
    "world": "neutral"
