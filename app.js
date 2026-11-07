@@ -11,6 +11,7 @@ import { renderMap } from "./src/ui/screens/map.js";
 import { renderProgress } from "./src/ui/screens/progress.js";
 import { renderSettings } from "./src/ui/screens/settings.js";
 import { renderDiagnostic } from "./src/ui/screens/diagnostic.js";
+import { renderGym } from "./src/ui/screens/gym.js";
 
 export const APP_VERSION = "0.1.0";
 export const DEFAULT_SETTINGS = { lang: "ru", sessionMinutes: 30, pasteInLesson: true, coderpad: false, closeBrackets: true, theme: "auto" };
@@ -40,7 +41,7 @@ export function applyTheme(settings) {
   rootEl.lang = settings.lang;
 }
 
-const NAV = [["home", "nav.today"], ["map", "nav.map"], ["progress", "nav.progress"], ["settings", "nav.settings"]];
+const NAV = [["home", "nav.today"], ["map", "nav.map"], ["gym", "nav.gym"], ["progress", "nav.progress"], ["settings", "nav.settings"]];
 
 function renderNav(ctx) {
   const nav = document.getElementById("nav");
@@ -102,7 +103,7 @@ async function main() {
 
   router = createRouter({
     root, ctx, notFound: renderHome,
-    routes: { home: renderHome, session: renderSession, card: renderCard, task: renderTask, map: renderMap, progress: renderProgress, settings: renderSettings, diagnostic: renderDiagnostic },
+    routes: { home: renderHome, session: renderSession, card: renderCard, task: renderTask, map: renderMap, progress: renderProgress, settings: renderSettings, diagnostic: renderDiagnostic, gym: renderGym },
   });
   renderNav(ctx);
   renderRuntime(ctx);

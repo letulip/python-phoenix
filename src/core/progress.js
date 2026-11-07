@@ -164,8 +164,9 @@ export function aggregateStats(content, attempts) {
   const byTask = indexAttempts(attempts);
   const finished = attempts.filter((a) => a.result && a.result !== "left");
   const passed = finished.filter((a) => a.result === "passed");
-  const totalExercises = Object.keys(content.tasks).length;
-  const passedExercises = Object.keys(content.tasks).filter((id) => byTask.get(id)?.passed).length;
+  const courseIds = content.modules.flatMap((m) => m.exercises);
+  const totalExercises = courseIds.length;
+  const passedExercises = courseIds.filter((id) => byTask.get(id)?.passed).length;
 
   const byModule = {};
   for (const mod of sortedModules(content)) {

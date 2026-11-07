@@ -28,6 +28,11 @@
 - Hidden tests must be deterministic and use `check(actual, expected, label)` with a readable label; structural checks go
   through `ast_tools`. Exercises about an idiom should assert the idiom is used (`uses_name`, `count_calls`, ...).
 - Keep stories short: module story ≤ 90 words, exercise flavour line ≤ 60 words (the gate enforces both).
+- Idiom gym drills live in `content/src/gym/<family>/` (`_family.py` + drills of type retype/cloze/rewrite/predict, at most
+  3 minutes, no levels). `VARIANTS = [dict(KEY=...)]` fills `@KEY@` placeholders in STARTER/SOLUTION/TESTS/MODEL/SNIPPET/
+  EXAMPLES; the gate validates every variant. A rewrite drill's tests must assert the idiom structurally (no `range` call, a
+  `Slice` node, `join` used, no `If` ...). A predict drill's SNIPPET must print deterministically: no iteration over sets
+  of strings, no dict order tricks; the gate runs it and stores the output as the answer.
 - Every task/refactor exercise carries `LEVELS`: a middle and a senior solution, each with a short reasoning in both
   languages (`middle.code` may be omitted and then equals `SOLUTION`). The gate runs both codes against the hidden
   tests and the examples; drills carry no levels. The senior note says what the code does not decide, not only what it does.

@@ -37,3 +37,35 @@ export async function markCardSeen(store, moduleId) {
   if (!seen.includes(moduleId)) { seen.push(moduleId); await store.kvSet(CARDS_SEEN_KEY, seen); }
   return seen;
 }
+
+// ---------------------------------------------------------------- idiom gym
+import { nextState } from "./srs.js";
+
+export const SRS_KEY = "srs";
+export async function loadSrs(store) { return store.kvGet(SRS_KEY, {}); }
+export async function saveSrs(store, srs) { return store.kvSet(SRS_KEY, srs); }
+/** Update the card of a drill after an attempt; returns the new state. */
+export async function recordGymResult(store, drillId, passed, today, at = null) {
+  const srs = await loadSrs(store);
+  srs[drillId] = nextState(srs[drillId], passed, today, at);
+  await saveSrs(store, srs);
+  return srs[drillId];
+}
+
+export const ROUND_KEY = "gymRound";
+export async function loadRound(store) { return store.kvGet(ROUND_KEY, null); }
+export async function saveRound(store, round) { return store.kvSet(ROUND_KEY, round); }
+export async function markRoundStep(store, index, patch) {
+  const round = await loadRound(store);
+  if (!round || !round.steps[index]) return null;
+  round.steps[index] = { ...round.steps[index], ...patch };
+  await saveRound(store, round);
+  return round;
+}
+
+export const ROUNDS_KEY = "gymRounds";
+export async function archiveRound(store, summary) {
+  const list = await store.kvGet(ROUNDS_KEY, []);
+  list.push(summary);
+  await store.kvSet(ROUNDS_KEY, list.slice(-300));
+}

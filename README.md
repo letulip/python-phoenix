@@ -4,7 +4,7 @@ A browser-only training stand for rebuilding hands-on Python before live-coding 
 hand (pasting is blocked in drills), the code runs in a real CPython 3.14 inside the browser (Pyodide in a Web Worker),
 hidden tests decide, and every attempt is logged to a JSON export that can be analysed later.
 
-Wave 1 ships the engine and Act I of the storyline: six L0 modules, 60 exercises (30 drills, 30 tasks and refactors, each task with a middle and a senior solution), about 259 minutes of practice.
+Wave 1 ships the engine and Act I of the storyline: six L0 modules, 60 exercises (30 drills, 30 tasks and refactors, each task with a middle and a senior solution), about 259 minutes of practice. Wave 2 adds the idiom gym: 8 families, 41 short drills with 123 data variants and spaced repetition.
 
 ## Using it
 
@@ -25,6 +25,19 @@ Wave 1 ships the engine and Act I of the storyline: six L0 modules, 60 exercises
 4. Hints open one at a time and are logged; the solution can be revealed; giving up shows the explanation and talk track.
 5. Progress → *Download JSON* once a week. Keep the file in `progress/` (or paste it into chat) for the joint analysis.
 
+## Idiom gym
+
+The gym trains the things an interviewer notices first: slices and negative indexes, `join` instead of `+=`, truthiness
+and `is None`, `enumerate`/`zip` instead of `range(len())`, comprehensions, `dict.get`/`setdefault`, unpacking, guard
+clauses with `any`/`all`. It lives outside the course map: the "Идиомы" tab lists the families, the home screen offers
+the round of the day. A round is five drills: overdue cards first, then new ones interleaved across families, then the
+weakest of the rest; neighbours come from different families. Two drill types are specific to the gym: `rewrite`
+(smelly code in, idiomatic code out; the tests check behaviour and structure) and `predict` (read a snippet, type what
+it prints). Every drill carries data variants that rotate with each attempt, and every card sits in a Leitner box:
+a pass moves it one box up (1, 2, 4, 7, 14, 30 days), a miss drops it to box 0 and brings it back tomorrow. After each
+drill the idiom's rule and interview phrase are shown. The progress screen has a per-family table, and the export
+carries the boxes (`srs`) and the rounds (`gymRounds`).
+
 ## Repository layout
 
 ```
@@ -34,7 +47,7 @@ src/core/          progress.js (session, statuses, stats), export.js (schema 1),
 src/runner/        client.js (worker pool + timeouts), worker.js (Pyodide bootstrap), runner.py (test harness)
 src/editor/        CodeMirror 6 wrapper (no autocomplete, paste guard, shortcuts)
 vendor/            codemirror.js, built once with esbuild from tools/vendor-entry.js
-content/src/       authored exercises, one .py per exercise plus _module.py per module
+content/src/       authored exercises, one .py per exercise plus _module.py per module; gym/<family>/ holds the idiom drills
 content/tasks.json generated; content/concepts.json is the concept registry
 tools/             build_content.py (validate + generate), check_sw.py, check.sh (the gate)
 test/              node --test suites for the pure modules and the runner client

@@ -21,9 +21,17 @@ test("every exercise is complete and referenced by exactly one module", () => {
     for (const c of mod.concepts) assert.ok(content.concepts[c], `unknown concept ${c}`);
     for (const key of ["chapter_en", "chapter_ru", "story_en", "story_ru", "card"]) assert.ok(mod[key], `${mod.id} lacks ${key}`);
   }
+  for (const fam of content.gym?.families || []) for (const id of fam.drills) seen.set(id, (seen.get(id) || 0) + 1);
   for (const [id, task] of Object.entries(content.tasks)) {
     for (const key of REQUIRED) assert.ok(key in task, `${id} lacks ${key}`);
-    assert.match(task.tests, /def test_/);
+    if (task.type === "predict") {
+      assert.ok(task.snippet && task.expected_output, `${id} predict needs snippet and expected_output`);
+    } else {
+      assert.match(task.tests, /def test_/);
+    }
+    assert.ok(Array.isArray(task.variants) && task.variants.length >= 1, `${id} has no variants`);
+    assert.equal(task.variants[0].starter, task.starter, `${id} variant 0 is the default`);
+    for (const v of task.variants) assert.doesNotMatch(JSON.stringify(v), /@[A-Z][A-Z0-9_]*@/, `${id} has an unfilled placeholder`);
     assert.equal(seen.get(id), 1, `${id} referenced ${seen.get(id)} times`);
     if (task.type === "retype") assert.ok(task.model, `${id} retype without model`);
     if (task.type === "cloze") assert.match(task.starter, /___/);
@@ -44,6 +52,24 @@ test("task and refactor exercises carry middle and senior levels; drills do not"
       assert.equal(task.levels, null, `${id}: a drill must not carry levels`);
     }
   }
+});
+
+test("gym families list drills that exist, drills are drills and carry no levels", () => {
+  assert.ok(content.gym && content.gym.families.length >= 1, "gym families present");
+  for (const fam of content.gym.families) {
+    assert.ok([1, 2].includes(fam.tier), `${fam.id} tier`);
+    for (const key of ["title_en", "title_ru", "rule_en", "rule_ru", "phrase_en"]) assert.ok(fam[key], `${fam.id} lacks ${key}`);
+    assert.ok(fam.drills.length >= 1, `${fam.id} has drills`);
+    for (const id of fam.drills) {
+      const d = content.tasks[id];
+      assert.ok(d, `${id} missing`);
+      assert.ok(["retype", "cloze", "rewrite", "predict"].includes(d.type), `${id} type ${d.type}`);
+      assert.equal(d.idiom, fam.id);
+      assert.equal(d.levels, null);
+      assert.ok(d.minutes <= 3, `${id} minutes`);
+    }
+  }
+  for (const mod of content.modules) for (const id of mod.exercises) assert.equal(content.tasks[id].idiom, null, `${id} is a course exercise`);
 });
 
 test("every module has four tasks and one refactor", () => {

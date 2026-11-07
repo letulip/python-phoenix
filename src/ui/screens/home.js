@@ -1,7 +1,8 @@
 import { h } from "../dom.js";
 import { buildHash } from "../router.js";
 import { computeModuleStatuses, computeStreak, todayKey, buildSession, seededRandom, sessionMinutes, sortedModules } from "../../core/progress.js";
-import { loadSession , loadCardsSeen } from "../../core/state.js";
+import { loadSession, loadCardsSeen, loadSrs, loadRound } from "../../core/state.js";
+import { gymCounts, ROUND_SIZE } from "../../core/srs.js";
 
 export async function renderHome(ctx, root) {
   const { t, pick, content } = ctx;
@@ -55,6 +56,18 @@ export async function renderHome(ctx, root) {
     sessionCard.append(h("p", {}, t("home.allDone")), h("a", { class: "btn", href: "#/map" }, t("home.map")));
   }
   root.append(sessionCard);
+
+  if (content.gym?.families?.length) {
+    const counts = gymCounts(content, await loadSrs(ctx.store), date);
+    const round = await loadRound(ctx.store);
+    const pending = !!round && round.steps.some((s) => s.status === "pending");
+    root.append(h("section", { class: "card gym-card" },
+      h("h2", {}, t("home.gym.title")),
+      h("p", {}, t("home.gym.text", { due: counts.due + counts.fresh, mastered: counts.mastered, total: counts.total })),
+      h("div", { class: "row" },
+        h("a", { class: "btn btn-primary", href: "#/gym/round" }, pending ? t("gym.round.continue") : t("gym.round.start", { n: ROUND_SIZE })),
+        h("a", { class: "btn btn-ghost", href: "#/gym" }, t("home.gym.open")))));
+  }
 
   const pyValue = h("div", { class: "stat-value" }, ctx.runtime.python || "…");
   root.append(h("section", { class: "stats-row" },

@@ -213,3 +213,17 @@ dialog.overlay::backdrop { background: rgba(0, 0, 0, .45); }
 .level.senior { border-color: var(--ok); } .level.senior h5 { color: var(--ok); }
 .level pre.code { margin-bottom: .6em; }
 .level .note { margin: 0; font-size: .92rem; }
+
+/* idiom gym */
+.tier-title { margin: 20px 0 10px; font-size: .9rem; color: var(--fg-muted); text-transform: uppercase; letter-spacing: .06em; }
+.family .rule { color: var(--fg-muted); margin: 0 0 6px; font-size: .95rem; }
+.family h3 { margin: 0; flex: 1; }
+.drill-list { list-style: none; padding: 0; margin: 0; display: grid; gap: 4px; }
+.drill { display: grid; grid-template-columns: auto 1fr auto; gap: 10px; align-items: center; font-size: .92rem; }
+.drill a { color: var(--fg); }
+.answer { width: 100%; min-height: 130px; font: .95rem/1.5 var(--mono); padding: 10px 12px; border: 1px solid var(--line); border-radius: 10px; background: var(--code-bg); color: var(--fg); resize: vertical; }
+.answer:focus { outline: 2px solid var(--accent-soft); border-color: var(--accent); }
+.rule-box { background: var(--accent-soft); border-radius: 10px; padding: 12px 16px; margin: 0 0 12px; }
+.rule-box h4 { margin-top: 0; } .rule-box .rule-title { font-weight: 650; margin-bottom: .3em; } .rule-box p { margin-bottom: .4em; } .rule-box .quote { font-style: italic; margin: 0; }
+.badge.type-rewrite { background: #e2f3dc; color: #2d6b2a; } .badge.type-predict { background: #fbeccc; color: #7a5410; }
+.gym-card { border-color: var(--ok); }

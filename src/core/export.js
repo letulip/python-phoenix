@@ -1,10 +1,11 @@
 /** Progress export/import: schema 1 (see docs/SPEC.md §8). Pure functions, tested in node. */
 import { computeModuleStatuses, masterySnapshot } from "./progress.js";
+import { mergeSrs } from "./srs.js";
 
 export const SCHEMA = 1;
 export const APP_ID = "python-phoenix";
 
-export function buildExport({ version, profile, settings, attempts, events, sessions, content, now = new Date() }) {
+export function buildExport({ version, profile, settings, attempts, events, sessions, content, srs = {}, gymRounds = [], now = new Date() }) {
   const statuses = content ? computeModuleStatuses(content, attempts, profile).modules : {};
   const modules = Object.fromEntries(Object.entries(statuses).map(([id, s]) => [id, { status: s.status, passed: s.passed, total: s.total }]));
   return {
@@ -14,6 +15,8 @@ export function buildExport({ version, profile, settings, attempts, events, sess
     mastery: content ? masterySnapshot(content, attempts) : {},
     modules,
     sessions: [...sessions].sort((a, b) => a.date.localeCompare(b.date)),
+    srs: srs || {},
+    gymRounds: [...gymRounds].sort((a, b) => String(a.startedAt).localeCompare(String(b.startedAt))),
     events: [...events].sort((a, b) => String(a.t).localeCompare(String(b.t))).slice(-5000),
   };
 }
@@ -44,6 +47,8 @@ export function mergeImport(local, imported) {
     if (!cur) sessions.set(s.date, s);
     else sessions.set(s.date, { ...cur, minutes: Math.max(cur.minutes || 0, s.minutes || 0), items: Math.max(cur.items || 0, s.items || 0) });
   }
+  const rounds = new Map((local.gymRounds || []).map((r) => [r.startedAt, r]));
+  for (const r of imported.gymRounds || []) if (r && r.startedAt && !rounds.has(r.startedAt)) rounds.set(r.startedAt, r);
   const importedProfile = imported.profile || {};
   const profile = fresh
     ? { startedAt: importedProfile.startedAt || local.profile?.startedAt || null, placement: importedProfile.placement || null }
@@ -55,6 +60,8 @@ export function mergeImport(local, imported) {
     attempts: [...attempts.values()].sort((a, b) => String(a.startedAt).localeCompare(String(b.startedAt))),
     events: [...events.values()].sort((a, b) => String(a.t).localeCompare(String(b.t))),
     sessions: [...sessions.values()].sort((a, b) => a.date.localeCompare(b.date)),
+    srs: mergeSrs(local.srs || {}, imported.srs || {}),
+    gymRounds: [...rounds.values()].sort((a, b) => String(a.startedAt).localeCompare(String(b.startedAt))),
     added: { attempts: attempts.size - (local.attempts || []).length },
   };
 }

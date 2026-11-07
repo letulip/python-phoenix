@@ -12,6 +12,16 @@ Authoring format (one file per exercise under content/src/L<level>/<module>/):
                dict(middle=dict(code, note_en, note_ru), senior=dict(code, note_en, note_ru)).
                middle.code may be omitted: it then equals SOLUTION. Both codes must pass the tests.
 
+The idiom gym lives under content/src/gym/<family>/:
+  _family.py   FAMILY = dict(id="gym.<family>", order, tier, title_en, title_ru, rule_en, rule_ru,
+               phrase_en, concepts)
+  <slug>.py    drills only (retype, cloze, rewrite, predict). A rewrite drill is a tiny refactor:
+               STARTER is the smelly code, TESTS check behaviour and structure. A predict drill has
+               SNIPPET (code that prints); the gate runs it and stores the output as the answer.
+               Drills may define VARIANTS = [dict(KEY=value, ...), ...]: every @KEY@ in STARTER,
+               SOLUTION, TESTS, MODEL, SNIPPET and EXAMPLES is filled per variant, and every variant
+               is validated like a full exercise.
+
 The gate runs the reference solution against the tests with the same harness the
 browser uses (src/runner/runner.py), checks that the starter does not already pass,
 and validates every metadata field.
@@ -28,20 +38,24 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SRC = ROOT / "content" / "src"
+GYM = SRC / "gym"
 CONCEPTS_PATH = ROOT / "content" / "concepts.json"
 TASKS_PATH = ROOT / "content" / "tasks.json"
 CURRICULUM_PATH = ROOT / "docs" / "CURRICULUM.md"
 RUNNER_PATH = ROOT / "src" / "runner" / "runner.py"
 
-TYPES = ("retype", "cloze", "task", "refactor")
-DRILL_TYPES = ("retype", "cloze")
+TYPES = ("retype", "cloze", "task", "refactor", "rewrite", "predict")
+DRILL_TYPES = ("retype", "cloze", "rewrite", "predict")
 WORLDS = ("shorts", "bybit", "tennis", "oth", "everyday", "game", "neutral")
-ID_RE = re.compile(r"^l(\d)\.([a-z0-9-]+)\.([a-z0-9-]+)$")
+ID_RE = re.compile(r"^(l\d|gym)\.([a-z0-9-]+)\.([a-z0-9-]+)$")
 MODULE_ID_RE = re.compile(r"^l(\d)\.([a-z0-9-]+)$")
+FAMILY_ID_RE = re.compile(r"^gym\.([a-z0-9-]+)$")
+PLACEHOLDER_RE = re.compile(r"@([A-Z][A-Z0-9_]*)@")
 BLANK = "___"
 TEST_DEF_RE = re.compile(r"^def test_\w+\(", re.M)
 
 CARD_SNIPPET_KEYS = ("title_en", "title_ru", "code", "note_en", "note_ru")
+FAMILY_KEYS = ("order", "tier", "title_en", "title_ru", "rule_en", "rule_ru", "phrase_en", "concepts")
 
 
 def load_py(path: Path):
@@ -187,6 +201,7 @@ def build(problems: Problems):
                 problems.add(where, f"diagnostic id {d!r} is not an exercise of this module")
         for e in exercises:
             e["diagnostic"] = e["id"] in diagnostic
+            e["idiom"] = None
             tasks[e["id"]] = e
         modules.append({
             "id": mid, "level": int(m.group(1)), "order": info.get("order", 0),
@@ -199,7 +214,81 @@ def build(problems: Problems):
         })
 
     modules.sort(key=lambda mm: (mm["level"], mm["order"], mm["id"]))
-    return {"schema": 1, "concepts": concepts, "modules": modules, "tasks": tasks}
+    gym = build_gym(concepts, runner, problems, tasks, seen_ids)
+    return {"schema": 1, "concepts": concepts, "modules": modules, "gym": gym, "tasks": tasks}
+
+
+def build_gym(concepts, runner, problems, tasks, seen_ids):
+    """The idiom gym: families of drills with their own spaced repetition (see src/core/srs.js)."""
+    families = []
+    for fam_file in sorted(GYM.glob("*/_family.py")):
+        where = str(fam_file.relative_to(ROOT))
+        try:
+            mod = load_py(fam_file)
+        except Exception as exc:  # noqa: BLE001
+            problems.add(where, f"failed to import: {exc!r}")
+            continue
+        info = getattr(mod, "FAMILY", None)
+        if not isinstance(info, dict):
+            problems.add(where, "FAMILY dict is missing")
+            continue
+        fid = info.get("id", "")
+        m = FAMILY_ID_RE.match(fid)
+        if not m:
+            problems.add(where, f"bad family id {fid!r}, expected gym.<family>")
+            continue
+        if fam_file.parent.name != m.group(1):
+            problems.add(where, f"family id {fid!r} does not match folder {fam_file.parent.name}")
+        for key in FAMILY_KEYS:
+            if key not in info or info[key] in ("", None, []):
+                problems.add(where, f"FAMILY.{key} is missing")
+        if info.get("tier") not in (1, 2):
+            problems.add(where, "FAMILY.tier must be 1 or 2")
+        for key in ("rule_en", "rule_ru"):
+            if len(str(info.get(key, "")).split()) > 60:
+                problems.add(where, f"FAMILY.{key} is longer than 60 words – the rule must fit on one card")
+        for c in info.get("concepts", []):
+            if c not in concepts:
+                problems.add(where, f"unknown concept {c!r}")
+
+        drills = []
+        for ex_file in sorted(fam_file.parent.glob("*.py")):
+            if ex_file.name.startswith("_"):
+                continue
+            ex_where = str(ex_file.relative_to(ROOT))
+            entry = build_exercise(ex_file, ex_where, fid, None, info, concepts, runner, problems)
+            if entry is None:
+                continue
+            if entry["type"] not in DRILL_TYPES:
+                problems.add(ex_where, f"gym drills must be one of {DRILL_TYPES}")
+            if entry["minutes"] > 3:
+                problems.add(ex_where, "a gym drill takes at most 3 minutes")
+            if entry["id"] in seen_ids:
+                problems.add(ex_where, f"duplicate id {entry['id']}")
+            seen_ids.add(entry["id"])
+            entry["diagnostic"] = False
+            entry["idiom"] = fid
+            tasks[entry["id"]] = entry
+            drills.append(entry)
+        drills.sort(key=lambda e: (e["order"], e["id"]))
+        if not drills:
+            problems.add(where, "family has no drills")
+        families.append({
+            "id": fid, "order": info.get("order", 0), "tier": info.get("tier", 1),
+            "title_en": info.get("title_en", ""), "title_ru": info.get("title_ru", ""),
+            "rule_en": info.get("rule_en", ""), "rule_ru": info.get("rule_ru", ""),
+            "phrase_en": info.get("phrase_en", ""), "concepts": list(info.get("concepts", [])),
+            "drills": [e["id"] for e in drills],
+        })
+    families.sort(key=lambda f: (f["tier"], f["order"], f["id"]))
+    return {"families": families}
+
+
+def _text(value, trailing=True):
+    """Normalise an authored code string: strip surrounding blank lines, keep one trailing newline."""
+    if not isinstance(value, str) or not value.strip():
+        return None
+    return value.strip("\n") + ("\n" if trailing else "")
 
 
 def build_exercise(path, where, module_id, level, module_info, concepts, runner, problems):
@@ -216,9 +305,9 @@ def build_exercise(path, where, module_id, level, module_info, concepts, runner,
     ex_id = require(meta, "id", where, problems, str) or ""
     m = ID_RE.match(ex_id)
     if not m:
-        problems.add(where, f"bad id {ex_id!r}, expected l<level>.<module>.<slug>")
-    elif f"l{m.group(1)}.{m.group(2)}" != module_id:
-        problems.add(where, f"id {ex_id!r} does not belong to module {module_id}")
+        problems.add(where, f"bad id {ex_id!r}, expected l<level>.<module>.<slug> or gym.<family>.<slug>")
+    elif f"{m.group(1)}.{m.group(2)}" != module_id:
+        problems.add(where, f"id {ex_id!r} does not belong to {module_id}")
     elif m.group(3) != path.stem.replace("_", "-"):
         problems.add(where, f"slug {m.group(3)!r} should match file name {path.stem!r} (underscores become dashes)")
 
@@ -268,76 +357,135 @@ def build_exercise(path, where, module_id, level, module_info, concepts, runner,
     timeout_ms = meta.get("timeout_ms", None)
     if timeout_ms is not None and not 1000 <= timeout_ms <= 20000:
         problems.add(where, "timeout_ms must be 1000..20000")
-    for key in ("variants", "followups"):
-        if key in meta and not isinstance(meta[key], list):
-            problems.add(where, f"META.{key} must be a list")
+    if "followups" in meta and not isinstance(meta["followups"], list):
+        problems.add(where, "META.followups must be a list")
 
-    starter = getattr(mod, "STARTER", "")
+    starter = getattr(mod, "STARTER", "") or ""
     solution = getattr(mod, "SOLUTION", None)
     solution_alt = getattr(mod, "SOLUTION_ALT", None)
     tests = getattr(mod, "TESTS", None)
     model = getattr(mod, "MODEL", None)
+    snippet = getattr(mod, "SNIPPET", None)
     examples = list(getattr(mod, "EXAMPLES", []) or [])
     levels = getattr(mod, "LEVELS", None)
+    variants_src = list(getattr(mod, "VARIANTS", []) or [])
 
-    if not isinstance(tests, str) or not TEST_DEF_RE.search(tests or ""):
+    if ex_type == "predict":
+        if not isinstance(snippet, str) or not snippet.strip():
+            problems.add(where, "predict needs SNIPPET (the code whose output is the answer)")
+        tests = tests if isinstance(tests, str) else ""
+        if tests and not TEST_DEF_RE.search(tests):
+            problems.add(where, "TESTS of a predict drill, when present, must define a test_ function")
+    elif not isinstance(tests, str) or not TEST_DEF_RE.search(tests or ""):
         problems.add(where, "TESTS must define at least one test_ function")
         tests = tests or ""
     if ex_type == "retype":
         if not isinstance(model, str) or not model.strip():
             problems.add(where, "retype needs MODEL (the snippet to retype)")
         solution = solution if isinstance(solution, str) else model
-    else:
+    elif ex_type != "predict":
         if not isinstance(solution, str) or not solution.strip():
             problems.add(where, "SOLUTION is missing")
     if ex_type == "cloze" and BLANK not in starter:
         problems.add(where, f"cloze STARTER must contain blanks {BLANK!r}")
-    if ex_type in ("task", "refactor") and not starter.strip():
-        problems.add(where, "STARTER must not be empty for task/refactor")
+    if ex_type in ("task", "refactor", "rewrite") and not starter.strip():
+        problems.add(where, "STARTER must not be empty for task/refactor/rewrite")
     if isinstance(solution, str) and BLANK in solution:
         problems.add(where, "SOLUTION still contains blanks")
-
+    if variants_src and not is_drill:
+        problems.add(where, "VARIANTS are for drills; task/refactor exercises have one version")
     for i, ex in enumerate(examples):
         if "call" not in ex or not ("expected" in ex or "prints" in ex):
             problems.add(where, f"EXAMPLES[{i}] needs 'call' and 'expected' or 'prints'")
 
-    # Behavioural gate: reference passes, starter does not, examples hold.
-    if isinstance(solution, str) and solution.strip() and tests:
-        res = runner.run_tests(solution, tests)
-        if not res["ok"]:
-            problems.add(where, f"SOLUTION fails its own tests: {failing_summary(res)}")
-        if examples:
-            ex_res = runner.run_code(solution, examples)
-            if not ex_res["ok"]:
-                bad = [e for e in ex_res["examples"] if e["status"] != "pass"]
-                problems.add(where, f"EXAMPLES do not hold for SOLUTION: {bad[:2]}")
-        if isinstance(solution_alt, str) and solution_alt.strip():
-            res_alt = runner.run_tests(solution_alt, tests)
-            if not res_alt["ok"]:
-                problems.add(where, f"SOLUTION_ALT fails the tests: {failing_summary(res_alt)}")
-        starter_res = runner.run_tests(starter, tests)
-        if starter_res["ok"]:
-            problems.add(where, "STARTER already passes the tests – the exercise asks nothing")
+    # Variants: fill @KEY@ placeholders per variant; without VARIANTS there is exactly one, verbatim.
+    variants = []
+    for i, values in enumerate(variants_src or [{}]):
+        if not isinstance(values, dict):
+            problems.add(where, f"VARIANTS[{i}] must be a dict")
+            values = {}
 
-    levels_out = validate_levels(levels, is_drill, solution, tests, examples, runner, where, problems)
+        def fill(text, _i=i, _values=values):
+            if not isinstance(text, str):
+                return text
 
-    return {
+            def sub(match):
+                key = match.group(1)
+                if key not in _values:
+                    problems.add(where, f"variant {_i} lacks a value for @{key}@")
+                    return match.group(0)
+                return str(_values[key])
+            return PLACEHOLDER_RE.sub(sub, text)
+
+        variants.append({
+            "starter": fill(starter), "solution": fill(solution), "tests": fill(tests), "model": fill(model),
+            "snippet": fill(snippet),
+            "examples": [{k: (fill(v) if isinstance(v, str) else v) for k, v in ex.items()} for ex in examples],
+            "expected_output": None,
+        })
+
+    # Behavioural gate per variant: reference passes, starter does not, examples hold, predict output exists.
+    for i, v in enumerate(variants):
+        tag = f"variant {i}: " if len(variants) > 1 else ""
+        for key in ("starter", "solution", "tests", "model", "snippet"):
+            if isinstance(v[key], str) and PLACEHOLDER_RE.search(v[key]):
+                problems.add(where, f"{tag}unfilled placeholder in {key.upper()}: {PLACEHOLDER_RE.search(v[key]).group(0)}")
+        if ex_type == "predict":
+            if isinstance(v["snippet"], str) and v["snippet"].strip():
+                res = runner.run_code(v["snippet"], [])
+                if res.get("error"):
+                    problems.add(where, f"{tag}SNIPPET raises {res['error']['type']}: {res['error']['message']}")
+                output = runner._normalize_output(res.get("stdout", ""))
+                if not output:
+                    problems.add(where, f"{tag}SNIPPET prints nothing – a predict drill needs an output to guess")
+                v["expected_output"] = output
+            continue
+        sol, tst = v["solution"], v["tests"]
+        if isinstance(sol, str) and sol.strip() and tst:
+            res = runner.run_tests(sol, tst)
+            if not res["ok"]:
+                problems.add(where, f"{tag}SOLUTION fails its own tests: {failing_summary(res)}")
+            if v["examples"]:
+                ex_res = runner.run_code(sol, v["examples"])
+                if not ex_res["ok"]:
+                    bad = [e for e in ex_res["examples"] if e["status"] != "pass"]
+                    problems.add(where, f"{tag}EXAMPLES do not hold for SOLUTION: {bad[:2]}")
+            if i == 0 and isinstance(solution_alt, str) and solution_alt.strip():
+                res_alt = runner.run_tests(solution_alt, tst)
+                if not res_alt["ok"]:
+                    problems.add(where, f"SOLUTION_ALT fails the tests: {failing_summary(res_alt)}")
+            starter_res = runner.run_tests(v["starter"], tst)
+            if starter_res["ok"]:
+                problems.add(where, f"{tag}STARTER already passes the tests – the exercise asks nothing")
+
+    first = variants[0]
+    levels_out = validate_levels(levels, is_drill, first["solution"], first["tests"], first["examples"], runner, where, problems)
+
+    def pack(v):
+        return {
+            "starter": (v["starter"].strip("\n") + "\n") if isinstance(v["starter"], str) and v["starter"].strip() else "",
+            "model": _text(v["model"]), "snippet": _text(v["snippet"]),
+            "examples": v["examples"], "tests": v["tests"] or "",
+            "solution": _text(v["solution"]) or "", "expected_output": v["expected_output"],
+        }
+
+    packed = [pack(v) for v in variants]
+    entry = {
         "id": ex_id, "type": ex_type, "level": level, "module": module_id,
         "order": order, "difficulty": difficulty, "minutes": minutes,
         "concepts": ex_concepts, "world": world, "title": meta.get("title", ""),
         "statement_en": meta.get("statement_en", ""),
         "story_en": meta.get("story_en", ""),
-        "starter": starter.strip("\n") + ("\n" if starter.strip() else ""),
-        "model": (model.strip("\n") + "\n") if isinstance(model, str) and model.strip() else None,
-        "examples": examples, "tests": tests,
-        "solution": solution.strip("\n") + "\n" if isinstance(solution, str) else "",
-        "solution_alt": (solution_alt.strip("\n") + "\n") if isinstance(solution_alt, str) and solution_alt.strip() else None,
+        "solution_alt": _text(solution_alt),
         "hints_en": hints_en, "hints_ru": hints_ru,
         "explanation_en": meta.get("explanation_en", ""), "explanation_ru": meta.get("explanation_ru", ""),
         "talk_track": list(talk), "complexity": meta.get("complexity"),
-        "variants": list(meta.get("variants", [])), "followups": list(meta.get("followups", [])),
+        "followups": list(meta.get("followups", [])),
         "timeout_ms": timeout_ms, "levels": levels_out,
+        "variants": packed,
     }
+    entry.update(packed[0])
+    return entry
 
 
 LEVEL_NAMES = ("middle", "senior")
@@ -412,7 +560,32 @@ def render_curriculum(data):
             flag = " ◆" if e["diagnostic"] else ""
             lines.append(f"| {i} | `{e['id']}` | {e['type']} | {e['difficulty']} | {e['minutes']} | {e['world']} | {e['title']}{flag} |")
         lines.append("")
-    lines.insert(3, f"Total: {total_drills + total_tasks} exercises ({total_drills} drills, {total_tasks} tasks). ◆ = used in the placement test.")
+    gym_drills = 0
+    families = data.get("gym", {}).get("families", [])
+    if families:
+        lines.append("# Idiom gym")
+        lines.append("")
+        lines.append("Short drills with data variants and spaced repetition; not part of the course map.")
+        lines.append("")
+        for fam in families:
+            exs = [data["tasks"][i] for i in fam["drills"]]
+            gym_drills += len(exs)
+            variants = sum(len(e["variants"]) for e in exs)
+            lines.append(f"## Tier {fam['tier']} · {fam['title_en']} / {fam['title_ru']} (`{fam['id']}`)")
+            lines.append("")
+            lines.append(fam["rule_en"])
+            lines.append("")
+            lines.append(f"{len(exs)} drills, {variants} variants. Concepts: {', '.join(fam['concepts'])}.")
+            lines.append("")
+            lines.append("| # | id | type | min | variants | title |")
+            lines.append("|---|---|---|---|---|---|")
+            for i, e in enumerate(exs, 1):
+                lines.append(f"| {i} | `{e['id']}` | {e['type']} | {e['minutes']} | {len(e['variants'])} | {e['title']} |")
+            lines.append("")
+    summary = f"Total: {total_drills + total_tasks} course exercises ({total_drills} drills, {total_tasks} tasks)"
+    if gym_drills:
+        summary += f" plus {gym_drills} gym drills in {len(families)} idiom families"
+    lines.insert(3, summary + ". ◆ = used in the placement test.")
     lines.insert(4, "")
     return "\n".join(lines) + "\n"
 
@@ -432,9 +605,12 @@ def main():
 
     tasks_json = json.dumps(data, ensure_ascii=False, indent=1, sort_keys=True) + "\n"
     curriculum = render_curriculum(data)
-    n_drills = sum(t["type"] in DRILL_TYPES for t in data["tasks"].values())
-    n_tasks = len(data["tasks"]) - n_drills
-    summary = f"{len(data['modules'])} modules, {len(data['tasks'])} exercises ({n_drills} drills, {n_tasks} tasks)"
+    course_ids = {i for mod in data["modules"] for i in mod["exercises"]}
+    n_drills = sum(data["tasks"][i]["type"] in DRILL_TYPES for i in course_ids)
+    n_tasks = len(course_ids) - n_drills
+    n_gym = len(data["tasks"]) - len(course_ids)
+    summary = (f"{len(data['modules'])} modules, {len(course_ids)} exercises ({n_drills} drills, {n_tasks} tasks), "
+               f"gym: {len(data['gym']['families'])} families, {n_gym} drills")
 
     if args.check:
         stale = []
